@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AGENT IA TECH | Agência de Automação de IA</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&amp;family=Inter:wght@300;400;500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-surface-variant": "#bdcab7",
+              "outline-variant": "#3e4a3b",
+              "on-secondary-fixed-variant": "#00530f",
+              "surface-container-highest": "#373436",
+              "secondary-container": "#036616",
+              "primary-fixed-dim": "#63e066",
+              "on-primary": "#003909",
+              "on-secondary-container": "#8ae282",
+              "primary-fixed": "#7ffd7f",
+              "surface-bright": "#3b383b",
+              "tertiary-fixed": "#8afb88",
+              "on-secondary": "#003907",
+              "on-tertiary": "#00390a",
+              "on-surface": "#e7e1e3",
+              "surface-container-high": "#2c292b",
+              "surface-tint": "#63e066",
+              "on-secondary-fixed": "#002203",
+              "on-error-container": "#ffdad6",
+              "inverse-primary": "#006e1b",
+              "surface-container-low": "#1d1b1d",
+              "on-background": "#e7e1e3",
+              "on-primary-fixed-variant": "#005312",
+              "inverse-on-surface": "#323032",
+              "error-container": "#93000a",
+              "secondary": "#83db7c",
+              "primary": "#63e066",
+              "error": "#ffb4ab",
+              "surface-dim": "#151315",
+              "surface": "#151315",
+              "background": "#151315",
+              "primary-container": "#21a735",
+              "tertiary-container": "#34a53f",
+              "on-primary-fixed": "#002204",
+              "outline": "#879483",
+              "on-primary-container": "#003207",
+              "surface-variant": "#373436",
+              "surface-container": "#211f21",
+              "on-tertiary-container": "#003207",
+              "secondary-fixed-dim": "#83db7c",
+              "surface-container-lowest": "#0f0e10",
+              "on-tertiary-fixed-variant": "#005312",
+              "secondary-fixed": "#9ef895",
+              "on-tertiary-fixed": "#002204",
+              "tertiary": "#6fde6f",
+              "tertiary-fixed-dim": "#6fde6f",
+              "inverse-surface": "#e7e1e3",
+              "on-error": "#690005"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk", "sans-serif"],
+              "body": ["Inter", "sans-serif"],
+              "label": ["Space Grotesk", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .neon-glow {
+        box-shadow: 0 0 15px rgba(99, 224, 102, 0.2);
+      }
+      .kinetic-border {
+        position: relative;
+      }
+      .kinetic-border::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #63e066, transparent);
+      }
+      body {
+        background-color: #151315;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body text-on-surface selection:bg-primary selection:text-on-primary">
+<!-- TopAppBar -->
+<nav class="flex justify-between items-center w-full px-6 py-4 fixed top-0 z-50 bg-[#151315] bg-opacity-90 backdrop-blur-xl">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#63e066]" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="text-xl font-black text-white tracking-tighter font-headline">AGENT IA TECH</span>
+</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-[#63e066] border-b-2 border-[#63e066] font-headline font-bold text-sm tracking-tight" href="#">Home</a>
+<a class="text-white/70 hover:text-[#63e066] transition-all duration-150 font-headline font-bold text-sm tracking-tight" href="#servicos">Serviços</a>
+<a class="text-white/70 hover:text-[#63e066] transition-all duration-150 font-headline font-bold text-sm tracking-tight" href="#">Cases</a>
+<a class="bg-primary text-on-primary px-5 py-2 font-headline font-bold text-xs uppercase tracking-widest hover:bg-[#7ffd7f] transition-all active:scale-95" target="_blank" href="https://wa.me/5521992341112">Agendar Consultoria</a>
+</div>
+<button class="md:hidden text-white">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</nav>
+<main class="pt-20">
+<!-- Hero Section -->
+<section class="relative min-h-[795px] flex items-center px-6 md:px-12 py-24 overflow-hidden">
+<div class="absolute inset-0 z-0 opacity-20 pointer-events-none">
+<div class="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/20 blur-[120px]"></div>
+<div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-secondary-container/10 blur-[100px]"></div>
+</div>
+<div class="max-w-4xl mx-auto w-full flex flex-col items-center text-center relative z-10">
+<div class="mb-6 inline-flex items-center justify-center gap-2 px-3 py-1 bg-surface-container-high border-l-4 border-primary">
+<span class="text-primary font-headline font-bold text-xs tracking-[0.2em] uppercase">The Future of Agency Work</span>
+</div>
+<h1 class="font-headline text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[0.95] tracking-tighter mb-8">
+                        Escale seu atendimento e vendas com <span class="text-primary italic">Agentes de IA.</span>
+</h1>
+<p class="text-lg md:text-xl text-on-surface-variant max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+                        Construímos funcionários digitais inteligentes que trabalham <span class="text-white font-medium">24/7</span> para o seu negócio. Automatize processos complexos com precisão cirúrgica.
+                    </p>
+<div class="flex flex-col sm:flex-row justify-center gap-6">
+<a class="bg-gradient-to-r from-primary to-primary-container text-on-primary px-8 py-5 font-headline font-black text-sm uppercase tracking-widest text-center hover:shadow-[0_0_30px_rgba(99,224,102,0.4)] transition-all" href="#consultoria">
+                            Agendar Consultoria Estratégica
+                        </a>
+<div class="flex items-center gap-4 px-6 py-5 bg-surface-container-low border border-outline-variant/20 hover:border-primary/50 transition-all cursor-pointer">
+<span class="material-symbols-outlined text-primary">play_circle</span>
+<span class="font-headline font-bold text-xs tracking-widest uppercase">Ver Demo</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Problem Section (PAS) -->
+<section class="bg-surface-container-lowest py-32 px-6">
+<div class="max-w-7xl mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-end mb-24">
+<div>
+<h2 class="font-headline text-4xl md:text-5xl font-black text-white leading-tight mb-8">
+                            Sua equipe está sobrecarregada e você está perdendo leads?
+                        </h2>
+</div>
+<div>
+<p class="text-xl text-on-surface-variant font-light border-l-2 border-primary-container pl-8">
+                            Responder clientes horas depois significa perder dinheiro para a concorrência. No mercado atual, a velocidade é a maior vantagem competitiva.
+                        </p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-0">
+<!-- Card 1 -->
+<div class="bg-surface p-12 border border-outline-variant/10 group hover:bg-surface-container-low transition-all">
+<span class="text-primary font-headline font-black text-6xl opacity-20 group-hover:opacity-100 transition-opacity">01</span>
+<h3 class="font-headline text-2xl font-bold text-white mt-8 mb-4 tracking-tight">LEADS ESFRIANDO</h3>
+<p class="text-on-surface-variant font-light leading-relaxed">O tempo médio de resposta ideal é de 5 minutos. Após isso, a chance de conversão cai em 80%.</p>
+<div class="h-1 w-0 bg-primary mt-8 group-hover:w-full transition-all duration-500"></div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface p-12 border border-outline-variant/10 group hover:bg-surface-container-low transition-all md:border-l-0">
+<span class="text-primary font-headline font-black text-6xl opacity-20 group-hover:opacity-100 transition-opacity">02</span>
+<h3 class="font-headline text-2xl font-bold text-white mt-8 mb-4 tracking-tight">CUSTO OPERACIONAL ALTO</h3>
+<p class="text-on-surface-variant font-light leading-relaxed">Manter equipes de suporte 24h custa caro e gera baixa eficiência em tarefas repetitivas.</p>
+<div class="h-1 w-0 bg-primary mt-8 group-hover:w-full transition-all duration-500"></div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface p-12 border border-outline-variant/10 group hover:bg-surface-container-low transition-all md:border-l-0">
+<span class="text-primary font-headline font-black text-6xl opacity-20 group-hover:opacity-100 transition-opacity">03</span>
+<h3 class="font-headline text-2xl font-bold text-white mt-8 mb-4 tracking-tight">ERROS HUMANOS</h3>
+<p class="text-on-surface-variant font-light leading-relaxed">Dados perdidos, agendamentos errados e falha no follow-up destroem seu LTV.</p>
+<div class="h-1 w-0 bg-primary mt-8 group-hover:w-full transition-all duration-500"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Services Section -->
+<section id="servicos" class="py-32 px-6 bg-surface">
+<div class="max-w-7xl mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-baseline mb-24 gap-6">
+<h2 class="font-headline text-5xl md:text-7xl font-black text-white tracking-tighter">
+                        Arquitetura de <br/><span class="text-primary">IA Customizada.</span>
+</h2>
+<span class="font-headline font-bold text-xs tracking-[0.3em] uppercase text-primary/60">Services &amp; Solutions</span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+<!-- Service 1 -->
+<div class="flex flex-col gap-8">
+
+<div class="px-2">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary text-3xl">chat_bubble</span>
+<h3 class="font-headline text-2xl font-bold text-white tracking-tight">Atendimento Omnichannel</h3>
+</div>
+<p class="text-on-surface-variant leading-relaxed mb-6 font-light">
+                                Integramos IAs avançadas no WhatsApp, Instagram e Site. Seus clientes são atendidos com naturalidade e inteligência em qualquer canal.
+                            </p>
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-surface-container-high text-[10px] font-bold text-primary tracking-widest uppercase">WhatsApp</span>
+<span class="px-3 py-1 bg-surface-container-high text-[10px] font-bold text-primary tracking-widest uppercase">Instagram</span>
+</div>
+</div>
+</div>
+<!-- Service 2 -->
+<div class="flex flex-col gap-8">
+
+<div class="px-2">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary text-3xl">database</span>
+<h3 class="font-headline text-2xl font-bold text-white tracking-tight">Treinamento RAG</h3>
+</div>
+<p class="text-on-surface-variant leading-relaxed mb-6 font-light">
+                                Criamos bases de conhecimento exclusivas. Sua IA aprende sobre seus produtos, processos e políticas internas, respondendo como um especialista da empresa.
+                            </p>
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-surface-container-high text-[10px] font-bold text-primary tracking-widest uppercase">Vector DB</span>
+<span class="px-3 py-1 bg-surface-container-high text-[10px] font-bold text-primary tracking-widest uppercase">Semantic Search</span>
+</div>
+</div>
+</div>
+<!-- Service 3 -->
+<div class="flex flex-col gap-8">
+
+<div class="px-2">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary text-3xl">calendar_today</span>
+<h3 class="font-headline text-2xl font-bold text-white tracking-tight">Agendamentos e CRM</h3>
+</div>
+<p class="text-on-surface-variant leading-relaxed mb-6 font-light">
+                                A IA qualifica o lead, consulta sua agenda e marca reuniões diretamente no seu calendário, atualizando seu CRM automaticamente sem intervenção humana.
+                            </p>
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-surface-container-high text-[10px] font-bold text-primary tracking-widest uppercase">Sync Automático</span>
+<span class="px-3 py-1 bg-surface-container-high text-[10px] font-bold text-primary tracking-widest uppercase">Workflow Optimization</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Tech Stack -->
+<section class="py-24 border-y border-outline-variant/10">
+<div class="max-w-7xl mx-auto px-6">
+<p class="font-headline font-bold text-[10px] tracking-[0.5em] uppercase text-center text-primary/40 mb-16">Powered by Industry Leaders</p>
+<div class="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-40 grayscale hover:grayscale-0 transition-all">
+<div class="font-headline font-black text-2xl text-white tracking-tight">n8n</div>
+<div class="font-headline font-black text-2xl text-white tracking-tight">OpenAI</div>
+<div class="font-headline font-black text-2xl text-white tracking-tight">Supabase</div>
+<div class="font-headline font-black text-2xl text-white tracking-tight">WhatsApp</div>
+<div class="font-headline font-black text-2xl text-white tracking-tight">Make</div>
+</div>
+</div>
+</section>
+<!-- CTA / Form Section -->
+<section class="py-32 px-6" id="consultoria">
+<div class="max-w-7xl mx-auto">
+<div class="bg-surface-container-low p-8 md:p-20 grid grid-cols-1 lg:grid-cols-2 gap-20 border-l-8 border-primary relative overflow-hidden">
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 blur-[80px]"></div>
+<div class="relative z-10">
+<h2 class="font-headline text-4xl md:text-6xl font-black text-white leading-tight mb-8">
+                            Pronto para colocar a IA para trabalhar por você?
+                        </h2>
+<p class="text-lg text-on-surface-variant font-light mb-12">
+                            Nossos especialistas estão prontos para analisar seu negócio e desenhar uma arquitetura de automação personalizada. O próximo nível começa aqui.
+                        </p>
+<div class="flex flex-col gap-6">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<div>
+<h4 class="font-bold text-white mb-1">Análise Gratuita</h4>
+<p class="text-sm text-on-surface-variant">Diagnosticamos seus gargalos de atendimento sem custo.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<div>
+<h4 class="font-bold text-white mb-1">Implementação Ágil</h4>
+<p class="text-sm text-on-surface-variant">Sua primeira automação rodando em menos de 15 dias.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface p-8 md:p-12 relative z-10">
+<form class="space-y-6" onsubmit="event.preventDefault(); window.open(`https://wa.me/5521992341112?text=` + encodeURIComponent(`Olá, me chamo ${document.getElementById('formName').value}. Sou da empresa ${document.getElementById('formCompany').value}. Meu email é ${document.getElementById('formEmail').value}. Meu WhatsApp é: ${document.getElementById('formWhatsApp').value}. Gostaria de falar com um especialista!`), '_blank');">
+<div>
+<label class="block font-headline font-bold text-xs uppercase tracking-widest text-primary mb-3">Nome Completo</label>
+<input id="formName" required class="w-full bg-surface-container-highest border-0 border-b-2 border-outline-variant focus:border-primary focus:ring-0 text-white placeholder:text-white/20 py-4 transition-all" placeholder="Seu nome" type="text"/>
+</div>
+<div>
+<label class="block font-headline font-bold text-xs uppercase tracking-widest text-primary mb-3">WhatsApp</label>
+<input id="formWhatsApp" required class="w-full bg-surface-container-highest border-0 border-b-2 border-outline-variant focus:border-primary focus:ring-0 text-white placeholder:text-white/20 py-4 transition-all" placeholder="(00) 00000-0000" type="tel"/>
+</div>
+<div>
+<label class="block font-headline font-bold text-xs uppercase tracking-widest text-primary mb-3">E-mail Corporativo</label>
+<input id="formEmail" required class="w-full bg-surface-container-highest border-0 border-b-2 border-outline-variant focus:border-primary focus:ring-0 text-white placeholder:text-white/20 py-4 transition-all" placeholder="seu@email.com" type="email"/>
+</div>
+<div>
+<label class="block font-headline font-bold text-xs uppercase tracking-widest text-primary mb-3">Nome da Empresa</label>
+<input id="formCompany" required class="w-full bg-surface-container-highest border-0 border-b-2 border-outline-variant focus:border-primary focus:ring-0 text-white placeholder:text-white/20 py-4 transition-all" placeholder="Nome do seu negócio" type="text"/>
+</div>
+<button class="w-full bg-primary text-on-primary py-6 font-headline font-black text-sm uppercase tracking-[0.2em] hover:bg-primary-fixed transition-all active:scale-95 mt-4" type="submit">
+                                FALAR COM ESPECIALISTA
+                            </button>
+<p class="text-[10px] text-center text-on-surface-variant uppercase tracking-widest opacity-60">
+                                Você será redirecionado para o nosso WhatsApp.
+                            </p>
+</form>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-[#151315]">
+<div class="w-full px-8 py-12 grid grid-cols-1 md:grid-cols-4 gap-12 max-w-7xl mx-auto bg-[#1d1b1d] mt-24">
+<div class="flex flex-col gap-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#63e066]" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="text-lg font-bold text-white font-headline tracking-tighter">AGENT IA TECH</span>
+</div>
+<p class="text-sm text-gray-400 font-['Inter'] leading-relaxed">
+                    Transformando empresas através de arquiteturas inteligentes de IA e automação de processos em escala.
+                </p>
+</div>
+<div class="flex flex-col gap-4">
+<h5 class="text-[#63e066] font-headline font-bold text-xs uppercase tracking-[0.2em]">Soluções</h5>
+<ul class="flex flex-col gap-3">
+<li><a class="text-gray-400 hover:text-[#63e066] transition-colors duration-150 text-sm" href="#">Chatbots</a></li>
+<li><a class="text-gray-400 hover:text-[#63e066] transition-colors duration-150 text-sm" href="#">RAG Systems</a></li>
+<li><a class="text-gray-400 hover:text-[#63e066] transition-colors duration-150 text-sm" href="#">n8n Workflows</a></li>
+</ul>
+</div>
+<div class="flex flex-col gap-4">
+<h5 class="text-[#63e066] font-headline font-bold text-xs uppercase tracking-[0.2em]">Empresa</h5>
+<ul class="flex flex-col gap-3">
+<li><a class="text-gray-400 hover:text-[#63e066] transition-colors duration-150 text-sm" href="#">Consultoria</a></li>
+<li><a class="text-gray-400 hover:text-[#63e066] transition-colors duration-150 text-sm" href="#">Privacy Policy</a></li>
+<li><a class="text-gray-400 hover:text-[#63e066] transition-colors duration-150 text-sm" href="#">Terms of Service</a></li>
+</ul>
+</div>
+<div class="flex flex-col gap-4">
+<h5 class="text-[#63e066] font-headline font-bold text-xs uppercase tracking-[0.2em]">Social</h5>
+<div class="flex flex-col gap-3">
+<a class="flex items-center gap-3 text-gray-400 hover:text-primary transition-all text-sm" href="mailto:agent8ia.tech@gmail.com">
+<span class="material-symbols-outlined text-sm">mail</span> agent8ia.tech@gmail.com
+</a>
+<a class="flex items-center gap-3 text-gray-400 hover:text-primary transition-all text-sm" target="_blank" href="https://instagram.com/jeaniatech">
+<span class="material-symbols-outlined text-sm">photo_camera</span> @jeaniatech
+</a>
+<a class="flex items-center gap-3 text-gray-400 hover:text-primary transition-all text-sm" target="_blank" href="https://wa.me/5521992341112">
+<span class="material-symbols-outlined text-sm">phone</span> (21) 99234-1112
+</a>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-8 py-8 border-t border-outline-variant/10">
+<p class="text-center md:text-left text-gray-500 font-['Inter'] text-sm tracking-wide">
+                © 2026 AGENT IA TECH. Todos os direitos reservados.
+            </p>
+</div>
+</footer>
+</body></html>
