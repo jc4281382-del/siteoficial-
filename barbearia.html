@@ -4,7 +4,11 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <meta name="theme-color" content="#fcf9f8" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#1c1b1b" media="(prefers-color-scheme: dark)">
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3063/3063822.png">
     <title>Precision Barber - Dashboard</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -111,19 +115,21 @@
             <div class="flex items-center gap-3">
                 <span class="material-symbols-outlined text-[#0043c8] dark:text-[#0057ff]">menu</span>
                 <span
-                    class="font-manrope font-bold tracking-tight uppercase text-xl font-black tracking-tighter text-[#1c1b1b] dark:text-[#fcf9f8]">PRECISION
+                    class="font-manrope font-bold tracking-tight uppercase text-xl font-black tracking-tighter text-[#1c1b1b] dark:text-[#fcf9f8] hidden sm:block">PRECISION
                     BARBER</span>
             </div>
-            <button id="btn-ver-qrcode"
-                class="flex items-center gap-2 bg-surface-container-high px-4 py-2 rounded-xl active:scale-95 transition-transform hover:opacity-80">
-                <span class="material-symbols-outlined text-sm">qr_code_2</span>
-                <span class="font-inter text-xs font-bold uppercase tracking-widest text-on-surface">Ver QR Code</span>
-            </button>
+            <div class="flex items-center gap-4">
+                <button id="btn-ver-qrcode"
+                    class="flex items-center gap-2 bg-surface-container-high px-4 py-2 rounded-xl active:scale-95 transition-transform hover:opacity-80">
+                    <span class="material-symbols-outlined text-sm">qr_code_2</span>
+                    <span class="font-inter text-xs font-bold uppercase tracking-widest text-on-surface hidden sm:block">QR Code</span>
+                </button>
+                <button id="btn-logout" class="hidden flex items-center gap-2 bg-error/10 text-error px-4 py-2 rounded-xl active:scale-95 transition-transform hover:opacity-80 z-[110]">
+                    <span class="material-symbols-outlined text-sm">logout</span>
+                    <span class="font-inter text-xs font-bold uppercase tracking-widest">Sair</span>
+                </button>
+            </div>
         </nav>
-        <button id="btn-logout" class="hidden absolute top-6 right-48 flex items-center gap-2 bg-error/10 text-error px-4 py-2 rounded-xl active:scale-95 transition-transform hover:opacity-80">
-            <span class="material-symbols-outlined text-sm">logout</span>
-            <span class="font-inter text-xs font-bold uppercase tracking-widest">Sair</span>
-        </button>
     </header>
     <main class="px-6 space-y-12 max-w-5xl mx-auto mt-8">
         <!-- Hero Section -->
@@ -203,10 +209,10 @@
             <span class="material-symbols-outlined">payments</span>
             <span class="font-inter text-xs font-bold uppercase tracking-widest mt-1">Earnings</span>
         </a>
-        <a class="flex flex-col items-center justify-center text-[#1c1b1b] dark:text-[#fcf9f8] opacity-40 hover:opacity-100 transition-all active:scale-90"
+        <a id="btn-install-app" class="flex flex-col items-center justify-center text-[#1c1b1b] dark:text-[#fcf9f8] opacity-40 hover:opacity-100 transition-all active:scale-90"
             href="#">
-            <span class="material-symbols-outlined">settings</span>
-            <span class="font-inter text-xs font-bold uppercase tracking-widest mt-1">Settings</span>
+            <span id="install-icon" class="material-symbols-outlined">settings</span>
+            <span id="install-text" class="font-inter text-xs font-bold uppercase tracking-widest mt-1">Config</span>
         </a>
     </nav>
     <!-- Decorative Content -->
@@ -396,8 +402,9 @@
                     if (isSignUpMode) {
                         const nomeBarbearia = inputNome.value;
                         if (authData.session) {
-                            // Sucesso com login automático
-                            await supabase.from('barbearias').insert([{ auth_id: authData.user.id, nome: nomeBarbearia }]);
+                            // Estratégia de persistência: Salva o nome no localStorage e aguarda o fluxo da sessão (initDashboard) realizar o INSERT
+                            localStorage.setItem('tempBarbeariaNome', nomeBarbearia);
+                            
                             modalLogin.classList.add('hidden');
                             await initDashboard(authData.user.id);
                         } else {
@@ -416,6 +423,7 @@
             });
 
             btnLogout.addEventListener('click', async () => {
+                localStorage.removeItem('tempBarbeariaNome');
                 await supabase.auth.signOut();
                 window.location.reload();
             });
@@ -424,15 +432,47 @@
             async function initDashboard(userId) {
                 btnLogout.classList.remove('hidden');
 
-                const { data: barbearias, error } = await supabase
+                let { data: barbearias, error } = await supabase
                     .from('barbearias')
                     .select('*')
                     .eq('auth_id', userId)
                     .limit(1);
 
+                // Verificação de Órfão: Login existe mas sem vínculo no select
                 if (error || !barbearias || barbearias.length === 0) {
-                    alert("Nenhuma barbearia vinculada ao seu usuário. Verifique a configuração.");
-                    return;
+                    const tempNome = localStorage.getItem('tempBarbeariaNome');
+                    
+                    if (tempNome) {
+                        console.log('Detectado fluxo pendente. Tentando INSERT em modo fallback de sessão.');
+                        const insertPayload = { auth_id: userId, nome: tempNome };
+                        console.log('Payload de INSERT:', insertPayload);
+                        
+                        const { error: fallbackError } = await supabase
+                            .from('barbearias')
+                            .insert([insertPayload]);
+                            
+                        if (fallbackError) {
+                            console.error('Erro de Permissão (Fallback RLS Fallback):', fallbackError);
+                            alert("Erro de permissão no banco. Verifique as políticas de RLS no Supabase.\nDetalhe: " + fallbackError.message);
+                            modalLogin.classList.add('hidden');
+                            return;
+                        }
+                        
+                        // Sucesso no Fallback, limpar localstorage
+                        localStorage.removeItem('tempBarbeariaNome');
+                        console.log('INSERT pendente concluído com sucesso!');
+                        
+                        const res = await supabase.from('barbearias').select('*').eq('auth_id', userId).limit(1);
+                        barbearias = res.data;
+                        error = res.error;
+                    }
+                    
+                    // Continua vazio mesmo após processamento de fallback
+                    if (!barbearias || barbearias.length === 0) {
+                        alert("Nenhuma barbearia vinculada ao seu usuário.\nSeu Auth existe mas a barbearia não foi encontrada. Utilize o botão 'Sair' para resetar sua sessão.");
+                        modalLogin.classList.add('hidden');
+                        return;
+                    }
                 }
 
                 currentBarbeariaId = barbearias[0].id;
@@ -606,6 +646,54 @@
 
                 modalFinalizar.classList.add('hidden');
                 currentCadeiraId = null;
+            });
+
+            // 7. Registrar Service Worker e PWA
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('./sw.js')
+                .then(reg => console.log('Service Worker registrado com sucesso!'))
+                .catch(err => console.error('Erro ao registrar SW:', err));
+            }
+
+            let deferredPrompt;
+            const btnInstallApp = document.getElementById('btn-install-app');
+            const installIcon = document.getElementById('install-icon');
+            const installText = document.getElementById('install-text');
+
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                
+                // Transforma o botão 'Config' em 'Instalar App'
+                installIcon.textContent = 'downloading';
+                installText.textContent = 'Instalar App';
+                
+                // Dá um destaque visual
+                btnInstallApp.classList.remove('opacity-40');
+                btnInstallApp.classList.add('opacity-100', 'text-primary');
+            });
+
+            btnInstallApp.addEventListener('click', async (e) => {
+                e.preventDefault();
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    const { outcome } = await deferredPrompt.userChoice;
+                    if (outcome === 'accepted') {
+                        console.log('App instalado!');
+                        deferredPrompt = null;
+                        
+                        // Retorna o botão ao estado normal ("Config")
+                        installIcon.textContent = 'settings';
+                        installText.textContent = 'Config';
+                        btnInstallApp.classList.add('opacity-40');
+                        btnInstallApp.classList.remove('opacity-100', 'text-primary');
+                    }
+                } else {
+                    // Fallback para quando o app já está instalado e clicar no botão
+                    if(installText.textContent === 'Config') {
+                        alert('Painel de Configurações em breve...');
+                    }
+                }
             });
         });
     </script>

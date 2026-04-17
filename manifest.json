@@ -1,0 +1,18 @@
+{
+  "name": "Precision Barber",
+  "short_name": "Precision",
+  "description": "Dashboard para controle de filas de barbearias",
+  "start_url": "./barbearia.html",
+  "display": "standalone",
+  "background_color": "#fcf9f8",
+  "theme_color": "#fcf9f8",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3063/3063822.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
