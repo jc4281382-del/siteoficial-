@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-br">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Precision Barber - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#434656",
+                        "surface-dim": "#dcd9d9",
+                        "surface": "#fcf9f8",
+                        "primary-fixed": "#dce1ff",
+                        "surface-tint": "#004ee7",
+                        "on-tertiary-fixed": "#221b00",
+                        "surface-bright": "#fcf9f8",
+                        "surface-variant": "#e5e2e1",
+                        "primary-container": "#0057ff",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#003ab2",
+                        "secondary": "#5f5e5e",
+                        "inverse-primary": "#b6c4ff",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "primary-fixed-dim": "#b6c4ff",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed": "#001550",
+                        "surface-container": "#f0edec",
+                        "background": "#fcf9f8",
+                        "surface-container-highest": "#e5e2e1",
+                        "surface-container-low": "#f6f3f2",
+                        "outline-variant": "#c3c5d9",
+                        "on-background": "#1c1b1b",
+                        "tertiary-fixed-dim": "#e9c400",
+                        "on-tertiary-fixed-variant": "#544600",
+                        "surface-container-high": "#ebe7e7",
+                        "tertiary-container": "#c9a900",
+                        "on-secondary-fixed-variant": "#474746",
+                        "tertiary": "#705d00",
+                        "on-tertiary-container": "#4c3f00",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#e5e8ff",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#313030",
+                        "outline": "#737688",
+                        "on-secondary-container": "#636262",
+                        "secondary-fixed": "#e5e2e1",
+                        "primary": "#0043c8",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#ffe16d",
+                        "secondary-container": "#e2dfde",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#1c1b1b",
+                        "inverse-on-surface": "#f3f0ef"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Manrope', sans-serif;
+        }
+
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-surface text-on-surface min-h-screen pb-40">
+    <!-- Top Navigation Bar -->
+    <header class="w-full top-0 sticky bg-[#fcf9f8] dark:bg-[#1c1b1b] z-50">
+        <nav class="flex justify-between items-center w-full px-6 py-6">
+            <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-[#0043c8] dark:text-[#0057ff]">menu</span>
+                <span
+                    class="font-manrope font-bold tracking-tight uppercase text-xl font-black tracking-tighter text-[#1c1b1b] dark:text-[#fcf9f8]">PRECISION
+                    BARBER</span>
+            </div>
+            <button id="btn-ver-qrcode"
+                class="flex items-center gap-2 bg-surface-container-high px-4 py-2 rounded-xl active:scale-95 transition-transform hover:opacity-80">
+                <span class="material-symbols-outlined text-sm">qr_code_2</span>
+                <span class="font-inter text-xs font-bold uppercase tracking-widest text-on-surface">Ver QR Code</span>
+            </button>
+        </nav>
+        <button id="btn-logout" class="hidden absolute top-6 right-48 flex items-center gap-2 bg-error/10 text-error px-4 py-2 rounded-xl active:scale-95 transition-transform hover:opacity-80">
+            <span class="material-symbols-outlined text-sm">logout</span>
+            <span class="font-inter text-xs font-bold uppercase tracking-widest">Sair</span>
+        </button>
+    </header>
+    <main class="px-6 space-y-12 max-w-5xl mx-auto mt-8">
+        <!-- Hero Section -->
+        <section class="space-y-2">
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter text-on-surface">The Craft</h1>
+            <p class="text-on-surface-variant font-medium text-lg uppercase tracking-[0.2em] opacity-60">Barber
+                Dashboard — System v2.0</p>
+        </section>
+        <!-- Header Indicators / KPI Grid -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Na Fila -->
+            <div
+                class="bg-surface-container-lowest p-8 rounded-full shadow-[0_20px_40px_rgba(28,27,27,0.03)] border-none relative overflow-hidden group">
+                <div class="absolute top-0 left-0 w-1 h-full bg-tertiary"></div>
+                <p class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-4">Na Fila</p>
+                <div class="flex items-baseline gap-2">
+                    <span id="na-fila-count" class="text-6xl font-extrabold tracking-tighter">0</span>
+                    <span class="text-xs font-bold uppercase text-on-surface-variant opacity-40">aguardando</span>
+                </div>
+            </div>
+            <!-- Atendidos Hoje -->
+            <div
+                class="bg-surface-container-lowest p-8 rounded-full shadow-[0_20px_40px_rgba(28,27,27,0.03)] border-none relative overflow-hidden group">
+                <div class="absolute top-0 left-0 w-1 h-full bg-primary"></div>
+                <p class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-4">Atendidos Hoje</p>
+                <div class="flex items-baseline gap-2">
+                    <span id="atendidos-count" class="text-6xl font-extrabold tracking-tighter">0</span>
+                    <span class="material-symbols-outlined text-primary text-2xl">check_circle</span>
+                </div>
+            </div>
+            <!-- Total do Dia -->
+            <div
+                class="bg-surface-container-lowest p-8 rounded-full shadow-[0_20px_40px_rgba(28,27,27,0.03)] border-none relative overflow-hidden group">
+                <div class="absolute top-0 left-0 w-1 h-full bg-on-tertiary-fixed-variant"></div>
+                <p class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-4">Total do Dia (R$)
+                </p>
+                <div class="flex items-baseline gap-2">
+                    <span class="text-sm font-bold text-on-surface-variant mb-4">R$</span>
+                    <span id="total-dia" class="text-6xl font-extrabold tracking-tighter">0</span>
+                </div>
+            </div>
+        </section>
+        <!-- Queue Section -->
+        <section class="space-y-8">
+            <div class="flex justify-between items-end">
+                <h2 class="text-3xl font-bold tracking-tight">Fila Atual</h2>
+                <span id="label-qtd-clientes" class="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-bold uppercase">0
+                    Clientes</span>
+            </div>
+            <!-- Queue List -->
+            <div id="queue-list" class="space-y-6">
+                <!-- Items are populated dynamically via JS -->
+            </div>
+        </section>
+    </main>
+    <!-- Bottom Action Area -->
+    <div class="fixed bottom-0 left-0 w-full p-6 z-50">
+        <div class="max-w-5xl mx-auto">
+            <button id="btn-chamar-proximo"
+                class="w-full h-20 bg-gradient-to-r from-primary to-primary-container text-white rounded-full flex items-center justify-center gap-4 shadow-[0_20px_50px_rgba(0,67,200,0.3)] active:scale-95 transition-transform group opacity-50 cursor-not-allowed" disabled>
+                <span
+                    class="material-symbols-outlined text-3xl group-hover:translate-x-1 transition-transform">volume_up</span>
+                <span class="text-xl font-bold uppercase tracking-[0.2em]">Chamar Próximo</span>
+            </button>
+        </div>
+    </div>
+    <!-- Bottom Navigation Bar (MD+) -->
+    <nav
+        class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-[#fcf9f8]/80 dark:bg-[#1c1b1b]/80 backdrop-blur-xl border-t border-[#c3c5d9]/15 shadow-[0_-10px_40px_rgba(28,27,27,0.04)] hidden md:flex">
+        <a class="flex flex-col items-center justify-center bg-[#0043c8] text-white rounded-xl px-8 py-3 active:scale-90 transition-all duration-200"
+            href="#">
+            <span class="material-symbols-outlined">group</span>
+            <span class="font-inter text-xs font-bold uppercase tracking-widest mt-1">Queue</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-[#1c1b1b] dark:text-[#fcf9f8] opacity-40 hover:opacity-100 transition-all active:scale-90"
+            href="#">
+            <span class="material-symbols-outlined">payments</span>
+            <span class="font-inter text-xs font-bold uppercase tracking-widest mt-1">Earnings</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-[#1c1b1b] dark:text-[#fcf9f8] opacity-40 hover:opacity-100 transition-all active:scale-90"
+            href="#">
+            <span class="material-symbols-outlined">settings</span>
+            <span class="font-inter text-xs font-bold uppercase tracking-widest mt-1">Settings</span>
+        </a>
+    </nav>
+    <!-- Decorative Content -->
+    <div class="fixed top-1/4 right-0 -z-10 opacity-5 pointer-events-none">
+        <h2 class="text-[20rem] font-black tracking-tighter leading-none select-none">01</h2>
+    </div>
+
+    <!-- Modals -->
+    <!-- Login Modal -->
+    <div id="modal-login" class="fixed inset-0 bg-[#fcf9f8] dark:bg-[#1c1b1b] z-[100] flex flex-col items-center justify-center hidden p-6">
+        <div class="w-full max-w-sm space-y-8">
+            <div class="text-center space-y-2">
+                <h2 id="login-title" class="text-3xl font-extrabold tracking-tighter text-on-surface">Login</h2>
+                <p id="login-subtitle" class="text-on-surface-variant font-medium text-sm uppercase tracking-widest opacity-60">Acesso Restrito</p>
+            </div>
+            <form id="form-login" class="space-y-4">
+                <div id="field-nome" class="hidden">
+                    <label class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">Nome da Barbearia</label>
+                    <input type="text" id="login-nome" class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 placeholder-on-surface-variant/30 focus:ring-2 focus:ring-primary text-on-surface font-inter">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">E-mail</label>
+                    <input type="email" id="login-email" required class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 placeholder-on-surface-variant/30 focus:ring-2 focus:ring-primary text-on-surface font-inter">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">Senha</label>
+                    <input type="password" id="login-password" required class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 placeholder-on-surface-variant/30 focus:ring-2 focus:ring-primary text-on-surface font-inter">
+                </div>
+                <button type="submit" id="btn-submit-login" class="w-full mt-4 bg-primary text-white py-4 rounded-xl font-bold uppercase tracking-widest text-xs hover:bg-primary-container transition-colors shadow-lg shadow-primary/20 flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-sm">login</span>
+                    Entrar
+                </button>
+            </form>
+            <div class="text-center">
+                <button id="btn-toggle-login" type="button" class="text-xs font-bold uppercase tracking-widest text-primary hover:underline">
+                    Não tem conta? Cadastre-se aqui
+                </button>
+            </div>
+            <p id="login-error" class="text-center text-sm hidden font-bold"></p>
+        </div>
+    </div>
+
+    <!-- QR Code Modal -->
+    <div id="modal-qrcode" class="fixed inset-0 bg-black/50 z-[90] flex items-center justify-center hidden backdrop-blur-sm p-4">
+        <div class="bg-surface p-8 rounded-3xl max-w-sm w-full shadow-2xl relative">
+            <button id="close-qrcode" class="absolute top-4 right-4 text-on-surface-variant hover:text-on-surface">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+            <div class="text-center space-y-2 mb-8">
+                <h2 class="text-2xl font-bold tracking-tight text-on-surface">QR Code da Barbearia</h2>
+                <p class="text-on-surface-variant font-medium text-xs uppercase tracking-widest opacity-60">Para check-in de clientes</p>
+            </div>
+            <div class="bg-white p-4 rounded-xl inline-block mx-auto mb-4" id="qrcode-container"></div>
+            <p class="text-center text-sm font-bold text-primary cursor-pointer hover:underline" id="link-cliente" target="_blank">Abrir Link</p>
+        </div>
+    </div>
+
+    <!-- Finalize Modal -->
+    <div id="modal-finalizar" class="fixed inset-0 bg-black/50 z-[90] flex items-center justify-center hidden backdrop-blur-sm p-4">
+        <div class="bg-surface p-8 rounded-3xl max-w-sm w-full shadow-2xl relative">
+            <button id="close-finalizar" class="absolute top-4 right-4 text-on-surface-variant hover:text-on-surface">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+            <div class="text-center space-y-2 mb-6">
+                <h2 class="text-2xl font-bold tracking-tight text-on-surface">Finalizar Atendimento</h2>
+                <p class="text-on-surface-variant font-medium text-xs uppercase tracking-widest opacity-60">Defina o valor pago</p>
+            </div>
+            <form id="form-finalizar" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">Valor do Corte (R$)</label>
+                    <input type="number" step="0.01" id="valor-corte" placeholder="Ex: 50.00" class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary text-on-surface font-inter text-xl font-bold text-center">
+                </div>
+                <button type="submit" class="w-full mt-4 bg-primary text-white py-4 rounded-xl font-bold uppercase tracking-widest text-xs hover:bg-primary-container transition-colors shadow-lg shadow-primary/20 flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-sm">check_circle</span>
+                    Confirmar
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.8/+esm';
+
+        const SUPABASE_URL = 'https://swtdvogwffyvucwirwiu.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN3dGR2b2d3ZmZ5dnVjd2lyd2l1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYzMzg2ODEsImV4cCI6MjA5MTkxNDY4MX0.vaH25USlvD9wWRWYvy15oVRJxW8S6EX8zrsFFXKQ588';
+        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        let currentBarbeariaId = null;
+        let currentCadeiraId = null;
+        let isSignUpMode = false;
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const modalLogin = document.getElementById('modal-login');
+            const formLogin = document.getElementById('form-login');
+            const loginError = document.getElementById('login-error');
+            const btnLogout = document.getElementById('btn-logout');
+            const btnToggleLogin = document.getElementById('btn-toggle-login');
+
+            // Form Fields
+            const fieldNome = document.getElementById('field-nome');
+            const inputNome = document.getElementById('login-nome');
+            const loginTitle = document.getElementById('login-title');
+            const loginSubtitle = document.getElementById('login-subtitle');
+            const btnSubmitLogin = document.getElementById('btn-submit-login');
+
+            const modalQrcode = document.getElementById('modal-qrcode');
+            const btnVerQrcode = document.getElementById('btn-ver-qrcode');
+            const closeQrcode = document.getElementById('close-qrcode');
+            const qrcodeContainer = document.getElementById('qrcode-container');
+            const linkCliente = document.getElementById('link-cliente');
+
+            const modalFinalizar = document.getElementById('modal-finalizar');
+            const formFinalizar = document.getElementById('form-finalizar');
+            const closeFinalizar = document.getElementById('close-finalizar');
+            const valorCorteInput = document.getElementById('valor-corte');
+
+            const queueList = document.getElementById('queue-list');
+            const labelQtd = document.getElementById('label-qtd-clientes');
+            const btnChamarProximo = document.getElementById('btn-chamar-proximo');
+            
+            const naFilaCount = document.getElementById('na-fila-count');
+            const atendidosCount = document.getElementById('atendidos-count');
+            const totalDiaCount = document.getElementById('total-dia');
+
+            // 1. Verificação de Autenticação
+            const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+            
+            if (sessionError || !session) {
+                modalLogin.classList.remove('hidden');
+            } else {
+                await initDashboard(session.user.id);
+            }
+
+            // Alternar entre Login e Cadastro
+            btnToggleLogin.addEventListener('click', () => {
+                isSignUpMode = !isSignUpMode;
+                loginError.classList.add('hidden');
+                
+                if (isSignUpMode) {
+                    loginTitle.textContent = 'Cadastro';
+                    loginSubtitle.textContent = 'Crie sua Barbearia';
+                    fieldNome.classList.remove('hidden');
+                    inputNome.required = true;
+                    btnSubmitLogin.innerHTML = '<span class="material-symbols-outlined text-sm">person_add</span> Cadastrar';
+                    btnToggleLogin.textContent = 'Já tem conta? Faça login';
+                } else {
+                    loginTitle.textContent = 'Login';
+                    loginSubtitle.textContent = 'Acesso Restrito';
+                    fieldNome.classList.add('hidden');
+                    inputNome.required = false;
+                    btnSubmitLogin.innerHTML = '<span class="material-symbols-outlined text-sm">login</span> Entrar';
+                    btnToggleLogin.textContent = 'Não tem conta? Cadastre-se aqui';
+                }
+            });
+
+            // 2. Eventos de Login, Cadastro e Logout
+            formLogin.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                loginError.classList.add('hidden');
+                loginError.classList.remove('text-error', 'text-primary');
+                
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+                
+                btnSubmitLogin.innerHTML = '<span class="material-symbols-outlined text-sm animate-spin">refresh</span> Carregando...';
+
+                let authData, authError;
+
+                if (isSignUpMode) {
+                    const { data, error } = await supabase.auth.signUp({ email, password });
+                    authData = data;
+                    authError = error;
+                } else {
+                    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+                    authData = data;
+                    authError = error;
+                }
+                
+                if (authError) {
+                    loginError.textContent = 'Erro: ' + authError.message;
+                    loginError.classList.add('text-error');
+                    loginError.classList.remove('hidden');
+                    btnSubmitLogin.innerHTML = isSignUpMode 
+                        ? '<span class="material-symbols-outlined text-sm">person_add</span> Cadastrar' 
+                        : '<span class="material-symbols-outlined text-sm">login</span> Entrar';
+                } else {
+                    if (isSignUpMode) {
+                        const nomeBarbearia = inputNome.value;
+                        if (authData.session) {
+                            // Sucesso com login automático
+                            await supabase.from('barbearias').insert([{ auth_id: authData.user.id, nome: nomeBarbearia }]);
+                            modalLogin.classList.add('hidden');
+                            await initDashboard(authData.user.id);
+                        } else {
+                            // Pode ocorrer caso o banco exija confirmação de email
+                            loginError.textContent = 'Conta criada com sucesso! Verifique seu e-mail.';
+                            loginError.classList.add('text-primary');
+                            loginError.classList.remove('hidden');
+                            btnToggleLogin.click(); // Volta pro modo login
+                        }
+                    } else {
+                        // Login comum (verifica se já preencheu a barbearia antes)
+                        modalLogin.classList.add('hidden');
+                        await initDashboard(authData.user.id);
+                    }
+                }
+            });
+
+            btnLogout.addEventListener('click', async () => {
+                await supabase.auth.signOut();
+                window.location.reload();
+            });
+
+            // 3. Inicialização Principal
+            async function initDashboard(userId) {
+                btnLogout.classList.remove('hidden');
+
+                const { data: barbearias, error } = await supabase
+                    .from('barbearias')
+                    .select('*')
+                    .eq('auth_id', userId)
+                    .limit(1);
+
+                if (error || !barbearias || barbearias.length === 0) {
+                    alert("Nenhuma barbearia vinculada ao seu usuário. Verifique a configuração.");
+                    return;
+                }
+
+                currentBarbeariaId = barbearias[0].id;
+
+                const urlCliente = window.location.origin + '/cliente.html?barbearia_id=' + currentBarbeariaId;
+                qrcodeContainer.innerHTML = ''; // prevent multiple appends
+                new QRCode(qrcodeContainer, { text: urlCliente, width: 200, height: 200 });
+                linkCliente.addEventListener('click', () => window.open(urlCliente, '_blank'));
+
+                await loadDashboardData();
+
+                supabase.channel('dashboard-filas')
+                    .on('postgres_changes', { event: '*', schema: 'public', table: 'filas', filter: `barbearia_id=eq.${currentBarbeariaId}` }, 
+                        () => loadDashboardData()
+                    )
+                    .subscribe();
+            }
+
+            // 4. Lógica de Carregamento
+            async function loadDashboardData() {
+                if (!currentBarbeariaId) return;
+
+                const startOfDay = new Date();
+                startOfDay.setHours(0, 0, 0, 0);
+
+                const { data: filas, error } = await supabase
+                    .from('filas')
+                    .select('*')
+                    .eq('barbearia_id', currentBarbeariaId)
+                    .order('criado_em', { ascending: true });
+
+                if (error) {
+                    console.error("Erro ao carregar fila:", error);
+                    return;
+                }
+
+                let aguardando = [];
+                let chamado = null;
+                let atendidosHoje = 0;
+                let totalRecebido = 0.0;
+
+                filas.forEach(f => {
+                    if (f.status === 'aguardando') {
+                        aguardando.push(f);
+                    } else if (f.status === 'chamado') {
+                        chamado = f;
+                    } else if (f.status === 'finalizado') {
+                        const criadoEm = new Date(f.criado_em);
+                        if (criadoEm >= startOfDay) {
+                            atendidosHoje++;
+                            totalRecebido += Number(f.valor_corte) || 0;
+                        }
+                    }
+                });
+
+                naFilaCount.textContent = aguardando.length.toString().padStart(2, '0');
+                atendidosCount.textContent = atendidosHoje.toString().padStart(2, '0');
+                totalDiaCount.textContent = totalRecebido.toFixed(2);
+                labelQtd.textContent = (aguardando.length + (chamado ? 1 : 0)) + ' Clientes';
+
+                if (aguardando.length > 0 && !chamado) {
+                    btnChamarProximo.disabled = false;
+                    btnChamarProximo.classList.remove('opacity-50', 'cursor-not-allowed');
+                } else {
+                    btnChamarProximo.disabled = true;
+                    btnChamarProximo.classList.add('opacity-50', 'cursor-not-allowed');
+                }
+
+                renderQueue(aguardando, chamado);
+            }
+
+            function renderQueue(aguardando, chamado) {
+                queueList.innerHTML = '';
+                let count = 1;
+
+                if (chamado) {
+                    queueList.innerHTML += `
+                        <div class="bg-primary/5 p-6 rounded-full flex justify-between items-center border-2 border-primary/10 shadow-[0_10px_30px_rgba(0,67,200,0.08)]">
+                            <div class="flex items-center gap-6">
+                                <span class="text-3xl font-black text-primary">${count.toString().padStart(2, '0')}</span>
+                                <div>
+                                    <p class="text-xl font-bold text-primary">${chamado.nome_cliente}</p>
+                                    <div class="flex items-center gap-2 mt-1">
+                                        <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                                        <span class="text-xs font-bold uppercase tracking-widest text-primary">chamado</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="text-right hidden sm:block">
+                                    <p class="text-xs font-bold uppercase tracking-widest text-primary opacity-60">Status</p>
+                                    <p class="text-lg font-bold text-primary">Na cadeira</p>
+                                </div>
+                                <button onclick="window.abrirModalFinalizar('${chamado.id}')"
+                                    class="bg-primary text-white px-6 py-3 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-primary-container transition-colors shadow-lg shadow-primary/20 flex items-center gap-2 active:scale-95">
+                                    <span class="material-symbols-outlined text-sm">payments</span>
+                                    Finalizar
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    count++;
+                }
+
+                aguardando.forEach((cliente, index) => {
+                    const tempoEst = (index + 1) * 30; // ex: 30 min por cliente
+                    queueList.innerHTML += `
+                        <div class="bg-surface-container-low p-6 rounded-full flex justify-between items-center transition-all hover:bg-surface-container-high cursor-pointer">
+                            <div class="flex items-center gap-6">
+                                <span class="text-3xl font-black text-outline opacity-40">${count.toString().padStart(2, '0')}</span>
+                                <div>
+                                    <p class="text-xl font-bold">${cliente.nome_cliente}</p>
+                                    <div class="flex items-center gap-2 mt-1">
+                                        <span class="w-2 h-2 rounded-full bg-tertiary"></span>
+                                        <span class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">aguardando</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-xs font-bold uppercase tracking-widest text-on-surface-variant opacity-60">Tempo est.</p>
+                                <p class="text-lg font-bold">${tempoEst} min</p>
+                            </div>
+                        </div>
+                    `;
+                    count++;
+                });
+            }
+
+            // 5. Ações da Fila
+            btnChamarProximo.addEventListener('click', async () => {
+                if (!currentBarbeariaId || btnChamarProximo.disabled) return;
+                
+                btnChamarProximo.disabled = true;
+
+                const { data, error } = await supabase
+                    .from('filas')
+                    .select('id')
+                    .eq('barbearia_id', currentBarbeariaId)
+                    .eq('status', 'aguardando')
+                    .order('criado_em', { ascending: true })
+                    .limit(1);
+
+                if (error || !data || data.length === 0) return;
+
+                const clienteId = data[0].id;
+                await supabase.from('filas').update({ status: 'chamado' }).eq('id', clienteId);
+            });
+
+            // 6. Configuração dos Modais
+            btnVerQrcode.addEventListener('click', () => modalQrcode.classList.remove('hidden'));
+            closeQrcode.addEventListener('click', () => modalQrcode.classList.add('hidden'));
+
+            window.abrirModalFinalizar = (id) => {
+                currentCadeiraId = id;
+                valorCorteInput.value = '';
+                modalFinalizar.classList.remove('hidden');
+            };
+
+            closeFinalizar.addEventListener('click', () => modalFinalizar.classList.add('hidden'));
+
+            formFinalizar.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                if (!currentCadeiraId) return;
+
+                const val = parseFloat(valorCorteInput.value) || 0;
+                
+                await supabase.from('filas').update({ 
+                    status: 'finalizado',
+                    valor_corte: val
+                }).eq('id', currentCadeiraId);
+
+                modalFinalizar.classList.add('hidden');
+                currentCadeiraId = null;
+            });
+        });
+    </script>
+</body>
+
+</html>

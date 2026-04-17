@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html class="light" lang="pt-br">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <title>Precision Barber - Check-in</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#434656", "surface-dim": "#dcd9d9", "surface": "#fcf9f8",
+                        "primary-fixed": "#dce1ff", "surface-tint": "#004ee7", "on-tertiary-fixed": "#221b00",
+                        "surface-bright": "#fcf9f8", "surface-variant": "#e5e2e1", "primary-container": "#0057ff",
+                        "on-secondary": "#ffffff", "on-primary-fixed-variant": "#003ab2", "secondary": "#5f5e5e",
+                        "inverse-primary": "#b6c4ff", "secondary-fixed-dim": "#c8c6c5", "on-secondary-fixed": "#1c1b1b",
+                        "primary-fixed-dim": "#b6c4ff", "error-container": "#ffdad6", "on-error-container": "#93000a",
+                        "error": "#ba1a1a", "on-primary-fixed": "#001550", "surface-container": "#f0edec",
+                        "background": "#fcf9f8", "surface-container-highest": "#e5e2e1", "surface-container-low": "#f6f3f2",
+                        "outline-variant": "#c3c5d9", "on-background": "#1c1b1b", "tertiary-fixed-dim": "#e9c400",
+                        "on-tertiary-fixed-variant": "#544600", "surface-container-high": "#ebe7e7",
+                        "tertiary-container": "#c9a900", "on-secondary-fixed-variant": "#474746", "tertiary": "#705d00",
+                        "on-tertiary-container": "#4c3f00", "on-primary": "#ffffff", "on-primary-container": "#e5e8ff",
+                        "on-error": "#ffffff", "inverse-surface": "#313030", "outline": "#737688",
+                        "on-secondary-container": "#636262", "secondary-fixed": "#e5e2e1", "primary": "#0043c8",
+                        "surface-container-lowest": "#ffffff", "tertiary-fixed": "#ffe16d", "secondary-container": "#e2dfde",
+                        "on-tertiary": "#ffffff", "on-surface": "#1c1b1b", "inverse-on-surface": "#f3f0ef"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"], "body": ["Inter"], "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+
+<body class="bg-surface text-on-surface min-h-screen flex flex-col pt-12 pb-12 px-6 overflow-hidden max-w-lg mx-auto">
+    <!-- Header Simples -->
+    <header class="flex justify-between items-center w-full mb-12">
+        <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-[#0043c8]">cut</span>
+            <span class="font-manrope font-black tracking-tighter uppercase text-lg text-[#1c1b1b]">PRECISION BARBER</span>
+        </div>
+    </header>
+
+    <main class="flex-1 flex flex-col justify-center">
+        <!-- View 1: Formulário de Entrada (Fricção Zero) -->
+        <div id="view-entrada" class="space-y-8 w-full transition-opacity duration-300">
+            <div class="space-y-2">
+                <h1 class="text-4xl font-extrabold tracking-tighter text-on-surface leading-tight">Faça seu <br> <span class="text-primary">Check-in</span></h1>
+                <p class="text-on-surface-variant font-medium text-sm">Insira seu nome para entrar na fila virtual e aguarde ser chamado.</p>
+            </div>
+            
+            <form id="form-checkin" class="space-y-4">
+                <div>
+                    <input type="text" id="nome-cliente" required placeholder="Digite o seu nome" 
+                        class="w-full bg-surface-container-low border-none rounded-2xl px-6 py-5 placeholder-on-surface-variant/40 focus:ring-2 focus:ring-primary text-on-surface font-inter text-lg font-bold shadow-inner">
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-primary to-primary-container text-white py-5 rounded-2xl font-bold uppercase tracking-widest text-sm hover:opacity-90 transition-all shadow-[0_20px_40px_rgba(0,67,200,0.2)] active:scale-95 flex items-center justify-center gap-3 mt-4">
+                    <span>Entrar na Fila</span>
+                    <span class="material-symbols-outlined">arrow_forward</span>
+                </button>
+            </form>
+            <p id="error-checkin" class="text-error text-center text-sm font-bold hidden"></p>
+        </div>
+
+        <!-- View 2: Aguardando na Fila -->
+        <div id="view-aguardando" class="space-y-12 w-full text-center hidden transition-opacity duration-300">
+            <div class="space-y-2">
+                <h2 class="text-2xl font-bold tracking-tight text-on-surface">Sua Posição na Fila</h2>
+                <div class="flex items-center justify-center gap-2 mt-2">
+                    <span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+                    <p class="text-on-surface-variant font-bold text-xs uppercase tracking-widest">Aguardando Vez</p>
+                </div>
+            </div>
+
+            <div class="relative w-48 h-48 mx-auto flex items-center justify-center bg-surface-container-lowest rounded-full shadow-[0_20px_40px_rgba(0,67,200,0.1)]">
+                <div class="absolute inset-0 border-4 border-primary/20 rounded-full"></div>
+                <div class="absolute inset-0 border-4 border-t-primary border-r-transparent border-b-transparent border-l-transparent rounded-full animate-spin" style="animation-duration: 3s;"></div>
+                <div class="flex flex-col items-center">
+                    <span id="posicao-fila" class="text-7xl font-extrabold tracking-tighter text-primary">--</span>
+                    <span class="text-xs font-bold uppercase tracking-widest text-on-surface-variant opacity-50 mt-1">Lugar</span>
+                </div>
+            </div>
+
+            <p class="text-on-surface-variant font-medium text-sm max-w-xs mx-auto">Fique confortável. Nós iremos notificá-lo quando for a sua vez.</p>
+        </div>
+
+        <!-- View 3: Chamado -->
+        <div id="view-chamado" class="space-y-10 w-full text-center hidden transition-opacity duration-300">
+            <div class="w-32 h-32 mx-auto bg-primary rounded-full flex items-center justify-center shadow-[0_20px_50px_rgba(0,67,200,0.4)] animate-bounce relative">
+                <div class="absolute inset-0 bg-primary/40 rounded-full animate-ping"></div>
+                <span class="material-symbols-outlined text-white text-6xl">content_cut</span>
+            </div>
+            
+            <div class="space-y-4">
+                <h2 class="text-4xl font-extrabold tracking-tighter text-on-surface">Chegou sua vez!</h2>
+                <p class="text-on-surface-variant text-lg">Dirija-se à cadeira do barbeiro principal.</p>
+            </div>
+        </div>
+        
+    </main>
+    
+    <!-- Background Design -->
+    <div class="fixed top-1/4 right-0 -z-10 opacity-5 pointer-events-none">
+        <h2 class="text-[20rem] font-black tracking-tighter leading-none select-none">PB</h2>
+    </div>
+
+    <!-- Áudio de Notificação (Opcional, pois mobile restringe se não houver interação) -->
+    <!-- Som nativo será substituído por Vibrate API -->
+    
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.8/+esm';
+
+        const SUPABASE_URL = 'https://swtdvogwffyvucwirwiu.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN3dGR2b2d3ZmZ5dnVjd2lyd2l1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYzMzg2ODEsImV4cCI6MjA5MTkxNDY4MX0.vaH25USlvD9wWRWYvy15oVRJxW8S6EX8zrsFFXKQ588';
+        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const barbeariaId = params.get('barbearia_id');
+
+            const viewEntrada = document.getElementById('view-entrada');
+            const viewAguardando = document.getElementById('view-aguardando');
+            const viewChamado = document.getElementById('view-chamado');
+
+            const formCheckin = document.getElementById('form-checkin');
+            const nomeClienteInput = document.getElementById('nome-cliente');
+            const errorCheckin = document.getElementById('error-checkin');
+            const posicaoFila = document.getElementById('posicao-fila');
+
+            let minhaFilaId = null;
+
+            if (!barbeariaId) {
+                errorCheckin.textContent = "Erro: Barbearia não identificada na URL.";
+                errorCheckin.classList.remove('hidden');
+                formCheckin.querySelector('button').disabled = true;
+                return;
+            }
+
+            formCheckin.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const nome = nomeClienteInput.value.trim();
+                if (!nome) return;
+
+                errorCheckin.classList.add('hidden');
+                const btnSubmit = formCheckin.querySelector('button');
+                btnSubmit.disabled = true;
+                btnSubmit.innerHTML = '<span class="material-symbols-outlined animate-spin">refresh</span> Processando...';
+
+                const { data, error } = await supabase
+                    .from('filas')
+                    .insert([{
+                        barbearia_id: barbeariaId,
+                        nome_cliente: nome,
+                        status: 'aguardando',
+                    }])
+                    .select()
+                    .single();
+
+                if (error || !data) {
+                    console.error("Erro ao entrar na fila:", error);
+                    errorCheckin.textContent = "Houve um erro ao tentar entrar na fila.";
+                    errorCheckin.classList.remove('hidden');
+                    btnSubmit.disabled = false;
+                    btnSubmit.innerHTML = '<span>Entrar na Fila</span><span class="material-symbols-outlined">arrow_forward</span>';
+                    return;
+                }
+
+                minhaFilaId = data.id;
+
+                // Transição de telas
+                viewEntrada.classList.add('hidden');
+                viewAguardando.classList.remove('hidden');
+
+                await atualizarPosicao();
+                iniciarRealtime();
+            });
+
+            async function atualizarPosicao() {
+                if (!minhaFilaId) return;
+
+                const { data: filas, error } = await supabase
+                    .from('filas')
+                    .select('id, status')
+                    .eq('barbearia_id', barbeariaId)
+                    .eq('status', 'aguardando')
+                    .order('criado_em', { ascending: true });
+
+                if (error) {
+                    console.error("Erro ao buscar posição:", error);
+                    return;
+                }
+
+                const index = filas.findIndex(f => f.id === minhaFilaId);
+                
+                if (index !== -1) {
+                    posicaoFila.textContent = (index + 1).toString().padStart(2, '0');
+                } else {
+                    verificarStatusAtual();
+                }
+            }
+
+            async function verificarStatusAtual() {
+                if (!minhaFilaId) return;
+
+                const { data: cliente, error } = await supabase
+                    .from('filas')
+                    .select('status')
+                    .eq('id', minhaFilaId)
+                    .single();
+
+                if (cliente && cliente.status === 'chamado') {
+                    mostrarViewChamado();
+                } else if (cliente && cliente.status === 'finalizado') {
+                    alert('Seu atendimento foi concluído!');
+                    window.location.reload();
+                }
+            }
+
+            function mostrarViewChamado() {
+                viewAguardando.classList.add('hidden');
+                viewChamado.classList.remove('hidden');
+
+                if (navigator.vibrate) {
+                    navigator.vibrate([200, 100, 200, 50, 400]);
+                }
+            }
+
+            function iniciarRealtime() {
+                supabase.channel('cliente-fila')
+                    .on('postgres_changes', { event: '*', schema: 'public', table: 'filas', filter: `barbearia_id=eq.${barbeariaId}` }, 
+                        (payload) => {
+                            if (payload.new && payload.new.id === minhaFilaId) {
+                                if (payload.new.status === 'chamado') {
+                                    mostrarViewChamado();
+                                } else if (payload.new.status === 'finalizado') {
+                                    alert('Atendimento concluído. Obrigado!');
+                                    window.location.reload();
+                                } else {
+                                    atualizarPosicao();
+                                }
+                            } else {
+                                atualizarPosicao();
+                            }
+                        }
+                    )
+                    .subscribe();
+            }
+        });
+    </script>
+</body>
+
+</html>
