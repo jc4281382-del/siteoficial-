@@ -1,13 +1,13 @@
-const CACHE_NAME = 'precision-barber-v1.0';
+const CACHE_NAME = 'precision-barber-v1.1';
 const ASSETS_TO_CACHE = [
   './barbearia.html',
-  './manifest.json'
+  './manifest.json',
+  './logo.png'
 ];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      // Ignora erros caso o arquivo não exista ou de erro no fetch
       return cache.addAll(ASSETS_TO_CACHE).catch(err => console.log('Erro cache', err));
     })
   );
@@ -30,15 +30,21 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  // Ignora chamadas à API do Supabase e foca no frontend
   if (event.request.url.includes('supabase.co')) return;
 
+  // Estratégia Network First (Tenta a internet primeiro, se falhar, usa o cache)
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request).catch(() => {
-        // Fallback básico caso falhe offline
-        return caches.match('./barbearia.html');
-      });
-    })
+    fetch(event.request)
+      .then((networkResponse) => {
+        return caches.open(CACHE_NAME).then((cache) => {
+          cache.put(event.request, networkResponse.clone());
+          return networkResponse;
+        });
+      })
+      .catch(() => {
+        return caches.match(event.request).then((cachedResponse) => {
+          return cachedResponse || caches.match('./barbearia.html');
+        });
+      })
   );
 });
