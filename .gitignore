@@ -1,0 +1,6 @@
+# Pastas de projetos separados
+condominio-app/
+Barbearia/
+
+# Node
+node_modules/
