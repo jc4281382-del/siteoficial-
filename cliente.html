@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html class="light" lang="pt-br">
-
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <meta name="theme-color" content="#0043c8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
     <link rel="icon" href="logo.png" type="image/png">
     <link rel="apple-touch-icon" href="logo.png">
     <link rel="apple-touch-startup-image" href="logo.png">
     <title>Precision Barber - Check-in</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -61,7 +63,7 @@
     </header>
 
     <main class="flex-1 flex flex-col justify-center">
-        <!-- View 1: Formulário de Entrada (Fricção Zero) -->
+        <!-- View 1: Formulário de Entrada -->
         <div id="view-entrada" class="space-y-8 w-full transition-opacity duration-300">
             <div class="space-y-2">
                 <h1 class="text-4xl font-extrabold tracking-tighter text-on-surface leading-tight">Faça seu <br> <span class="text-primary">Check-in</span></h1>
@@ -70,9 +72,20 @@
             
             <form id="form-checkin" class="space-y-4">
                 <div>
-                    <input type="text" id="nome-cliente" required placeholder="Digite o seu nome" 
+                    <input type="text" id="nome-cliente" required placeholder="Digite o seu nome completo" 
                         class="w-full bg-surface-container-low border-none rounded-2xl px-6 py-5 placeholder-on-surface-variant/40 focus:ring-2 focus:ring-primary text-on-surface font-inter text-lg font-bold shadow-inner">
                 </div>
+
+                <!-- Campo de Horário Agendado — Visível apenas no Modo Admin (?admin=true) -->
+                <div id="campo-horario" class="hidden">
+                    <label class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-sm text-tertiary">schedule</span>
+                        Horário Marcado (Opcional)
+                    </label>
+                    <input type="time" id="horario-agendado" 
+                        class="w-full bg-surface-container-low border-none rounded-2xl px-6 py-5 focus:ring-2 focus:ring-primary text-on-surface font-inter text-lg font-bold">
+                </div>
+
                 <button type="submit" class="w-full bg-gradient-to-r from-primary to-primary-container text-white py-5 rounded-2xl font-bold uppercase tracking-widest text-sm hover:opacity-90 transition-all shadow-[0_20px_40px_rgba(0,67,200,0.2)] active:scale-95 flex items-center justify-center gap-3 mt-4">
                     <span>Entrar na Fila</span>
                     <span class="material-symbols-outlined">arrow_forward</span>
@@ -123,149 +136,14 @@
         <h2 class="text-[20rem] font-black tracking-tighter leading-none select-none">PB</h2>
     </div>
 
-    <!-- Áudio de Notificação (Opcional, pois mobile restringe se não houver interação) -->
-    <!-- Som nativo será substituído por Vibrate API -->
-    
-    <script type="module">
-        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.8/+esm';
-
-        const SUPABASE_URL = 'https://swtdvogwffyvucwirwiu.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN3dGR2b2d3ZmZ5dnVjd2lyd2l1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYzMzg2ODEsImV4cCI6MjA5MTkxNDY4MX0.vaH25USlvD9wWRWYvy15oVRJxW8S6EX8zrsFFXKQ588';
-        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const params = new URLSearchParams(window.location.search);
-            const barbeariaId = params.get('barbearia_id');
-
-            const viewEntrada = document.getElementById('view-entrada');
-            const viewAguardando = document.getElementById('view-aguardando');
-            const viewChamado = document.getElementById('view-chamado');
-
-            const formCheckin = document.getElementById('form-checkin');
-            const nomeClienteInput = document.getElementById('nome-cliente');
-            const errorCheckin = document.getElementById('error-checkin');
-            const posicaoFila = document.getElementById('posicao-fila');
-
-            let minhaFilaId = null;
-
-            if (!barbeariaId) {
-                errorCheckin.textContent = "Erro: Barbearia não identificada na URL.";
-                errorCheckin.classList.remove('hidden');
-                formCheckin.querySelector('button').disabled = true;
-                return;
-            }
-
-            formCheckin.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const nome = nomeClienteInput.value.trim();
-                if (!nome) return;
-
-                errorCheckin.classList.add('hidden');
-                const btnSubmit = formCheckin.querySelector('button');
-                btnSubmit.disabled = true;
-                btnSubmit.innerHTML = '<span class="material-symbols-outlined animate-spin">refresh</span> Processando...';
-
-                const { data, error } = await supabase
-                    .from('filas')
-                    .insert([{
-                        barbearia_id: barbeariaId,
-                        nome_cliente: nome,
-                        status: 'aguardando',
-                    }])
-                    .select()
-                    .single();
-
-                if (error || !data) {
-                    console.error("Erro ao entrar na fila:", error);
-                    errorCheckin.textContent = "Houve um erro ao tentar entrar na fila.";
-                    errorCheckin.classList.remove('hidden');
-                    btnSubmit.disabled = false;
-                    btnSubmit.innerHTML = '<span>Entrar na Fila</span><span class="material-symbols-outlined">arrow_forward</span>';
-                    return;
-                }
-
-                minhaFilaId = data.id;
-
-                // Transição de telas
-                viewEntrada.classList.add('hidden');
-                viewAguardando.classList.remove('hidden');
-
-                await atualizarPosicao();
-                iniciarRealtime();
-            });
-
-            async function atualizarPosicao() {
-                if (!minhaFilaId) return;
-
-                const { data: filas, error } = await supabase
-                    .from('filas')
-                    .select('id, status')
-                    .eq('barbearia_id', barbeariaId)
-                    .eq('status', 'aguardando')
-                    .order('criado_em', { ascending: true });
-
-                if (error) {
-                    console.error("Erro ao buscar posição:", error);
-                    return;
-                }
-
-                const index = filas.findIndex(f => f.id === minhaFilaId);
-                
-                if (index !== -1) {
-                    posicaoFila.textContent = (index + 1).toString().padStart(2, '0');
-                } else {
-                    verificarStatusAtual();
-                }
-            }
-
-            async function verificarStatusAtual() {
-                if (!minhaFilaId) return;
-
-                const { data: cliente, error } = await supabase
-                    .from('filas')
-                    .select('status')
-                    .eq('id', minhaFilaId)
-                    .single();
-
-                if (cliente && cliente.status === 'chamado') {
-                    mostrarViewChamado();
-                } else if (cliente && cliente.status === 'finalizado') {
-                    alert('Seu atendimento foi concluído!');
-                    window.location.reload();
-                }
-            }
-
-            function mostrarViewChamado() {
-                viewAguardando.classList.add('hidden');
-                viewChamado.classList.remove('hidden');
-
-                if (navigator.vibrate) {
-                    navigator.vibrate([200, 100, 200, 50, 400]);
-                }
-            }
-
-            function iniciarRealtime() {
-                supabase.channel('cliente-fila')
-                    .on('postgres_changes', { event: '*', schema: 'public', table: 'filas', filter: `barbearia_id=eq.${barbeariaId}` }, 
-                        (payload) => {
-                            if (payload.new && payload.new.id === minhaFilaId) {
-                                if (payload.new.status === 'chamado') {
-                                    mostrarViewChamado();
-                                } else if (payload.new.status === 'finalizado') {
-                                    alert('Atendimento concluído. Obrigado!');
-                                    window.location.reload();
-                                } else {
-                                    atualizarPosicao();
-                                }
-                            } else {
-                                atualizarPosicao();
-                            }
-                        }
-                    )
-                    .subscribe();
-            }
-        });
+    <!-- Service Worker Registration -->
+    <script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./sw.js').then(r => console.log('[SW] Registrado:', r.scope)).catch(e => console.error('[SW] Erro:', e));
+    }
     </script>
-</body>
 
+    <!-- App Logic -->
+    <script type="module" src="js/cliente.js"></script>
+</body>
 </html>
