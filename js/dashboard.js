@@ -4,6 +4,8 @@ let currentBarbeariaId = null;
 let currentCadeiraId = null;
 let currentFilter = 'dia';
 let barbeariaData = null;
+let sortedAguardando = []; // Fila ordenada com lógica de horário agendado
+let queueRefreshInterval = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
     // ─── Referências DOM ─────────────────────────────────────────────
@@ -187,6 +189,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         await loadDashboardData();
 
+        // Re-ordena a fila a cada 60s (horários agendados mudam de prioridade com o tempo)
+        queueRefreshInterval = setInterval(() => loadDashboardData(), 60000);
+
         supabase.channel('dashboard-filas')
             .on('postgres_changes', { event: '*', schema: 'public', table: 'filas', filter: `barbearia_id=eq.${currentBarbeariaId}` },
                 () => loadDashboardData()
@@ -222,19 +227,70 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         });
 
-        naFilaCount.textContent = aguardando.length.toString().padStart(2, '0');
+        // Ordena a fila com lógica de horário agendado
+        sortedAguardando = sortarFila(aguardando);
+
+        naFilaCount.textContent = sortedAguardando.length.toString().padStart(2, '0');
         atendidosCount.textContent = atendidosHoje.toString().padStart(2, '0');
         totalDiaCount.textContent = totalRecebido.toFixed(2);
-        labelQtd.textContent = (aguardando.length + (chamado ? 1 : 0)) + ' Clientes';
+        labelQtd.textContent = (sortedAguardando.length + (chamado ? 1 : 0)) + ' Clientes';
 
-        if (aguardando.length > 0 && !chamado) {
+        if (sortedAguardando.length > 0 && !chamado) {
             btnChamarProximo.disabled = false;
             btnChamarProximo.classList.remove('opacity-50', 'cursor-not-allowed');
         } else {
             btnChamarProximo.disabled = true;
             btnChamarProximo.classList.add('opacity-50', 'cursor-not-allowed');
         }
-        renderQueue(aguardando, chamado);
+        renderQueue(sortedAguardando, chamado);
+    }
+
+    /**
+     * sortarFila — Ordena a fila com lógica de horário agendado.
+     * 
+     * Regras:
+     * 1. Clientes SEM horário agendado → ordenados por criado_em (quem chegou primeiro)
+     * 2. Clientes COM horário agendado MAS o horário ainda está longe (>10min) → ficam no FINAL da fila
+     * 3. Clientes COM horário agendado E o horário está próximo (≤10min) → sobem para o TOPO da fila
+     * 
+     * Exemplo: São 13:16. Um cliente agendado para 14:00 fica no fundo.
+     * Às 13:50, ele sobe automaticamente para o topo.
+     */
+    function sortarFila(aguardando) {
+        const now = new Date();
+        const currentMinutes = now.getHours() * 60 + now.getMinutes();
+        const THRESHOLD_MIN = 10; // Minutos antes do horário para subir na fila
+
+        // Separa em 3 grupos
+        const urgentes = [];  // Agendados com horário próximo (≤10min)
+        const normais = [];   // Sem horário agendado
+        const agendados = []; // Agendados com horário longe (>10min)
+
+        aguardando.forEach(cliente => {
+            if (!cliente.horario_agendado) {
+                normais.push(cliente);
+            } else {
+                const [h, m] = cliente.horario_agendado.split(':').map(Number);
+                const scheduledMin = h * 60 + m;
+                const diff = scheduledMin - currentMinutes;
+
+                if (diff <= THRESHOLD_MIN) {
+                    urgentes.push({ ...cliente, _scheduledMin: scheduledMin });
+                } else {
+                    agendados.push({ ...cliente, _scheduledMin: scheduledMin });
+                }
+            }
+        });
+
+        // Urgentes: quem tem horário mais cedo primeiro
+        urgentes.sort((a, b) => a._scheduledMin - b._scheduledMin);
+        // Normais: quem chegou primeiro
+        normais.sort((a, b) => new Date(a.criado_em) - new Date(b.criado_em));
+        // Agendados distantes: quem tem horário mais cedo primeiro
+        agendados.sort((a, b) => a._scheduledMin - b._scheduledMin);
+
+        // Ordem final: urgentes → normais → agendados distantes
+        return [...urgentes, ...normais, ...agendados];
     }
 
     // ─── Render Queue ────────────────────────────────────────────────
@@ -287,13 +343,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // ─── Queue Actions ───────────────────────────────────────────────
+    // Chama o primeiro da fila ORDENADA (não o mais antigo por criado_em)
     btnChamarProximo.addEventListener('click', async () => {
         if (!currentBarbeariaId || btnChamarProximo.disabled) return;
-        const { data } = await supabase.from('filas').select('id')
-            .eq('barbearia_id', currentBarbeariaId).eq('status', 'aguardando')
-            .order('criado_em', { ascending: true }).limit(1);
-        if (!data || data.length === 0) return;
-        await supabase.from('filas').update({ status: 'chamado' }).eq('id', data[0].id);
+        if (sortedAguardando.length === 0) return;
+        const proximoId = sortedAguardando[0].id;
+        await supabase.from('filas').update({ status: 'chamado' }).eq('id', proximoId);
     });
 
     // ─── Modals ──────────────────────────────────────────────────────
