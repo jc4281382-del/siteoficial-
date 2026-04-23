@@ -7,8 +7,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <link rel="manifest" href="manifest.json"/>
-<link rel="icon" href="logo.png" type="image/png">
-<link rel="apple-touch-icon" href="logo.png">
+<link rel="icon" href="logo-192.png" type="image/png">
+<link rel="apple-touch-icon" href="logo-192.png">
 <title>Precision Barber - Dashboard</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -16,8 +16,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 <script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"on-surface-variant":"#434656","surface-dim":"#dcd9d9","surface":"#fcf9f8","primary-fixed":"#dce1ff","surface-tint":"#004ee7","on-tertiary-fixed":"#221b00","surface-bright":"#fcf9f8","surface-variant":"#e5e2e1","primary-container":"#0057ff","on-secondary":"#ffffff","on-primary-fixed-variant":"#003ab2","secondary":"#5f5e5e","inverse-primary":"#b6c4ff","secondary-fixed-dim":"#c8c6c5","on-secondary-fixed":"#1c1b1b","primary-fixed-dim":"#b6c4ff","error-container":"#ffdad6","on-error-container":"#93000a","error":"#ba1a1a","on-primary-fixed":"#001550","surface-container":"#f0edec","background":"#fcf9f8","surface-container-highest":"#e5e2e1","surface-container-low":"#f6f3f2","outline-variant":"#c3c5d9","on-background":"#1c1b1b","tertiary-fixed-dim":"#e9c400","on-tertiary-fixed-variant":"#544600","surface-container-high":"#ebe7e7","tertiary-container":"#c9a900","on-secondary-fixed-variant":"#474746","tertiary":"#705d00","on-tertiary-container":"#4c3f00","on-primary":"#ffffff","on-primary-container":"#e5e8ff","on-error":"#ffffff","inverse-surface":"#313030","outline":"#737688","on-secondary-container":"#636262","secondary-fixed":"#e5e2e1","primary":"#0043c8","surface-container-lowest":"#ffffff","tertiary-fixed":"#ffe16d","secondary-container":"#e2dfde","on-tertiary":"#ffffff","on-surface":"#1c1b1b","inverse-on-surface":"#f3f0ef"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"fontFamily":{"headline":["Manrope"],"body":["Inter"],"label":["Inter"]}}}}</script>
 <style>
+*{-webkit-tap-highlight-color:transparent}
+html,body{overscroll-behavior-y:none}
+body{font-family:'Inter',sans-serif;min-height:max(884px,100dvh);-webkit-user-select:none;user-select:none}
+input,textarea,select{-webkit-user-select:auto;user-select:auto}
 .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24}
-body{font-family:'Inter',sans-serif;min-height:max(884px,100dvh)}
 h1,h2,h3{font-family:'Manrope',sans-serif}
 #sidebar{transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);transform:translateX(-110%)}
 #sidebar.open{transform:translateX(0)}
@@ -74,6 +77,12 @@ h1,h2,h3{font-family:'Manrope',sans-serif}
       </div>
       <div><p class="font-bold text-on-surface text-sm">Suporte</p><p class="text-xs text-on-surface-variant">(21) 99234-1112 via WhatsApp</p></div>
     </a>
+    <button id="btn-equipa" class="w-full flex items-center gap-3 p-4 rounded-2xl hover:bg-surface-container-low transition-all text-left group hidden">
+      <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-all">
+        <span class="material-symbols-outlined text-primary text-xl">groups</span>
+      </div>
+      <div><p class="font-bold text-on-surface text-sm">Equipa / Profissionais</p><p class="text-xs text-on-surface-variant">Gerir barbeiros da unidade</p></div>
+    </button>
     <div class="border-t border-outline-variant/20 pt-2 mt-2">
       <button id="btn-logout-sidebar" class="w-full flex items-center gap-3 p-4 rounded-2xl hover:bg-error/10 transition-all text-left text-error group">
         <div class="w-10 h-10 rounded-xl bg-error/10 flex items-center justify-center group-hover:bg-error/20 transition-all">
@@ -282,6 +291,32 @@ h1,h2,h3{font-family:'Manrope',sans-serif}
       </button>
     </form>
     <p id="perfil-msg" class="text-center text-sm font-bold mt-4 hidden"></p>
+  </div>
+</div>
+
+<!-- Modal Equipa / Profissionais -->
+<div id="modal-equipa" class="fixed inset-0 bg-black/50 z-[90] flex items-center justify-center hidden backdrop-blur-sm p-4">
+  <div class="bg-surface p-8 rounded-3xl max-w-md w-full shadow-2xl relative max-h-[90vh] overflow-y-auto">
+    <button id="close-equipa" class="absolute top-4 right-4 text-on-surface-variant hover:text-on-surface p-1">
+      <span class="material-symbols-outlined">close</span>
+    </button>
+    <h2 class="text-2xl font-bold tracking-tight mb-1">Equipa</h2>
+    <p class="text-on-surface-variant text-xs uppercase tracking-widest opacity-60 mb-6">Gerir Profissionais</p>
+    <form id="form-add-profissional" class="space-y-3 mb-6">
+      <input type="text" id="prof-nome" required placeholder="Nome do profissional"
+        class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary text-on-surface font-inter"/>
+      <div class="flex gap-3">
+        <label class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-on-surface-variant cursor-pointer">
+          <input type="checkbox" id="prof-is-admin" class="rounded text-primary focus:ring-primary"/>
+          Gestor
+        </label>
+        <button type="submit" class="flex-1 bg-primary text-white py-3 rounded-xl font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-2 shadow-lg shadow-primary/20 hover:bg-primary-container transition-colors active:scale-95">
+          <span class="material-symbols-outlined text-sm">person_add</span>Adicionar
+        </button>
+      </div>
+    </form>
+    <div id="lista-profissionais" class="space-y-3"></div>
+    <p id="equipa-msg" class="text-center text-sm font-bold mt-4 hidden"></p>
   </div>
 </div>
 
