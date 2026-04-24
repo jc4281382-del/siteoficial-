@@ -2,13 +2,11 @@ import { supabase } from './supabase.js';
 
 let currentBarbeariaId = null;
 let currentCadeiraId = null;
-let currentFilter = 'dia';
+let currentFilterType = 'dia'; // 'dia' ou 'mes'
+let currentFilterDate = new Date();
 let barbeariaData = null;
 let sortedAguardando = [];
 let queueRefreshInterval = null;
-let currentProfissionalId = null; // ID do profissional logado (se não for gestor)
-let isGestor = true; // Por padrão, quem faz login é gestor
-let profissionaisLista = [];
 
 document.addEventListener('DOMContentLoaded', async () => {
     const modalLogin = document.getElementById('modal-login');
@@ -50,12 +48,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const headerProfileImg = document.getElementById('header-profile-img');
     const headerProfileIcon = document.getElementById('header-profile-icon');
     const btnProfilePhoto = document.getElementById('btn-profile-photo');
-    const btnEquipa = document.getElementById('btn-equipa');
-    const modalEquipa = document.getElementById('modal-equipa');
-    const closeEquipa = document.getElementById('close-equipa');
-    const formAddProf = document.getElementById('form-add-profissional');
-    const listaProf = document.getElementById('lista-profissionais');
-    const equipaMsg = document.getElementById('equipa-msg');
+
 
     let isSignUp = false;
 
@@ -68,30 +61,101 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // ─── Bottom Navigation ───────────────────────────────────────────
     navDashboard.addEventListener('click', () => document.querySelector('main').scrollIntoView({ behavior: 'smooth' }));
-    navQr.addEventListener('click', () => { if (currentBarbeariaId) modalQrcode.classList.remove('hidden'); });
+    navQr.addEventListener('click', () => { 
+        if (currentBarbeariaId) { 
+            atualizarQrCodeState();
+            modalQrcode.classList.remove('hidden'); 
+        } 
+    });
+
+    function atualizarQrCodeState() {
+        if (!barbeariaData) return;
+        const now = new Date();
+        const currentTime = now.getHours() * 60 + now.getMinutes();
+        
+        let isOpen = true;
+        if (barbeariaData.horario_abertura && barbeariaData.horario_fechamento) {
+            const [hA, mA] = barbeariaData.horario_abertura.split(':').map(Number);
+            const [hF, mF] = barbeariaData.horario_fechamento.split(':').map(Number);
+            const openTime = hA * 60 + mA;
+            const closeTime = hF * 60 + mF;
+            if (currentTime < openTime || currentTime > closeTime) { // Considera igual ou depois fechamento
+                isOpen = false;
+            }
+        }
+        
+        const existingMsg = document.getElementById('qr-bloqueado-msg');
+        if (existingMsg) existingMsg.remove();
+        
+        if (!isOpen) {
+            qrcodeContainer.classList.add('hidden');
+            const msg = document.createElement('p');
+            msg.id = 'qr-bloqueado-msg';
+            msg.className = 'text-error font-bold mb-6 text-sm';
+            msg.textContent = 'Fora do horário de expediente. Geração de QR Code bloqueada.';
+            qrcodeContainer.parentElement.insertBefore(msg, qrcodeContainer);
+            linkCliente.classList.add('hidden');
+        } else {
+            qrcodeContainer.classList.remove('hidden');
+            linkCliente.classList.remove('hidden');
+        }
+    }
     navSettings.addEventListener('click', () => { if (currentBarbeariaId) { loadProfileData(); modalPerfil.classList.remove('hidden'); } });
 
-    // ─── Filter Buttons ─────────────────────────────────────────────
-    const filterLabels = { dia: 'Hoje', semana: 'Esta Semana', mes: 'Este Mês', ano: 'Este Ano' };
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            currentFilter = btn.dataset.filter;
-            filterLabel.textContent = 'Mostrando: ' + filterLabels[currentFilter];
+    // ─── Date Filters ─────────────────────────────────────────────
+    const filterDateInput = document.getElementById('filter-date');
+    const filterMonthInput = document.getElementById('filter-month');
+
+    // Preencher hoje por padrão
+    const hojeStr = new Date().toISOString().split('T')[0];
+    if(filterDateInput) filterDateInput.value = hojeStr;
+    filterLabel.textContent = 'Mostrando: ' + formatDatePTBR(hojeStr);
+
+    function formatDatePTBR(dateStr) {
+        const [ano, mes, dia] = dateStr.split('-');
+        return `${dia}/${mes}/${ano}`;
+    }
+
+    function formatMonthPTBR(monthStr) {
+        const [ano, mes] = monthStr.split('-');
+        const date = new Date(ano, mes - 1);
+        return date.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' });
+    }
+
+    if(filterDateInput) {
+        filterDateInput.addEventListener('change', (e) => {
+            if (!e.target.value) return;
+            currentFilterType = 'dia';
+            filterMonthInput.value = '';
+            currentFilterDate = new Date(e.target.value + 'T00:00:00');
+            filterLabel.textContent = 'Mostrando: Dia ' + formatDatePTBR(e.target.value);
             loadDashboardData();
             closeSidebarFn();
         });
-    });
+    }
+
+    if(filterMonthInput) {
+        filterMonthInput.addEventListener('change', (e) => {
+            if (!e.target.value) return;
+            currentFilterType = 'mes';
+            filterDateInput.value = '';
+            const [ano, mes] = e.target.value.split('-');
+            currentFilterDate = new Date(ano, mes - 1, 1);
+            filterLabel.textContent = 'Mostrando: Mês ' + formatMonthPTBR(e.target.value);
+            loadDashboardData();
+            closeSidebarFn();
+        });
+    }
 
     // ─── Export Report ───────────────────────────────────────────────
     document.getElementById('btn-exportar').addEventListener('click', async () => {
         if (!currentBarbeariaId) return;
-        const { startDate } = getFilterDates();
+        const { startDate, endDate } = getFilterDates();
         let query = supabase.from('filas').select('*')
             .eq('barbearia_id', currentBarbeariaId).eq('status', 'finalizado')
-            .gte('criado_em', startDate.toISOString()).order('criado_em', { ascending: false });
-        if (!isGestor && currentProfissionalId) query = query.eq('profissional_id', currentProfissionalId);
+            .gte('criado_em', startDate.toISOString())
+            .lte('criado_em', endDate.toISOString())
+            .order('criado_em', { ascending: false });
         const { data } = await query;
         if (!data || data.length === 0) { alert('Sem dados para exportar.'); return; }
         const csv = 'Nome,Valor,Data\n' + data.map(f =>
@@ -99,7 +163,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         ).join('\n');
         const blob = new Blob([csv], { type: 'text/csv' });
         const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-        a.download = `relatorio_${currentFilter}.csv`; a.click();
+        a.download = `relatorio_${currentFilterType}.csv`; a.click();
         closeSidebarFn();
     });
 
@@ -151,26 +215,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // ─── Init Dashboard ─────────────────────────────────────────────
     async function initDashboard(userId) {
-        // Verificar se é dono da barbearia (Gestor)
+        // Obter barbearia do dono logado
         const { data: barbearias } = await supabase.from('barbearias').select('*').eq('auth_id', userId).limit(1);
 
-        if (barbearias && barbearias.length > 0) {
-            // É GESTOR (dono da barbearia)
-            barbeariaData = barbearias[0];
-            currentBarbeariaId = barbeariaData.id;
-            isGestor = true;
-            currentProfissionalId = null;
-            if (btnEquipa) btnEquipa.classList.remove('hidden');
-        } else {
-            // Verificar se é um profissional cadastrado
-            const { data: prof } = await supabase.from('profissionais').select('*, barbearias(*)').eq('auth_id', userId).eq('ativo', true).limit(1);
-            if (!prof || prof.length === 0) { alert('Nenhuma barbearia vinculada.'); return; }
-            currentProfissionalId = prof[0].id;
-            isGestor = prof[0].is_admin;
-            barbeariaData = prof[0].barbearias;
-            currentBarbeariaId = barbeariaData.id;
-            if (isGestor && btnEquipa) btnEquipa.classList.remove('hidden');
+        if (!barbearias || barbearias.length === 0) {
+            alert('Sua conta não possui uma barbearia vinculada. Entre em contato com o suporte.');
+            await supabase.auth.signOut();
+            window.location.reload();
+            return;
         }
+
+        barbeariaData = barbearias[0];
+        currentBarbeariaId = barbeariaData.id;
 
         if (barbeariaData.foto_perfil) {
             headerProfileImg.src = barbeariaData.foto_perfil;
@@ -183,8 +239,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         new QRCode(qrcodeContainer, { text: urlCliente, width: 200, height: 200 });
         linkCliente.addEventListener('click', () => window.open(urlAdmin, '_blank'));
 
-        // Carregar profissionais
-        await loadProfissionais();
         await loadDashboardData();
 
         queueRefreshInterval = setInterval(() => loadDashboardData(), 60000);
@@ -194,25 +248,29 @@ document.addEventListener('DOMContentLoaded', async () => {
             ).subscribe();
     }
 
-    async function loadProfissionais() {
-        const { data } = await supabase.from('profissionais').select('*').eq('barbearia_id', currentBarbeariaId).eq('ativo', true);
-        profissionaisLista = data || [];
-    }
-
     // ─── Filter Date Helpers ─────────────────────────────────────────
     function getFilterDates() {
-        const now = new Date(); const startDate = new Date();
-        if (currentFilter === 'dia') startDate.setHours(0, 0, 0, 0);
-        else if (currentFilter === 'semana') { startDate.setDate(now.getDate() - now.getDay()); startDate.setHours(0, 0, 0, 0); }
-        else if (currentFilter === 'mes') { startDate.setDate(1); startDate.setHours(0, 0, 0, 0); }
-        else if (currentFilter === 'ano') { startDate.setMonth(0, 1); startDate.setHours(0, 0, 0, 0); }
-        return { startDate };
+        const startDate = new Date(currentFilterDate);
+        const endDate = new Date(currentFilterDate);
+        
+        if (currentFilterType === 'dia') {
+            startDate.setHours(0, 0, 0, 0);
+            endDate.setHours(23, 59, 59, 999);
+        } else if (currentFilterType === 'mes') {
+            startDate.setDate(1);
+            startDate.setHours(0, 0, 0, 0);
+            endDate.setMonth(endDate.getMonth() + 1);
+            endDate.setDate(0); // Último dia do mês
+            endDate.setHours(23, 59, 59, 999);
+        }
+        return { startDate, endDate };
     }
 
-    // ─── Load Dashboard Data (RBAC) ─────────────────────────────────
+    // ─── Load Dashboard Data ─────────────────────────────────
     async function loadDashboardData() {
         if (!currentBarbeariaId) return;
-        const { startDate } = getFilterDates();
+        const { startDate, endDate } = getFilterDates();
+        
         const { data: filas, error } = await supabase.from('filas').select('*')
             .eq('barbearia_id', currentBarbeariaId).order('criado_em', { ascending: true });
         if (error) return;
@@ -220,15 +278,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         let aguardando = [], chamado = null, atendidosHoje = 0, totalRecebido = 0;
 
         filas.forEach(f => {
-            const isMyQueue = isGestor || !currentProfissionalId || f.profissional_id === currentProfissionalId || f.profissional_id === null;
-            if (f.status === 'aguardando' && isMyQueue) aguardando.push(f);
-            else if (f.status === 'chamado' && isMyQueue) chamado = f;
+            if (f.status === 'aguardando') aguardando.push(f);
+            else if (f.status === 'chamado') chamado = f;
 
-            // KPIs: Gestor vê tudo, barbeiro vê só o dele
-            if (f.status === 'finalizado' && new Date(f.criado_em) >= startDate) {
-                if (isGestor || !currentProfissionalId || f.profissional_id === currentProfissionalId) {
-                    atendidosHoje++; totalRecebido += Number(f.valor_corte) || 0;
-                }
+            const criadoEm = new Date(f.criado_em);
+            if (f.status === 'finalizado' && criadoEm >= startDate && criadoEm <= endDate) {
+                atendidosHoje++; 
+                totalRecebido += Number(f.valor_corte) || 0;
             }
         });
 
@@ -269,20 +325,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         return [...urgentes, ...normais, ...agendados];
     }
 
-    function getProfissionalNome(id) {
-        if (!id) return '';
-        const p = profissionaisLista.find(x => x.id === id);
-        return p ? p.nome : '';
-    }
-
     // ─── Render Queue ────────────────────────────────────────────────
     function renderQueue(aguardando, chamado) {
         queueList.innerHTML = '';
         let count = 1;
         if (chamado) {
             const horario = chamado.horario_agendado ? `<span class="text-xs text-primary/70 ml-2">⏰ ${chamado.horario_agendado.substring(0,5)}</span>` : '';
-            const profNome = getProfissionalNome(chamado.profissional_id);
-            const profTag = profNome ? `<span class="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full ml-2">${profNome}</span>` : '';
+            const profTag = '';
             queueList.innerHTML += `
                 <div class="bg-primary/5 p-6 rounded-3xl flex justify-between items-center border-2 border-primary/10 shadow-[0_10px_30px_rgba(0,67,200,0.08)]">
                     <div class="flex items-center gap-5">
@@ -305,8 +354,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         aguardando.forEach((cliente, index) => {
             const tempoEst = (index + 1) * 30;
             const horario = cliente.horario_agendado ? `<span class="text-xs text-tertiary ml-2">⏰ ${cliente.horario_agendado.substring(0,5)}</span>` : '';
-            const profNome = getProfissionalNome(cliente.profissional_id);
-            const profTag = profNome ? `<span class="text-xs bg-surface-container-high text-on-surface-variant px-2 py-0.5 rounded-full ml-2">${profNome}</span>` : (cliente.profissional_id === null ? `<span class="text-xs bg-tertiary/10 text-tertiary px-2 py-0.5 rounded-full ml-2">Geral</span>` : '');
+            const profTag = '';
             queueList.innerHTML += `
                 <div class="bg-surface-container-low p-6 rounded-3xl flex justify-between items-center transition-all hover:bg-surface-container-high">
                     <div class="flex items-center gap-5">
@@ -334,10 +382,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (sortedAguardando.length === 0) return;
         const proximoId = sortedAguardando[0].id;
         const updateData = { status: 'chamado' };
-        // Se barbeiro individual, atribuir profissional_id ao chamar
-        if (!isGestor && currentProfissionalId && sortedAguardando[0].profissional_id === null) {
-            updateData.profissional_id = currentProfissionalId;
-        }
         await supabase.from('filas').update(updateData).eq('id', proximoId);
     });
 
@@ -399,68 +443,5 @@ document.addEventListener('DOMContentLoaded', async () => {
         perfilMsg.classList.remove('hidden'); setTimeout(() => perfilMsg.classList.add('hidden'), 3000);
     }
 
-    // ─── Equipa / Profissionais Modal (Gestor Only) ──────────────────
-    if (btnEquipa) {
-        btnEquipa.addEventListener('click', () => { renderProfissionais(); modalEquipa.classList.remove('hidden'); closeSidebarFn(); });
-    }
-    if (closeEquipa) closeEquipa.addEventListener('click', () => modalEquipa.classList.add('hidden'));
 
-    if (formAddProf) {
-        formAddProf.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const nome = document.getElementById('prof-nome').value.trim();
-            const isAdmin = document.getElementById('prof-is-admin').checked;
-            if (!nome) return;
-            const { error } = await supabase.from('profissionais').insert([{
-                nome, barbearia_id: currentBarbeariaId, is_admin: isAdmin, ativo: true
-            }]);
-            if (error) { showEquipaMsg('Erro: ' + error.message, true); return; }
-            document.getElementById('prof-nome').value = '';
-            document.getElementById('prof-is-admin').checked = false;
-            await loadProfissionais();
-            renderProfissionais();
-            showEquipaMsg('Profissional adicionado!', false);
-        });
-    }
-
-    function renderProfissionais() {
-        if (!listaProf) return;
-        listaProf.innerHTML = '';
-        if (profissionaisLista.length === 0) {
-            listaProf.innerHTML = '<p class="text-center text-on-surface-variant text-sm opacity-60">Nenhum profissional cadastrado.</p>';
-            return;
-        }
-        profissionaisLista.forEach(p => {
-            const adminBadge = p.is_admin ? '<span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full font-bold uppercase">Gestor</span>' : '';
-            listaProf.innerHTML += `
-                <div class="flex items-center justify-between p-4 bg-surface-container-low rounded-2xl">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                            <span class="material-symbols-outlined text-primary">person</span>
-                        </div>
-                        <div>
-                            <p class="font-bold text-sm">${p.nome} ${adminBadge}</p>
-                            <p class="text-xs text-on-surface-variant opacity-60">${p.ativo ? 'Ativo' : 'Inativo'}</p>
-                        </div>
-                    </div>
-                    <button onclick="window.removerProfissional('${p.id}')" class="p-2 rounded-xl hover:bg-error/10 text-error transition-all active:scale-90">
-                        <span class="material-symbols-outlined text-sm">delete</span>
-                    </button>
-                </div>`;
-        });
-    }
-
-    window.removerProfissional = async (id) => {
-        if (!confirm('Remover este profissional?')) return;
-        await supabase.from('profissionais').update({ ativo: false }).eq('id', id);
-        await loadProfissionais();
-        renderProfissionais();
-        showEquipaMsg('Profissional removido.', false);
-    };
-
-    function showEquipaMsg(msg, isError) {
-        if (!equipaMsg) return;
-        equipaMsg.textContent = msg; equipaMsg.style.color = isError ? '#ba1a1a' : '#0043c8';
-        equipaMsg.classList.remove('hidden'); setTimeout(() => equipaMsg.classList.add('hidden'), 3000);
-    }
 });
