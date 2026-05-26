@@ -222,6 +222,19 @@
             tooltip.style.top = event.clientY + 15 + 'px';
         });
 
+        // Recebe coordenadas do mouse via postMessage (enviadas pelo index.html)
+        window.addEventListener('message', (event) => {
+            if (event.data && event.data.type === 'mousemove') {
+                const nx = event.data.x; // normalizado 0..1
+                const ny = event.data.y; // normalizado 0..1
+                // Converte para espaço centralizado usado pelo Three.js parallax
+                mouseX = (nx - 0.5) * window.innerWidth;
+                mouseY = (ny - 0.5) * window.innerHeight;
+                mouse.x = nx * 2 - 1;
+                mouse.y = -(ny * 2 - 1);
+            }
+        });
+
         document.addEventListener('click', () => {
             if (hoveredNode) {
                 infoTitle.innerText = hoveredNode.userData.name;

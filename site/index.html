@@ -166,14 +166,15 @@
   <main class="relative">
     <section class="relative min-h-[90vh] flex items-center pt-20 pb-10 overflow-hidden circuit-bg">
       
-      <iframe src="animation.html" class="absolute top-0 right-0 w-full md:w-[60%] h-[40vh] md:h-full z-0 border-none opacity-60 md:opacity-100 pointer-events-none" title="AXION 3D Architecture"></iframe>
+      <!-- iframe Desktop: aparece no fundo, apenas em telas md+ -->
+      <iframe id="animation-iframe-desktop" src="animation.html" class="hidden md:block absolute top-0 right-0 w-[60%] h-full z-0 border-none pointer-events-none" title="AXION 3D Architecture"></iframe>
       
       <div class="absolute inset-0 bg-gradient-to-b from-[#050505] via-[#050505]/80 to-[#050505] md:bg-gradient-to-r md:from-[#050505] md:via-[#050505]/90 md:to-transparent z-0 pointer-events-none"></div>
       
       <div class="container mx-auto px-6 md:px-margin-desktop max-w-container-max grid md:grid-cols-2 gap-8 items-center relative z-20">
         
-        <div class="space-y-6 pt-[40vh] md:pt-0 pointer-events-auto">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-high border border-white/10">
+        <div class="space-y-6 md:pt-0 pointer-events-auto text-center md:text-left">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-high border border-white/10 mx-auto md:mx-0">
             <span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
             <span class="font-label-sm text-label-sm text-tertiary uppercase tracking-widest">Enterprise AI solutions</span>
           </div>
@@ -182,11 +183,11 @@
             Automação Inteligente para Empresas que Querem <span class="text-primary">Escalar</span>
           </h1>
           
-          <p class="text-on-surface-variant text-lg md:text-xl max-w-xl">
+          <p class="text-on-surface-variant text-lg md:text-xl max-w-xl mx-auto md:mx-0">
             Criamos agentes de IA, automações e sistemas inteligentes que reduzem custos, aceleram operações e transformam atendimento em crescimento.
           </p>
           
-          <div class="flex flex-wrap gap-4">
+          <div class="flex flex-wrap gap-4 justify-center md:justify-start">
             <button class="glow-button bg-gradient-to-r from-primary-container to-secondary-container text-white px-8 py-4 rounded-full font-bold flex items-center gap-2">
               Agendar Conversa
               <span class="material-symbols-outlined">arrow_forward</span>
@@ -195,6 +196,11 @@
         </div>
       </div>
     </section>
+
+    <!-- iframe Mobile: aparece entre o título e a próxima seção, apenas em telas < md -->
+    <div class="block md:hidden w-full" style="height: 300px;">
+      <iframe id="animation-iframe-mobile" src="animation.html" class="w-full h-full border-none" title="AXION 3D Architecture Mobile"></iframe>
+    </div>
 
     <section class="py-24 bg-surface-container-lowest">
       <div class="container mx-auto px-margin-desktop max-w-container-max">
@@ -446,6 +452,7 @@
     </div>
   </footer>
   <script>
+    // Efeito de borda nos cards ao passar o mouse
     document.addEventListener('mousemove', (e) => {
       document.querySelectorAll('.glass-card').forEach(card => {
         const rect = card.getBoundingClientRect();
@@ -458,8 +465,24 @@
           card.style.borderColor = 'rgba(255, 255, 255, 0.1)';
         }
       });
+
+      // Envia posição do mouse normalizada para os iframes da animação 3D
+      const normalizedX = e.clientX / window.innerWidth;
+      const normalizedY = e.clientY / window.innerHeight;
+      const mouseData = { type: 'mousemove', x: normalizedX, y: normalizedY };
+
+      const desktopIframe = document.getElementById('animation-iframe-desktop');
+      if (desktopIframe && desktopIframe.contentWindow) {
+        desktopIframe.contentWindow.postMessage(mouseData, '*');
+      }
+
+      const mobileIframe = document.getElementById('animation-iframe-mobile');
+      if (mobileIframe && mobileIframe.contentWindow) {
+        mobileIframe.contentWindow.postMessage(mouseData, '*');
+      }
     });
 
+    // Scroll suave para links de âncora
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         const target = document.querySelector(this.getAttribute('href'));
