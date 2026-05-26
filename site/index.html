@@ -141,10 +141,10 @@
 <body class="font-body-md text-body-md selection:bg-primary selection:text-on-primary">
   <header
     class="fixed top-0 w-full z-50 bg-surface/5 backdrop-blur-xl border-b border-white/10 shadow-[0_0_20px_rgba(173,198,255,0.1)]">
-    <div class="flex justify-between items-center px-margin-desktop h-16 w-full max-w-container-max mx-auto">
-      <div class="flex items-center gap-2">
+    <div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 w-full max-w-container-max mx-auto gap-4">
+      <div class="flex items-center gap-2 shrink-0">
         <img alt="AXION Logo" class="w-8 h-8" src="logo.png">
-        <span class="font-display-lg text-headline-lg font-bold tracking-tighter bg-gradient-to-r from-[#052FF0] to-[#7133ED] text-transparent bg-clip-text">AXION</span>
+        <span class="font-display-lg text-xl md:text-3xl font-bold tracking-tighter bg-gradient-to-r from-[#052FF0] to-[#7133ED] text-transparent bg-clip-text">AXION</span>
       </div>
       <nav class="hidden md:flex items-center gap-8">
         <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300"
@@ -157,7 +157,7 @@
           href="#empresa">Company</a>
       </nav>
       <button onclick="window.open('https://wa.me/5521992341112', '_blank')"
-        class="bg-primary-container text-on-primary-container px-6 py-2 rounded-full font-semibold scale-95 active:scale-90 transition-transform">
+        class="bg-primary-container text-on-primary-container px-4 md:px-6 py-2 rounded-full font-semibold scale-95 active:scale-90 transition-transform whitespace-nowrap shrink-0 text-sm md:text-base">
         Get Started
       </button>
     </div>
@@ -181,7 +181,7 @@
       </div>
 
       <div
-        class="container mx-auto px-6 md:px-margin-desktop max-w-container-max grid md:grid-cols-2 gap-12 items-center relative z-10 pointer-events-none">
+        class="container mx-auto px-margin-mobile md:px-margin-desktop max-w-container-max grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center relative z-10 pointer-events-none">
 
         <div class="space-y-8 pointer-events-auto">
           <div
@@ -190,7 +190,7 @@
             <span class="font-label-sm text-label-sm text-tertiary uppercase tracking-widest">Enterprise AI
               solutions</span>
           </div>
-          <h1 class="font-display-lg text-display-lg text-on-surface leading-tight">
+          <h1 class="font-display-lg text-headline-lg-mobile md:text-display-lg text-on-surface leading-tight">
             Automação Inteligente para Empresas que Querem <span class="text-primary">Escalar</span>
           </h1>
           <p class="text-on-surface-variant text-xl max-w-xl">
