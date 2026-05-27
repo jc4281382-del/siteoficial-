@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="description" content="A AXION cria agentes de IA sob medida, integrações automatizadas complexas e ecossistemas digitais robustos para empresas escalarem sua eficiência e faturamento.">
   <title>AXION | Automação Inteligente para Empresas</title>
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link
@@ -188,7 +189,7 @@
           </p>
           
           <div class="flex flex-wrap gap-4 justify-center md:justify-start">
-            <button class="glow-button bg-gradient-to-r from-primary-container to-secondary-container text-white px-8 py-4 rounded-full font-bold flex items-center gap-2">
+            <button onclick="window.open('https://wa.me/5521992341112', '_blank')" class="glow-button bg-gradient-to-r from-primary-container to-secondary-container text-white px-8 py-4 rounded-full font-bold flex items-center gap-2">
               Agendar Conversa
               <span class="material-symbols-outlined">arrow_forward</span>
             </button>
@@ -313,7 +314,7 @@
             <div class="glass-card rounded-2xl overflow-hidden relative z-10 shadow-2xl"
               style="border-color: rgba(255, 255, 255, 0.1);">
               <img class="w-full h-full object-cover opacity-60"
-                data-alt="A high-tech digital control room featuring multiple glowing holographic screens and complex data visualizations. The lighting is dominated by deep blues and purples with bright white highlights on the glass edges. The atmosphere is sophisticated and futuristic, showing the pulse of a global data center in a minimalist obsidian setting."
+                alt="A high-tech digital control room featuring multiple glowing holographic screens and complex data visualizations. The lighting is dominated by deep blues and purples with bright white highlights on the glass edges. The atmosphere is sophisticated and futuristic, showing the pulse of a global data center in a minimalist obsidian setting."
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYmxKW8kqlAWpFZizQ9bqsirrWRc_i-LMVxX0dZxo97_BNVfHa2s3y0ubL9ySmy0fxQtcIjjivNIyQAtiH177L9gTZS9r3W_ZEUbdif135LLQHJ7Uoz9Bncvp1ha0Ht5wktCBIjP1USvC1H7RUCX78xYfQ-AXe-_xhld8OnzhBCXXFbZGiNx4F2-RSbKFlgeOQG_tzaytwTr9pZ0kRjLeN4MdLevmzKTa9e9MS5xG6akZTzR2afxn68VaQPyDdpmNbAwyLRIvG-k4">
               <div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
               <div class="absolute bottom-8 left-8 right-8">
@@ -334,16 +335,14 @@
       <div class="container mx-auto px-margin-desktop max-w-container-max">
         <p class="font-label-sm text-label-sm text-center text-on-surface-variant uppercase tracking-widest mb-12">
           Driven by World-Class Tech</p>
-        <div
-          class="flex flex-wrap justify-center gap-x-16 gap-y-8 opacity-60 grayscale hover:grayscale-0 transition-all">
-          <span class="text-2xl font-bold">n8n</span>
-          <span class="text-2xl font-bold">OpenAI</span>
-          <span class="text-2xl font-bold">Gemini</span>
-          <span class="text-2xl font-bold">Anthropic</span>
-          <span class="text-2xl font-bold">React</span>
-          <span class="text-2xl font-bold">Node.js</span>
-          <span class="text-2xl font-bold">Supabase</span>
-          <span class="text-2xl font-bold">Vercel</span>
+        <div class="flex flex-wrap justify-center items-center gap-x-12 gap-y-8 opacity-50 hover:opacity-100 transition-opacity duration-300">
+          <img src="image_36f762.png" alt="n8n" class="h-8 object-contain filter grayscale hover:grayscale-0 transition-all duration-300">
+          <img src="openai.jpg" alt="OpenAI" class="h-8 rounded-lg object-contain filter grayscale hover:grayscale-0 transition-all duration-300">
+          <img src="gemini.jpg" alt="Gemini" class="h-8 rounded-lg object-contain filter grayscale hover:grayscale-0 transition-all duration-300">
+          <img src="Anthropic.jpg" alt="Anthropic" class="h-8 rounded-lg object-contain filter grayscale hover:grayscale-0 transition-all duration-300">
+          <img src="react.jpg" alt="React" class="h-8 rounded-lg object-contain filter grayscale hover:grayscale-0 transition-all duration-300">
+          <img src="node.jpg" alt="Node.js" class="h-8 rounded-lg object-contain filter grayscale hover:grayscale-0 transition-all duration-300">
+          <img src="supabase.jpeg" alt="Supabase" class="h-8 rounded-lg object-contain filter grayscale hover:grayscale-0 transition-all duration-300">
         </div>
       </div>
     </section>
@@ -359,7 +358,7 @@
         </div>
       </div>
     </section>
-    <section class="py-24">
+    <section class="py-24" id="impacto">
       <div class="container mx-auto px-margin-desktop max-w-container-max">
         <h2 class="font-headline-lg text-headline-lg text-on-surface mb-12 text-center">Projetos e Impacto em Números
         </h2>
@@ -469,7 +468,7 @@
       // Envia posição do mouse normalizada para os iframes da animação 3D
       const normalizedX = e.clientX / window.innerWidth;
       const normalizedY = e.clientY / window.innerHeight;
-      const mouseData = { type: 'mousemove', x: normalizedX, y: normalizedY };
+      const mouseData = { type: 'mousemove', x: normalizedX, y: normalizedY, clientX: e.clientX, clientY: e.clientY };
 
       const desktopIframe = document.getElementById('animation-iframe-desktop');
       if (desktopIframe && desktopIframe.contentWindow) {
@@ -480,6 +479,18 @@
       if (mobileIframe && mobileIframe.contentWindow) {
         mobileIframe.contentWindow.postMessage(mouseData, '*');
       }
+    });
+
+    document.addEventListener('click', (e) => {
+      const normalizedX = e.clientX / window.innerWidth;
+      const normalizedY = e.clientY / window.innerHeight;
+      const clickData = { type: 'click', x: normalizedX, y: normalizedY };
+
+      document.querySelectorAll('iframe[id^="animation-iframe"]').forEach(iframe => {
+        if (iframe && iframe.contentWindow) {
+          iframe.contentWindow.postMessage(clickData, '*');
+        }
+      });
     });
 
     // Scroll suave para links de âncora
