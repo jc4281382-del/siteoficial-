@@ -136,10 +136,99 @@
     .material-symbols-outlined {
       font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
     }
+
+    #animation-mouse-overlay {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 60%;
+      height: 100%;
+      z-index: 10;
+      pointer-events: auto;
+      cursor: default;
+    }
+    @media (max-width: 767px) {
+      #animation-mouse-overlay { display: none; }
+    }
+
+    #demo-modal {
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,0.85); backdrop-filter: blur(12px);
+      align-items: center; justify-content: center; padding: 16px;
+    }
+    #demo-modal.open { display: flex; animation: demoFadeIn 0.25s ease; }
+    @keyframes demoFadeIn {
+      from { opacity: 0; transform: scale(0.97); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    #demo-modal-inner {
+      background: #0e0e0e;
+      border: 1px solid rgba(173, 198, 255, 0.15);
+      border-radius: 20px; width: 100%; max-width: 420px;
+      max-height: 90vh; display: flex; flex-direction: column;
+      overflow: hidden; box-shadow: 0 0 60px rgba(75, 142, 255, 0.15);
+    }
+    #demo-modal-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 18px; border-bottom: 1px solid rgba(255,255,255,0.06); flex-shrink: 0;
+    }
+    #demo-modal-iframe { flex: 1; border: none; width: 100%; min-height: 580px; }
+    #demo-modal-footer {
+      padding: 10px 18px; border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex; align-items: center; gap: 8px; flex-shrink: 0;
+    }
+    .demo-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: rgba(0,219,233,0.1); border: 1px solid rgba(0,219,233,0.2);
+      color: #00dbe9; font-size: 11px; font-weight: 600;
+      padding: 3px 10px; border-radius: 20px;
+      font-family: 'JetBrains Mono', monospace; letter-spacing: 0.05em;
+    }
+    .live-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #00dbe9; animation: livePulse 1.5s infinite; display: inline-block;
+    }
+    @keyframes livePulse {
+      0%, 100% { opacity: 1; } 50% { opacity: 0.3; }
+    }
+    .btn-demo-live {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: linear-gradient(135deg, rgba(75,142,255,0.15), rgba(157,5,255,0.1));
+      border: 1px solid rgba(173,198,255,0.2); color: #adc6ff;
+      font-size: 13px; font-weight: 700; padding: 8px 16px;
+      border-radius: 30px; cursor: pointer; transition: all 0.25s ease;
+    }
+    .btn-demo-live:hover {
+      background: linear-gradient(135deg, rgba(75,142,255,0.3), rgba(157,5,255,0.2));
+      border-color: rgba(173,198,255,0.4); box-shadow: 0 0 20px rgba(75,142,255,0.2);
+      transform: translateY(-1px);
+    }
+    .btn-demo-live .material-symbols-outlined { font-size: 16px; }
   </style>
 </head>
 
 <body class="font-body-md text-body-md selection:bg-primary selection:text-on-primary">
+<div id="demo-modal" role="dialog" aria-modal="true" aria-label="Demo ao vivo do aplicativo">
+  <div id="demo-modal-inner">
+    <div id="demo-modal-header">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="demo-badge"><span class="live-dot"></span>DEMO AO VIVO</span>
+        <span id="demo-modal-title" style="font-size:14px;font-weight:700;color:#e5e2e1;"></span>
+      </div>
+      <button id="demo-modal-close" aria-label="Fechar demo"
+        style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:6px;cursor:pointer;color:#c1c6d7;display:flex;align-items:center;">
+        <span class="material-symbols-outlined" style="font-size:20px;">close</span>
+      </button>
+    </div>
+    <iframe id="demo-modal-iframe" title="Demo ao vivo" allow="fullscreen"></iframe>
+    <div id="demo-modal-footer">
+      <span class="material-symbols-outlined" style="font-size:15px;color:#8b90a0;">info</span>
+      <span style="font-size:11px;color:#8b90a0;font-family:'JetBrains Mono',monospace;">
+        Ambiente de teste isolado — seus dados não são afetados
+      </span>
+    </div>
+  </div>
+</div>
   <header
     class="fixed top-0 w-full z-50 bg-surface/5 backdrop-blur-xl border-b border-white/10 shadow-[0_0_20px_rgba(173,198,255,0.1)]">
     <div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 w-full max-w-container-max mx-auto gap-4">
@@ -169,6 +258,7 @@
       
       <!-- iframe Desktop: aparece no fundo, apenas em telas md+ -->
       <iframe id="animation-iframe-desktop" src="animation.html" class="hidden md:block absolute top-0 right-0 w-[60%] h-full z-0 border-none pointer-events-none" title="AXION 3D Architecture"></iframe>
+      <div id="animation-mouse-overlay" aria-hidden="true"></div>
       
       <div class="absolute inset-0 bg-gradient-to-b from-[#050505] via-[#050505]/80 to-[#050505] md:bg-gradient-to-r md:from-[#050505] md:via-[#050505]/90 md:to-transparent z-0 pointer-events-none"></div>
       
@@ -382,9 +472,12 @@
             </div>
           </div>
           <div class="glass-card rounded-3xl overflow-hidden group" style="border-color: rgba(255, 255, 255, 0.1);">
-            <div class="h-64 bg-surface-container overflow-hidden">
+            <div class="h-64 bg-surface-container overflow-hidden relative">
               <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 alt="Aplicativo de Agendamentos" src="imagem2.png">
+              <div class="absolute top-4 left-4 demo-badge">
+                <span class="live-dot"></span>DEMO DISPONÍVEL
+              </div>
             </div>
             <div class="p-8">
               <div class="flex justify-between items-start mb-4">
@@ -392,12 +485,33 @@
                 <span class="bg-tertiary/20 text-tertiary px-3 py-1 rounded-full text-xs font-bold">Mapeamento de
                   brechas funanceiras</span>
               </div>
-              <p class="text-on-surface-variant mb-6">App de agendamento que funciona como um CRM na palma da mão
-                mostrando o faturamento por consulta.</p>
-              <button class="text-primary font-bold flex items-center gap-2 group">
-                Ver Detalhes <span
-                  class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
-              </button>
+              <p class="text-on-surface-variant mb-6">App de agendamento que funciona como um CRM mostrando faturamento por consulta, pacientes e relatórios financeiros em tempo real.</p>
+              
+              <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:12px;margin-bottom:20px;font-family:'JetBrains Mono',monospace;font-size:11px;">
+                <p style="color:#8b90a0;text-transform:uppercase;letter-spacing:0.1em;font-size:10px;margin-bottom:8px;">Acesso de demonstração</p>
+                <div style="display:flex;gap:8px;align-items:center;margin-bottom:4px;">
+                  <span class="material-symbols-outlined" style="font-size:14px;color:#adc6ff;">mail</span>
+                  <span style="color:#c1c6d7;">E-mail:</span>
+                  <code style="color:#00dbe9;">demo@managerclinic.app</code>
+                </div>
+                <div style="display:flex;gap:8px;align-items:center;">
+                  <span class="material-symbols-outlined" style="font-size:14px;color:#adc6ff;">lock</span>
+                  <span style="color:#c1c6d7;">Senha:</span>
+                  <code style="color:#00dbe9;">demo1234</code>
+                </div>
+              </div>
+
+              <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+                <button class="text-primary font-bold flex items-center gap-2 group">
+                  Ver Detalhes <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
+                </button>
+                <button
+                  class="btn-demo-live"
+                  data-demo-url="https://manager-clinic.vercel.app"
+                  data-demo-title="Manager Clinic">
+                  <span class="material-symbols-outlined">play_circle</span> Testar ao Vivo
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -451,46 +565,66 @@
     </div>
   </footer>
   <script>
-    // Efeito de borda nos cards ao passar o mouse
+    const animOverlay = document.getElementById('animation-mouse-overlay');
+    const desktopIframe = document.getElementById('animation-iframe-desktop');
+
+    function sendToAnimation(data) {
+      if (desktopIframe && desktopIframe.contentWindow) {
+        try { desktopIframe.contentWindow.postMessage(data, '*'); } catch(e) {}
+      }
+    }
+
+    if (animOverlay) {
+      animOverlay.addEventListener('mousemove', (e) => {
+        const rect = animOverlay.getBoundingClientRect();
+        sendToAnimation({
+          type: 'mousemove',
+          x: e.clientX / window.innerWidth,
+          y: e.clientY / window.innerHeight,
+          localX: (e.clientX - rect.left) / rect.width,
+          localY: (e.clientY - rect.top) / rect.height,
+          clientX: e.clientX,
+          clientY: e.clientY
+        });
+      });
+      animOverlay.addEventListener('click', (e) => {
+        sendToAnimation({
+          type: 'click',
+          x: e.clientX / window.innerWidth,
+          y: e.clientY / window.innerHeight
+        });
+      });
+    }
+
+    window.addEventListener('scroll', () => {
+      sendToAnimation({
+        type: 'scroll',
+        scrollY: window.scrollY,
+        scrollProgress: window.scrollY / (document.body.scrollHeight - window.innerHeight)
+      });
+    }, { passive: true });
+
     document.addEventListener('mousemove', (e) => {
       document.querySelectorAll('.glass-card').forEach(card => {
         const rect = card.getBoundingClientRect();
-        const isInside = e.clientX >= rect.left && e.clientX <= rect.right && 
+        const isInside = e.clientX >= rect.left && e.clientX <= rect.right &&
                          e.clientY >= rect.top && e.clientY <= rect.bottom;
-        if (isInside) {
-          const cardX = (e.clientX - rect.left) / rect.width;
-          card.style.borderColor = `rgba(173, 198, 255, ${0.1 + (cardX * 0.3)})`;
-        } else {
-          card.style.borderColor = 'rgba(255, 255, 255, 0.1)';
-        }
+        card.style.borderColor = isInside
+          ? `rgba(173, 198, 255, ${0.1 + ((e.clientX - rect.left) / rect.width * 0.3)})`
+          : 'rgba(255, 255, 255, 0.1)';
       });
-
-      // Envia posição do mouse normalizada para os iframes da animação 3D
-      const normalizedX = e.clientX / window.innerWidth;
-      const normalizedY = e.clientY / window.innerHeight;
-      const mouseData = { type: 'mousemove', x: normalizedX, y: normalizedY, clientX: e.clientX, clientY: e.clientY };
-
-      const desktopIframe = document.getElementById('animation-iframe-desktop');
-      if (desktopIframe && desktopIframe.contentWindow) {
-        desktopIframe.contentWindow.postMessage(mouseData, '*');
-      }
-
       const mobileIframe = document.getElementById('animation-iframe-mobile');
       if (mobileIframe && mobileIframe.contentWindow) {
-        mobileIframe.contentWindow.postMessage(mouseData, '*');
+        try {
+          mobileIframe.contentWindow.postMessage({
+            type: 'mousemove',
+            x: e.clientX / window.innerWidth,
+            y: e.clientY / window.innerHeight,
+            clientX: e.clientX,
+            clientY: e.clientY
+          }, '*');
+        } catch(e) {}
       }
-    });
-
-    document.addEventListener('click', (e) => {
-      const normalizedX = e.clientX / window.innerWidth;
-      const normalizedY = e.clientY / window.innerHeight;
-      const clickData = { type: 'click', x: normalizedX, y: normalizedY };
-
-      document.querySelectorAll('iframe[id^="animation-iframe"]').forEach(iframe => {
-        if (iframe && iframe.contentWindow) {
-          iframe.contentWindow.postMessage(clickData, '*');
-        }
-      });
     });
 
     // Scroll suave para links de âncora
@@ -502,6 +636,30 @@
           target.scrollIntoView({ behavior: 'smooth' });
         }
       });
+    });
+
+    const demoModal = document.getElementById('demo-modal');
+    const demoIframe = document.getElementById('demo-modal-iframe');
+    const demoTitle = document.getElementById('demo-modal-title');
+    document.getElementById('demo-modal-close').addEventListener('click', closeDemoModal);
+    demoModal.addEventListener('click', (e) => { if (e.target === demoModal) closeDemoModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDemoModal(); });
+
+    function openDemoModal(url, title) {
+      demoTitle.textContent = title || '';
+      demoIframe.src = url;
+      demoModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeDemoModal() {
+      demoModal.classList.remove('open');
+      document.body.style.overflow = '';
+      setTimeout(() => { demoIframe.src = ''; }, 300);
+    }
+
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('.btn-demo-live');
+      if (btn && btn.dataset.demoUrl) openDemoModal(btn.dataset.demoUrl, btn.dataset.demoTitle);
     });
   </script>
 </body>
