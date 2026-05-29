@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <title>FinPulse - Diagnóstico Geral</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#6e06d0",
+                        "surface-container-lowest": "#0e0e0e",
+                        "error-container": "#93000a",
+                        "surface-container-high": "#2a2a2a",
+                        "surface-dim": "#131313",
+                        "outline": "#8e90a2",
+                        "surface-container": "#1f1f1f",
+                        "secondary": "#d8b9ff",
+                        "tertiary": "#00dce5",
+                        "secondary-fixed": "#eddcff",
+                        "error": "#ffb4ab",
+                        "inverse-primary": "#104af0",
+                        "inverse-on-surface": "#303030",
+                        "on-surface": "#e2e2e2",
+                        "on-background": "#e2e2e2",
+                        "primary-fixed-dim": "#b8c3ff",
+                        "primary": "#b8c3ff",
+                        "on-tertiary-container": "#bafbff",
+                        "primary-container": "#2d5bff",
+                        "tertiary-container": "#00797e",
+                        "surface-variant": "#353535",
+                        "outline-variant": "#434656",
+                        "on-error-container": "#ffdad6",
+                        "on-error": "#690005",
+                        "on-primary-container": "#efefff",
+                        "surface-tint": "#b8c3ff",
+                        "on-tertiary-fixed": "#002021",
+                        "on-primary": "#002387",
+                        "on-primary-fixed-variant": "#0035bd",
+                        "surface": "#131313",
+                        "primary-fixed": "#dde1ff",
+                        "on-secondary-fixed-variant": "#6200bc",
+                        "secondary-fixed-dim": "#d8b9ff",
+                        "on-tertiary": "#003739",
+                        "inverse-surface": "#e2e2e2",
+                        "on-surface-variant": "#c4c5d9",
+                        "on-secondary": "#450086",
+                        "tertiary-fixed": "#63f7ff",
+                        "on-secondary-container": "#d5b5ff",
+                        "on-primary-fixed": "#001355",
+                        "tertiary-fixed-dim": "#00dce5",
+                        "surface-container-low": "#1b1b1b",
+                        "on-tertiary-fixed-variant": "#004f53",
+                        "background": "#131313",
+                        "surface-container-highest": "#353535",
+                        "surface-bright": "#393939",
+                        "on-secondary-fixed": "#290055"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-margin": "20px",
+                        "base": "8px",
+                        "stack-sm": "12px",
+                        "gutter": "16px",
+                        "stack-lg": "40px",
+                        "stack-md": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Geist"],
+                        "body-md": ["Geist"],
+                        "label-sm": ["Geist"],
+                        "label-md": ["Geist"],
+                        "body-lg": ["Geist"],
+                        "headline-lg": ["Geist"],
+                        "display-lg": ["Geist"],
+                        "headline-lg-mobile": ["Geist"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "label-md": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "1.2", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Geist', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .vibrant-gradient {
+            background: linear-gradient(135deg, #2d5bff 0%, #6e06d0 100%);
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* Custom scrollbar suppression for clean PWA look */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-surface selection:bg-primary/30 min-h-screen pb-32">
+    <!-- Top App Bar -->
+    <header
+        class="bg-surface/80 dark:bg-surface/80 backdrop-blur-xl docked full-width top-0 border-b border-white/10 shadow-sm flex justify-between items-center w-full px-container-margin py-base sticky top-0 z-50">
+        <div class="flex items-center gap-3">
+            <img alt="FinPulse Logo" class="h-8 w-8 object-contain"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnv9MnY1Qyg8FEoInuXieaL1kyYaeYj8lEIZIRgrzEaxi2Es_0Wy1ekqGjDWgE2U1afe_xTID-vBPG2SBlB5URJhTxyHHo156Wu7wWiCk6nnGaKVSsaW-eUBqnSMpPJqhD_8eK7cDywhJlC1fO75abzYgKSmm6xoXrTVyfZNHN4LpQ0x8xAfNuB5JgMoNzlUs2W53-Oryg3TBJPsK8YSAG0btvtYl2oL-JtQLuYcMRdt5d2VrQuQYCPyOrkqelhZu6I8V8wDP4IfU" />
+            <h1 class="font-display-lg text-headline-md text-primary dark:text-primary-fixed-dim">Diagnóstico Geral</h1>
+        </div>
+        <div class="relative active:scale-95 transition-transform duration-200 flex items-center gap-4">
+            <span class="material-symbols-outlined text-white/90 cursor-pointer" id="btn-logout" title="Sair" onclick="window.db.auth.signOut()">logout</span>
+            <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/20">
+                <img class="w-full h-full object-cover"
+                    data-alt="Close up professional headshot of a sleek, modern professional avatar with stylized lighting in a digital futuristic setting with vibrant blue and purple accents."
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8VejHwofbZ6sZXZchi_zzCUYvuhQ0tIdRQumEW4UGlGd-vFaJB-3nhAc1fG7AEv8ZiEgg7E2FT2DWbOGYi5bYJ3OgmJChzUBEdtXmI5qw0-GjYB4uuCS1E65SepJY4IXOzBVhBatv__9w94s247-bj5uAWfPTd1p4m2pfsRh3vzBS9Mx-JiDNvpVz9QQWnwfnalqbq63o6O5-BxM8IV7W3f-G9MUw_w3CgYEygyT1_5QzVK2IPHk4Pzjquhbu_JcboX6BAem1LX8" />
+            </div>
+        </div>
+    </header>
+    <main class="px-container-margin pt-stack-md flex flex-col gap-gutter">
+        <!-- Filters Pill-style -->
+        <div class="flex gap-2 overflow-x-auto pb-2 -mx-5 px-5 no-scrollbar">
+            <button
+                class="bg-primary text-on-primary px-6 py-2 rounded-full font-label-md text-label-md transition-all active:scale-95 shrink-0">Mês</button>
+            <button
+                class="bg-surface-container-high text-on-surface-variant/80 px-6 py-2 rounded-full font-label-md text-label-md transition-all hover:bg-surface-container-highest shrink-0">Trimestre</button>
+            <button
+                class="bg-surface-container-high text-on-surface-variant/80 px-6 py-2 rounded-full font-label-md text-label-md transition-all hover:bg-surface-container-highest shrink-0">Ano</button>
+            <button
+                class="bg-surface-container-high text-on-surface-variant/80 px-6 py-2 rounded-full font-label-md text-label-md transition-all hover:bg-surface-container-highest shrink-0">Personalizado</button>
+        </div>
+        <!-- Alertas Section -->
+        <section
+            class="bg-secondary-container/10 border border-secondary-container/30 rounded-xl p-4 flex gap-4 items-start">
+            <div class="bg-secondary-container/20 p-2 rounded-lg">
+                <span class="material-symbols-outlined text-secondary"
+                    style="font-variation-settings: 'FILL' 1;">warning</span>
+            </div>
+            <div class="flex flex-col gap-1">
+                <p class="font-body-md text-on-surface-variant text-sm">
+                    <span class="font-bold text-on-surface">Alerta:</span> Seus gastos em Lazer aumentaram 25% este mês
+                </p>
+                <p class="font-label-sm text-label-sm text-secondary/80">
+                    <span class="font-bold">Dica:</span> Aumente seu aporte em Tesouro Selic para melhorar sua reserva.
+                </p>
+            </div>
+        </section>
+        <!-- Card 1: Resumo -->
+        <section class="glass-card rounded-2xl p-6 flex flex-col gap-4 relative overflow-hidden">
+            <div class="absolute -top-12 -right-12 w-32 h-32 bg-primary/10 blur-3xl rounded-full"></div>
+            <div>
+                <p class="font-label-md text-on-surface-variant uppercase tracking-wider text-xs">Saldo Disponível</p>
+                <h2 id="saldo-disponivel" class="font-display-lg text-headline-lg-mobile text-white mt-1">R$ 0,00</h2>
+            </div>
+            <div class="grid grid-cols-2 gap-4 mt-2">
+                <div class="flex flex-col">
+                    <div class="flex items-center gap-1 text-tertiary">
+                        <span class="material-symbols-outlined text-sm">north_east</span>
+                        <span class="font-label-sm text-label-sm uppercase">Entradas</span>
+                    </div>
+                    <p id="total-entradas" class="font-headline-md text-lg text-on-surface">R$ 0,00</p>
+                </div>
+                <div class="flex flex-col border-l border-white/10 pl-4">
+                    <div class="flex items-center gap-1 text-error">
+                        <span class="material-symbols-outlined text-sm">south_west</span>
+                        <span class="font-label-sm text-label-sm uppercase">Saídas</span>
+                    </div>
+                    <p id="total-saidas" class="font-headline-md text-lg text-on-surface">R$ 0,00</p>
+                </div>
+            </div>
+            <div
+                class="bg-tertiary-container/20 px-3 py-2 rounded-lg flex items-center gap-2 self-start border border-tertiary-container/30 mt-2">
+                <span class="text-sm">✅</span>
+                <span class="font-label-sm text-label-sm text-tertiary-fixed">Você está gastando dentro da meta</span>
+            </div>
+        </section>
+        <!-- Card Investimentos -->
+        <section class="glass-card rounded-2xl p-6 flex flex-col gap-5">
+            <div class="flex justify-between items-center">
+                <div class="flex flex-col">
+                    <p class="font-label-md text-on-surface-variant text-xs">Patrimônio Total</p>
+                    <h3 id="patrimonio-total" class="font-headline-md text-headline-md text-primary">R$ 0,00</h3>
+                </div>
+                <span class="material-symbols-outlined text-primary text-3xl">trending_up</span>
+            </div>
+            <div class="flex flex-col gap-3">
+                <div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant">
+                    <span>Alocação</span>
+                    <span class="text-on-surface">Total 100%</span>
+                </div>
+                <div class="w-full h-3 bg-white/5 rounded-full overflow-hidden flex">
+                    <div class="h-full bg-primary" style="width: 65%"></div>
+                    <div class="h-full bg-secondary" style="width: 25%"></div>
+                    <div class="h-full bg-tertiary" style="width: 10%"></div>
+                </div>
+                <div class="flex flex-wrap gap-4 mt-1">
+                    <div class="flex items-center gap-2">
+                        <div class="w-2 h-2 rounded-full bg-primary"></div>
+                        <span class="font-label-sm text-label-sm text-on-surface-variant">Renda Fixa (65%)</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-2 h-2 rounded-full bg-secondary"></div>
+                        <span class="font-label-sm text-label-sm text-on-surface-variant">Ações (25%)</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-2 h-2 rounded-full bg-tertiary"></div>
+                        <span class="font-label-sm text-label-sm text-on-surface-variant">Cripto (10%)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Bento Grid: Gastos & Receitas -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+            <!-- Card 2: Gastos por Categoria -->
+            <section class="glass-card rounded-2xl p-6 flex flex-col gap-6">
+                <h4 class="font-headline-md text-body-lg">Gastos por Categoria</h4>
+                <div class="flex flex-col gap-4">
+                    <!-- Moradia -->
+                    <div class="flex flex-col gap-2">
+                        <div class="flex justify-between items-center text-sm">
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-secondary text-lg">home_work</span>
+                                <span class="font-body-md text-on-surface-variant">Moradia</span>
+                            </div>
+                            <span class="font-label-md">40%</span>
+                        </div>
+                        <div class="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
+                            <div class="h-full bg-secondary transition-all duration-1000" style="width: 40%"></div>
+                        </div>
+                    </div>
+                    <!-- Alimentação -->
+                    <div class="flex flex-col gap-2">
+                        <div class="flex justify-between items-center text-sm">
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-secondary text-lg">restaurant</span>
+                                <span class="font-body-md text-on-surface-variant">Alimentação</span>
+                            </div>
+                            <span class="font-label-md">30%</span>
+                        </div>
+                        <div class="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
+                            <div class="h-full bg-secondary transition-all duration-1000" style="width: 30%"></div>
+                        </div>
+                    </div>
+                    <!-- Lazer -->
+                    <div class="flex flex-col gap-2">
+                        <div class="flex justify-between items-center text-sm">
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-secondary text-lg">sports_esports</span>
+                                <span class="font-body-md text-on-surface-variant">Lazer</span>
+                            </div>
+                            <span class="font-label-md">15%</span>
+                        </div>
+                        <div class="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
+                            <div class="h-full bg-secondary transition-all duration-1000" style="width: 15%"></div>
+                        </div>
+                    </div>
+                    <!-- Transporte -->
+                    <div class="flex flex-col gap-2">
+                        <div class="flex justify-between items-center text-sm">
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-secondary text-lg">directions_car</span>
+                                <span class="font-body-md text-on-surface-variant">Transporte</span>
+                            </div>
+                            <span class="font-label-md">15%</span>
+                        </div>
+                        <div class="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
+                            <div class="h-full bg-secondary transition-all duration-1000" style="width: 15%"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Card 3: Receitas -->
+            <section class="glass-card rounded-2xl p-6 flex flex-col gap-6">
+                <h4 class="font-headline-md text-body-lg">Fontes de Receita</h4>
+                <div class="flex flex-col gap-4">
+                    <div class="flex items-center justify-between group">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-10 h-10 rounded-xl bg-tertiary/10 flex items-center justify-center text-tertiary">
+                                <span class="material-symbols-outlined">payments</span>
+                            </div>
+                            <div>
+                                <p class="font-body-md text-on-surface">Salário</p>
+                                <p class="font-label-sm text-on-surface-variant text-xs">82% do total</p>
+                            </div>
+                        </div>
+                        <p class="font-label-md text-on-surface">R$ 7.000,00</p>
+                    </div>
+                    <div class="flex items-center justify-between group">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-10 h-10 rounded-xl bg-tertiary/10 flex items-center justify-center text-tertiary">
+                                <span class="material-symbols-outlined">laptop_mac</span>
+                            </div>
+                            <div>
+                                <p class="font-body-md text-on-surface">Freelance</p>
+                                <p class="font-label-sm text-on-surface-variant text-xs">12% do total</p>
+                            </div>
+                        </div>
+                        <p class="font-label-md text-on-surface">R$ 1.000,00</p>
+                    </div>
+                    <div class="flex items-center justify-between group">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-10 h-10 rounded-xl bg-tertiary/10 flex items-center justify-center text-tertiary">
+                                <span class="material-symbols-outlined">analytics</span>
+                            </div>
+                            <div>
+                                <p class="font-body-md text-on-surface">Dividendos</p>
+                                <p class="font-label-sm text-on-surface-variant text-xs">6% do total</p>
+                            </div>
+                        </div>
+                        <p class="font-label-md text-on-surface">R$ 500,00</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- Card 4: Fatura -->
+        <section class="glass-card rounded-2xl p-6 flex flex-col gap-4 border-l-4 border-primary">
+            <div class="flex justify-between items-start">
+                <div>
+                    <p class="font-label-md text-on-surface-variant uppercase text-xs">Fatura Atual • Vence 15 Out</p>
+                    <h3 id="fatura-atual" class="font-headline-md text-headline-md mt-1">R$ 0,00</h3>
+                </div>
+                <span class="material-symbols-outlined text-primary-fixed-dim">credit_card</span>
+            </div>
+            <div class="flex flex-col gap-2 mt-2">
+                <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+                    <div class="h-full vibrant-gradient" style="width: 34.5%"></div>
+                </div>
+                <div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant">
+                    <span>Limite utilizado: R$ 6.550,00</span>
+                    <span>Total: R$ 19.000,00</span>
+                </div>
+            </div>
+            <button
+                class="vibrant-gradient text-white w-full py-3 rounded-xl font-headline-md text-body-md mt-2 shadow-lg shadow-primary/20 active:scale-[0.98] transition-all">Pagar
+                Fatura</button>
+        </section>
+    </main>
+    <!-- Bottom Navigation Bar -->
+    <nav
+        class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pt-2 pb-6 bg-surface/90 dark:bg-surface/90 backdrop-blur-2xl border-t border-white/5 rounded-t-xl shadow-[0_-4px_20px_rgba(0,0,0,0.4)]">
+        <a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-all active:scale-90 duration-300"
+            href="#">
+            <span class="material-symbols-outlined">home</span>
+            <span class="font-label-sm text-[10px] mt-1">Início</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-all active:scale-90 duration-300"
+            href="#">
+            <span class="material-symbols-outlined">swap_horiz</span>
+            <span class="font-label-sm text-[10px] mt-1">Transações</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-all active:scale-90 duration-300"
+            href="#">
+            <span class="material-symbols-outlined">credit_card</span>
+            <span class="font-label-sm text-[10px] mt-1">Cartões</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-all active:scale-90 duration-300"
+            href="#">
+            <span class="material-symbols-outlined">leaderboard</span>
+            <span class="font-label-sm text-[10px] mt-1">Analítico</span>
+        </a>
+        <a class="flex flex-col items-center justify-center bg-primary-container/20 text-primary dark:text-primary-fixed-dim rounded-xl px-4 py-1.5 active:scale-90 transition-all duration-300"
+            href="#">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">troubleshoot</span>
+            <span class="font-label-sm text-[10px] mt-1">Diagnóstico</span>
+        </a>
+    </nav>
+    <!-- Micro-interaction for smooth loading entries -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.glass-card, section');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = `all 0.5s ease-out ${index * 0.1}s`;
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 50);
+            });
+        });
+    </script>
+    <script src="js/db.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
