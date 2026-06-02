@@ -105,7 +105,7 @@
     }
 
     .circuit-bg {
-      background-image: radial-gradient(circle at 2px 2px, rgba(173, 198, 255, 0.05) 1px, transparent 0);
+      background-image: radial-gradient(circle at 2px 2px, rgba(173, 198, 255, 0.025) 1px, transparent 0);
       background-size: 40px 40px;
     }
 
@@ -216,6 +216,7 @@
         <span id="demo-modal-title" style="font-size:14px;font-weight:700;color:#e5e2e1;"></span>
       </div>
       <button id="demo-modal-close" aria-label="Fechar demo"
+        class="outline-none focus-visible:ring-2 focus-visible:ring-primary"
         style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:6px;cursor:pointer;color:#c1c6d7;display:flex;align-items:center;">
         <span class="material-symbols-outlined" style="font-size:20px;">close</span>
       </button>
@@ -237,17 +238,17 @@
         <span class="font-display-lg text-xl md:text-3xl font-bold tracking-tighter bg-gradient-to-r from-[#052FF0] to-[#7133ED] text-transparent bg-clip-text">AXION</span>
       </div>
       <nav class="hidden md:flex items-center gap-8">
-        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300"
-          href="#solucoes">Solutions</a>
-        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300"
-          href="#tecnologia">Technology</a>
-        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300"
-          href="#impacto">Impact</a>
-        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300"
-          href="#empresa">Company</a>
+        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg px-2 py-1"
+          href="#solucoes">Soluções</a>
+        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg px-2 py-1"
+          href="#tecnologia">Tecnologia</a>
+        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg px-2 py-1"
+          href="#impacto">Impacto</a>
+        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg px-2 py-1"
+          href="#empresa">Empresa</a>
       </nav>
-      <button onclick="window.open('https://wa.me/5521992341112', '_blank')"
-        class="bg-primary-container text-on-primary-container px-4 md:px-6 py-2 rounded-full font-semibold scale-95 active:scale-90 transition-transform whitespace-nowrap shrink-0 text-sm md:text-base">
+      <button onclick="openWhatsApp()"
+        class="bg-primary-container text-on-primary-container px-4 md:px-6 py-2 rounded-full font-semibold scale-95 active:scale-90 transition-transform whitespace-nowrap shrink-0 text-sm md:text-base outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background">
         Get Started
       </button>
     </div>
@@ -256,8 +257,8 @@
   <main class="relative">
     <section class="relative min-h-[90vh] flex items-center pt-20 pb-10 overflow-hidden circuit-bg">
       
-      <!-- iframe Desktop: aparece no fundo, apenas em telas md+ -->
-      <iframe id="animation-iframe-desktop" src="animation.html" class="hidden md:block absolute top-0 right-0 w-[60%] h-full z-0 border-none pointer-events-none" title="AXION 3D Architecture"></iframe>
+      <!-- iframe Desktop: aparece no fundo, apenas em telas md+ (carregado dinamicamente via JS) -->
+      <iframe id="animation-iframe-desktop" data-src="animation.html" class="hidden md:block absolute top-0 right-0 w-[60%] h-full z-0 border-none pointer-events-none" title="AXION 3D Architecture"></iframe>
       <div id="animation-mouse-overlay" aria-hidden="true"></div>
       
       <div class="absolute inset-0 bg-gradient-to-b from-[#050505] via-[#050505]/80 to-[#050505] md:bg-gradient-to-r md:from-[#050505] md:via-[#050505]/90 md:to-transparent z-0 pointer-events-none"></div>
@@ -267,7 +268,7 @@
         <div class="space-y-6 md:pt-0 pointer-events-auto text-center md:text-left">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-high border border-white/10 mx-auto md:mx-0">
             <span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
-            <span class="font-label-sm text-label-sm text-tertiary uppercase tracking-widest">Enterprise AI solutions</span>
+            <span class="font-label-sm text-label-sm text-tertiary uppercase tracking-widest">Soluções corporativas de IA</span>
           </div>
           
           <h1 class="font-display-lg text-4xl md:text-display-lg text-on-surface leading-tight">
@@ -279,7 +280,7 @@
           </p>
           
           <div class="flex flex-wrap gap-4 justify-center md:justify-start">
-            <button onclick="window.open('https://wa.me/5521992341112', '_blank')" class="glow-button bg-gradient-to-r from-primary-container to-secondary-container text-white px-8 py-4 rounded-full font-bold flex items-center gap-2">
+            <button onclick="openWhatsApp()" class="glow-button bg-gradient-to-r from-primary-container to-secondary-container text-white px-8 py-4 rounded-full font-bold flex items-center gap-2 outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background">
               Agendar Conversa
               <span class="material-symbols-outlined">arrow_forward</span>
             </button>
@@ -288,9 +289,10 @@
       </div>
     </section>
 
-    <!-- iframe Mobile: aparece entre o título e a próxima seção, apenas em telas < md -->
-    <div class="block md:hidden w-full" style="height: 300px;">
-      <iframe id="animation-iframe-mobile" src="animation.html" class="w-full h-full border-none" title="AXION 3D Architecture Mobile"></iframe>
+    <!-- iframe Mobile / Fallback: aparece entre o título e a próxima seção, apenas em telas < md -->
+    <div class="block md:hidden w-full relative" style="height: 300px;">
+      <!-- O iframe mobile não será criado/carregado para poupar processamento. Exibimos a imagem de fallback em HD -->
+      <img id="animation-mobile-fallback" src="animation_fallback.png" alt="Visualização tridimensional de arquitetura de rede inteligente da AXION" class="w-full h-full object-cover">
     </div>
 
     <section class="py-24 bg-surface-container-lowest">
@@ -399,16 +401,78 @@
           </div>
           <div class="relative">
             <div
-              class="aspect-square rounded-full border-2 border-dashed border-primary/20 absolute -inset-10 animate-[spin_60s_linear_infinite]">
+              class="aspect-square rounded-full border-2 border-dashed border-primary/20 absolute -inset-10 animate-[spin_60s_linear_infinite] pointer-events-none">
             </div>
-            <div class="glass-card rounded-2xl overflow-hidden relative z-10 shadow-2xl"
+            <div class="glass-card rounded-2xl overflow-hidden relative z-10 shadow-2xl p-6 flex flex-col items-center justify-center min-h-[380px]"
               style="border-color: rgba(255, 255, 255, 0.1);">
-              <img class="w-full h-full object-cover opacity-60"
-                alt="A high-tech digital control room featuring multiple glowing holographic screens and complex data visualizations. The lighting is dominated by deep blues and purples with bright white highlights on the glass edges. The atmosphere is sophisticated and futuristic, showing the pulse of a global data center in a minimalist obsidian setting."
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYmxKW8kqlAWpFZizQ9bqsirrWRc_i-LMVxX0dZxo97_BNVfHa2s3y0ubL9ySmy0fxQtcIjjivNIyQAtiH177L9gTZS9r3W_ZEUbdif135LLQHJ7Uoz9Bncvp1ha0Ht5wktCBIjP1USvC1H7RUCX78xYfQ-AXe-_xhld8OnzhBCXXFbZGiNx4F2-RSbKFlgeOQG_tzaytwTr9pZ0kRjLeN4MdLevmzKTa9e9MS5xG6akZTzR2afxn68VaQPyDdpmNbAwyLRIvG-k4">
-              <div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
-              <div class="absolute bottom-8 left-8 right-8">
-                <div class="font-label-sm text-label-sm text-primary uppercase tracking-widest mb-2">System Status</div>
+              
+              <!-- Diagrama SVG de Integração Inteligente -->
+              <svg viewBox="0 0 400 300" class="w-full h-auto max-w-[360px] opacity-90 transition-all duration-500 hover:scale-105" aria-hidden="true">
+                <defs>
+                  <!-- Gradientes -->
+                  <linearGradient id="purpleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#9d05ff" />
+                    <stop offset="100%" stop-color="#4b8eff" />
+                  </linearGradient>
+                  <linearGradient id="cyanGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#00dbe9" />
+                    <stop offset="100%" stop-color="#4b8eff" />
+                  </linearGradient>
+                  <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#9d05ff" stop-opacity="0.3" />
+                    <stop offset="50%" stop-color="#00dbe9" stop-opacity="0.8" />
+                    <stop offset="100%" stop-color="#4b8eff" stop-opacity="0.3" />
+                  </linearGradient>
+                  
+                  <!-- Filtros de Brilho (Glow Effect) -->
+                  <filter id="glowPurple" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="6" result="blur" />
+                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                  </filter>
+                  <filter id="glowCyan" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="6" result="blur" />
+                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                  </filter>
+                </defs>
+                
+                <!-- Conexões -->
+                <path d="M 60,150 Q 130,90 200,150" fill="none" stroke="url(#lineGradient)" stroke-width="2.5" stroke-dasharray="6,4" />
+                <path d="M 60,150 Q 130,210 200,150" fill="none" stroke="url(#lineGradient)" stroke-width="2" />
+                <path d="M 200,150 Q 270,90 340,150" fill="none" stroke="url(#lineGradient)" stroke-width="2" />
+                <path d="M 200,150 Q 270,210 340,150" fill="none" stroke="url(#lineGradient)" stroke-width="2.5" stroke-dasharray="6,4" />
+                
+                <!-- Nó Esquerdo: Clientes/Canais -->
+                <g class="cursor-pointer" transform="translate(60, 150)">
+                  <circle r="24" fill="#131313" stroke="#9d05ff" stroke-width="2" />
+                  <circle r="18" fill="url(#purpleGradient)" opacity="0.15" filter="url(#glowPurple)" />
+                  <path d="M -8,-6 h 16 a 2,2 0 0 1 2,2 v 8 a 2,2 0 0 1 -2,2 h -10 l -6,4 v -4 a 2,2 0 0 1 -2,-2 v -8 a 2,2 0 0 1 2,-2 z" fill="none" stroke="#adc6ff" stroke-width="1.5" />
+                  <text y="38" text-anchor="middle" fill="#8b90a0" font-family="sans-serif" font-size="10" font-weight="500">Canais / Clientes</text>
+                </g>
+                
+                <!-- Nó Central: AXION Core AI Engine -->
+                <g class="cursor-pointer" transform="translate(200, 150)">
+                  <circle r="44" fill="none" stroke="#00dbe9" stroke-width="1" stroke-dasharray="4,4" opacity="0.4" />
+                  <circle r="36" fill="#131313" stroke="url(#cyanGradient)" stroke-width="2.5" filter="url(#glowCyan)" />
+                  <circle r="26" fill="url(#cyanGradient)" opacity="0.1" />
+                  <path d="M -8,0 L -2,-8 L 6,-2 L 10,-10 M -10,10 L -4,2 L 4,8 L 8,0" fill="none" stroke="#00dbe9" stroke-width="2" stroke-linecap="round" />
+                  <circle r="3" fill="#ffffff" />
+                  <text y="58" text-anchor="middle" fill="#e5e2e1" font-family="sans-serif" font-size="11" font-weight="bold" letter-spacing="1">AXION AI Core</text>
+                </g>
+                
+                <!-- Nó Direito: Sistemas e Integrações -->
+                <g class="cursor-pointer" transform="translate(340, 150)">
+                  <circle r="24" fill="#131313" stroke="#9d05ff" stroke-width="2" />
+                  <circle r="18" fill="url(#purpleGradient)" opacity="0.15" filter="url(#glowPurple)" />
+                  <path d="M -8,-6 C -8,-8 8,-8 8,-6 M -8,-2 C -8,-4 8,-4 8,-2 M -8,2 C -8,0 8,0 8,2 M -8,-6 V 6 C -8,8 8,8 8,6 V -6" fill="none" stroke="#adc6ff" stroke-width="1.5" />
+                  <text y="38" text-anchor="middle" fill="#8b90a0" font-family="sans-serif" font-size="10" font-weight="500">APIs / CRMs / DB</text>
+                </g>
+              </svg>
+              
+              <!-- Texto descritivo de Acessibilidade -->
+              <span class="sr-only">Painel de controle tecnológico representando a automação empresarial da AXION</span>
+
+              <div class="w-full mt-6">
+                <div class="font-label-sm text-label-sm text-primary uppercase tracking-widest mb-2">Status da Integração</div>
                 <div class="flex items-center gap-4">
                   <div class="flex-1 h-1 bg-white/10 rounded-full overflow-hidden">
                     <div class="h-full bg-primary w-3/4 animate-[pulse_2s_infinite]"></div>
@@ -465,7 +529,7 @@
               </div>
               <p class="text-on-surface-variant mb-6">Agente de IA integrado ao WhatsApp, Email, CRM e Site, gerenciando
                 o atendimento em cada uma dessas plataformas.</p>
-              <button class="text-primary font-bold flex items-center gap-2 group">
+              <button class="text-primary font-bold flex items-center gap-2 group outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg px-2 py-1">
                 Ver Detalhes <span
                   class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
               </button>
@@ -487,29 +551,16 @@
               </div>
               <p class="text-on-surface-variant mb-6">App de agendamento que funciona como um CRM mostrando faturamento por consulta, pacientes e relatórios financeiros em tempo real.</p>
               
-              <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:12px;margin-bottom:20px;font-family:'JetBrains Mono',monospace;font-size:11px;">
-                <p style="color:#8b90a0;text-transform:uppercase;letter-spacing:0.1em;font-size:10px;margin-bottom:8px;">Acesso de demonstração</p>
-                <div style="display:flex;gap:8px;align-items:center;margin-bottom:4px;">
-                  <span class="material-symbols-outlined" style="font-size:14px;color:#adc6ff;">mail</span>
-                  <span style="color:#c1c6d7;">E-mail:</span>
-                  <code style="color:#00dbe9;">demo@managerclinic.app</code>
-                </div>
-                <div style="display:flex;gap:8px;align-items:center;">
-                  <span class="material-symbols-outlined" style="font-size:14px;color:#adc6ff;">lock</span>
-                  <span style="color:#c1c6d7;">Senha:</span>
-                  <code style="color:#00dbe9;">demo1234</code>
-                </div>
-              </div>
+              <!-- Credenciais públicas removidas em favor do login automático sandbox via JS -->
 
-              <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-                <button class="text-primary font-bold flex items-center gap-2 group">
+              <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:20px;">
+                <button class="text-primary font-bold flex items-center gap-2 group outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg px-2 py-1">
                   Ver Detalhes <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
                 </button>
                 <button
-                  class="btn-demo-live"
-                  data-demo-url="https://manager-clinic.vercel.app"
+                  class="btn-demo-live glow-button bg-gradient-to-r from-primary-container to-secondary-container text-white px-6 py-3 rounded-full font-bold flex items-center gap-2 outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                   data-demo-title="Manager Clinic">
-                  <span class="material-symbols-outlined">play_circle</span> Testar ao Vivo
+                  <span class="material-symbols-outlined">play_circle</span> Acessar Demo Instantânea
                 </button>
               </div>
             </div>
@@ -527,8 +578,8 @@
       <div class="container mx-auto px-margin-desktop max-w-container-max relative z-10 text-center">
         <h2 class="font-display-lg text-display-lg mb-8">Vamos construir o futuro da sua operação?</h2>
         <div class="flex flex-col items-center gap-8">
-          <button onclick="window.open('https://wa.me/5521992341112', '_blank')"
-            class="glow-button bg-[#25D366] text-white px-12 py-5 rounded-full text-xl font-black flex items-center gap-3 hover:scale-105 transition-transform">
+          <button onclick="openWhatsApp()"
+            class="glow-button bg-[#25D366] text-white px-12 py-5 rounded-full text-xl font-black flex items-center gap-3 hover:scale-105 transition-transform outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background">
             <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24">
               <path
                 d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.246 2.248 3.484 5.232 3.483 8.413-.003 6.557-5.338 11.892-11.893 11.892-1.997-.001-3.951-.5-5.688-1.448l-6.308 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.886.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z">
@@ -553,29 +604,73 @@
         <p class="font-label-sm text-label-sm text-on-surface-variant">© 2024 AXION Enterprise. All rights reserved.</p>
       </div>
       <div class="flex gap-8">
-        <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-tertiary-fixed hover:drop-shadow-[0_0_8px_rgba(0,219,233,0.5)] transition-all"
+        <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-tertiary-fixed hover:drop-shadow-[0_0_8px_rgba(0,219,233,0.5)] transition-all outline-none focus-visible:ring-2 focus-visible:ring-primary rounded px-1"
           href="#">Privacy Policy</a>
-        <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-tertiary-fixed hover:drop-shadow-[0_0_8px_rgba(0,219,233,0.5)] transition-all"
+        <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-tertiary-fixed hover:drop-shadow-[0_0_8px_rgba(0,219,233,0.5)] transition-all outline-none focus-visible:ring-2 focus-visible:ring-primary rounded px-1"
           href="#">Terms of Service</a>
-        <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-tertiary-fixed hover:drop-shadow-[0_0_8px_rgba(0,219,233,0.5)] transition-all"
+        <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-tertiary-fixed hover:drop-shadow-[0_0_8px_rgba(0,219,233,0.5)] transition-all outline-none focus-visible:ring-2 focus-visible:ring-primary rounded px-1"
           href="#">Legal Notice</a>
-        <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-tertiary-fixed hover:drop-shadow-[0_0_8px_rgba(0,219,233,0.5)] transition-all"
+        <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-tertiary-fixed hover:drop-shadow-[0_0_8px_rgba(0,219,233,0.5)] transition-all outline-none focus-visible:ring-2 focus-visible:ring-primary rounded px-1"
           href="#">Security</a>
       </div>
     </div>
   </footer>
   <script>
+    // Função Throttle clássica para performance
+    function throttle(func, limit) {
+      let inThrottle;
+      return function() {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+          func.apply(context, args);
+          inThrottle = true;
+          setTimeout(() => inThrottle = false, limit);
+        }
+      }
+    }
+
+    // Abertura dinâmica e ofuscada do WhatsApp
+    function openWhatsApp() {
+      const parts = ["55", "21", "99234", "1112"];
+      const url = `https://wa.me/${parts.join("")}`;
+      window.open(url, '_blank');
+    }
+
     const animOverlay = document.getElementById('animation-mouse-overlay');
     const desktopIframe = document.getElementById('animation-iframe-desktop');
 
+    // Carregamento dinâmico de animações baseado no dispositivo
+    function initAnimations() {
+      const isMobile = window.innerWidth < 768;
+      if (isMobile) {
+        // No mobile, descarrega o iframe do desktop se já estiver carregado
+        if (desktopIframe) {
+          desktopIframe.removeAttribute('src');
+        }
+      } else {
+        // No desktop, carrega o iframe do desktop se ainda não estiver carregado
+        if (desktopIframe && !desktopIframe.getAttribute('src')) {
+          const dataSrc = desktopIframe.getAttribute('data-src');
+          if (dataSrc) {
+            desktopIframe.setAttribute('src', dataSrc);
+          }
+        }
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', initAnimations);
+    window.addEventListener('resize', throttle(initAnimations, 200));
+
     function sendToAnimation(data) {
-      if (desktopIframe && desktopIframe.contentWindow) {
+      if (window.innerWidth >= 768 && desktopIframe && desktopIframe.contentWindow) {
         try { desktopIframe.contentWindow.postMessage(data, '*'); } catch(e) {}
       }
     }
 
     if (animOverlay) {
-      animOverlay.addEventListener('mousemove', (e) => {
+      // Limitando postMessage do mousemove a no máximo 1 a cada 16ms
+      animOverlay.addEventListener('mousemove', throttle((e) => {
         const rect = animOverlay.getBoundingClientRect();
         sendToAnimation({
           type: 'mousemove',
@@ -586,7 +681,8 @@
           clientX: e.clientX,
           clientY: e.clientY
         });
-      });
+      }, 16));
+
       animOverlay.addEventListener('click', (e) => {
         sendToAnimation({
           type: 'click',
@@ -596,15 +692,15 @@
       });
     }
 
-    window.addEventListener('scroll', () => {
+    window.addEventListener('scroll', throttle(() => {
       sendToAnimation({
         type: 'scroll',
         scrollY: window.scrollY,
         scrollProgress: window.scrollY / (document.body.scrollHeight - window.innerHeight)
       });
-    }, { passive: true });
+    }, 16), { passive: true });
 
-    document.addEventListener('mousemove', (e) => {
+    document.addEventListener('mousemove', throttle((e) => {
       document.querySelectorAll('.glass-card').forEach(card => {
         const rect = card.getBoundingClientRect();
         const isInside = e.clientX >= rect.left && e.clientX <= rect.right &&
@@ -613,19 +709,7 @@
           ? `rgba(173, 198, 255, ${0.1 + ((e.clientX - rect.left) / rect.width * 0.3)})`
           : 'rgba(255, 255, 255, 0.1)';
       });
-      const mobileIframe = document.getElementById('animation-iframe-mobile');
-      if (mobileIframe && mobileIframe.contentWindow) {
-        try {
-          mobileIframe.contentWindow.postMessage({
-            type: 'mousemove',
-            x: e.clientX / window.innerWidth,
-            y: e.clientY / window.innerHeight,
-            clientX: e.clientX,
-            clientY: e.clientY
-          }, '*');
-        } catch(e) {}
-      }
-    });
+    }, 16));
 
     // Scroll suave para links de âncora
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -659,7 +743,15 @@
 
     document.addEventListener('click', (e) => {
       const btn = e.target.closest('.btn-demo-live');
-      if (btn && btn.dataset.demoUrl) openDemoModal(btn.dataset.demoUrl, btn.dataset.demoTitle);
+      if (btn) {
+        const title = btn.dataset.demoTitle || 'Manager Clinic';
+        // Ofuscação de credenciais: email (demo@managerclinic.app) e senha (demo1234)
+        const user = atob("ZGVtb0BtYW5hZ2VyY2xpbmljLmFwcA=="); // demo@managerclinic.app
+        const pass = atob("ZGVtbzEyMzQ="); // demo1234
+        const baseUrl = "https://manager-clinic.vercel.app";
+        const url = `${baseUrl}/?email=${encodeURIComponent(user)}&password=${encodeURIComponent(pass)}&demo=true`;
+        openDemoModal(url, title);
+      }
     });
   </script>
 </body>
