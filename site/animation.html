@@ -59,7 +59,6 @@
 
 <body>
 
-    <div id="tooltip"></div>
     <div id="info-panel">
         <h2 id="info-title">Título</h2>
         <p id="info-desc">Descrição da tecnologia.</p>
@@ -197,84 +196,9 @@
         scene.add(directionalLight);
 
         // ==========================================
-        // 4. INTERAÇÃO (Mouse, Parallax, Raycaster)
+        // 4. INTERAÇÃO (Removida)
         // ==========================================
-        let mouseX = 0, mouseY = 0;
-        const windowHalfX = window.innerWidth / 2;
-        const windowHalfY = window.innerHeight / 2;
-
-        const raycaster = new THREE.Raycaster();
-        const mouse = new THREE.Vector2();
-
-        let hoveredNode = null;
         let globalRotationSpeed = 0.002;
-
-        const tooltip = document.getElementById('tooltip');
-        const infoPanel = document.getElementById('info-panel');
-        const infoTitle = document.getElementById('info-title');
-        const infoDesc = document.getElementById('info-desc');
-
-        document.addEventListener('mousemove', (event) => {
-            mouseX = (event.clientX - windowHalfX);
-            mouseY = (event.clientY - windowHalfY);
-
-            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-            tooltip.style.left = event.clientX + 15 + 'px';
-            tooltip.style.top = event.clientY + 15 + 'px';
-        });
-
-        // Recebe coordenadas do mouse via postMessage (enviadas pelo index.html)
-        window.addEventListener('message', (event) => {
-            if (event.data) {
-                if (event.data.type === 'mousemove') {
-                    const nx = event.data.x;
-                    const ny = event.data.y;
-                    mouseX = (nx - 0.5) * window.innerWidth;
-                    mouseY = (ny - 0.5) * window.innerHeight;
-                    mouse.x = nx * 2 - 1;
-                    mouse.y = -(ny * 2 - 1);
-                    
-                    if (event.data.clientX !== undefined && event.data.clientY !== undefined) {
-                        tooltip.style.left = event.data.clientX + 15 + 'px';
-                        tooltip.style.top = event.data.clientY + 15 + 'px';
-                    }
-                } else if (event.data.type === 'click') {
-                    const nx = event.data.x;
-                    const ny = event.data.y;
-                    mouse.x = nx * 2 - 1;
-                    mouse.y = -(ny * 2 - 1);
-
-                    raycaster.setFromCamera(mouse, camera);
-                    const intersects = raycaster.intersectObjects(nodes);
-
-                    if (intersects.length > 0) {
-                        hoveredNode = intersects[0].object;
-                        infoTitle.innerText = hoveredNode.userData.name;
-                        infoDesc.innerText = hoveredNode.userData.desc;
-                        infoPanel.classList.add('active');
-                        camera.position.z = 10;
-                    } else {
-                        infoPanel.classList.remove('active');
-                        camera.position.z = getDeviceZ();
-                        hoveredNode = null;
-                    }
-                }
-            }
-        });
-
-        document.addEventListener('click', () => {
-            if (hoveredNode) {
-                infoTitle.innerText = hoveredNode.userData.name;
-                infoDesc.innerText = hoveredNode.userData.desc;
-                infoPanel.classList.add('active');
-                camera.position.z = 10;
-            } else {
-                infoPanel.classList.remove('active');
-                camera.position.z = getDeviceZ();
-            }
-        });
 
         // ==========================================
         // 5. LOOP DE ANIMAÇÃO
@@ -293,41 +217,14 @@
             particlesMesh.geometry.attributes.position.needsUpdate = true;
 
             particlesMesh.rotation.y += 0.0005;
-            camera.position.x += (mouseX * 0.005 - camera.position.x) * 0.05;
-            camera.position.y += (-mouseY * 0.005 - camera.position.y) * 0.05;
             camera.lookAt(scene.position);
-
-            raycaster.setFromCamera(mouse, camera);
-            const intersects = raycaster.intersectObjects(nodes);
-
-            if (intersects.length > 0) {
-                if (hoveredNode !== intersects[0].object) {
-                    if (hoveredNode) hoveredNode.userData.isHovered = false;
-
-                    hoveredNode = intersects[0].object;
-                    hoveredNode.userData.isHovered = true;
-
-                    globalRotationSpeed = 0.0002;
-                    tooltip.innerHTML = hoveredNode.userData.name;
-                    tooltip.style.opacity = 1;
-                }
-            } else {
-                if (hoveredNode) {
-                    hoveredNode.userData.isHovered = false;
-                    hoveredNode = null;
-                    globalRotationSpeed = 0.002;
-                    tooltip.style.opacity = 0;
-                }
-            }
 
             nodeGroup.rotation.y += globalRotationSpeed;
 
             nodes.forEach((node) => {
                 const baseFloat = Math.sin(elapsedTime * 2 + node.userData.yOffset) * 0.5;
-                const targetJump = node.userData.isHovered ? 1.5 : 0;
 
-                node.userData.currentHoverOffset = THREE.MathUtils.lerp(node.userData.currentHoverOffset, targetJump, 0.1);
-                node.position.y = node.userData.baseY + baseFloat + node.userData.currentHoverOffset;
+                node.position.y = node.userData.baseY + baseFloat;
 
                 node.rotation.x += 0.005;
                 node.rotation.y += 0.01;
