@@ -204,6 +204,15 @@
       transform: translateY(-1px);
     }
     .btn-demo-live .material-symbols-outlined { font-size: 16px; }
+    
+    /* Utilitário para ocultar barra de rolagem mantendo funcionalidade */
+    .scrollbar-none::-webkit-scrollbar {
+      display: none;
+    }
+    .scrollbar-none {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+    }
   </style>
 </head>
 
@@ -516,10 +525,10 @@
           Interaja com nossas simulações em tempo real e comprove a eficiência e velocidade dos ecossistemas AXION.
         </p>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+        <div id="smartphones-container" class="flex md:grid overflow-x-auto md:overflow-x-visible snap-x snap-mandatory md:snap-none md:grid-cols-2 lg:grid-cols-3 gap-8 justify-start md:justify-items-center pb-6 md:pb-0 scrollbar-none" style="scrollbar-width: none;">
           
           <!-- Smartphone 1: AXION Agent (Chat IA) -->
-          <div class="w-full max-w-[320px] h-[560px] bg-[#09090b] rounded-[40px] border-[6px] border-[#1f1f23] shadow-[0_0_50px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden relative" aria-label="Simulador de Chat AXION Agent">
+          <div class="w-[85vw] md:w-full max-w-[320px] h-[560px] bg-[#09090b] rounded-[40px] border-[6px] border-[#1f1f23] shadow-[0_0_50px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden relative snap-center flex-shrink-0" aria-label="Simulador de Chat AXION Agent">
             <!-- Notch do Celular -->
             <div class="w-28 h-4 bg-[#1f1f23] rounded-b-2xl absolute top-0 left-1/2 -translate-x-1/2 z-30"></div>
             
@@ -566,15 +575,15 @@
           </div>
           
           <!-- Smartphone 2: ROI do Projeto -->
-          <div class="w-full max-w-[320px] h-[560px] bg-[#09090b] rounded-[40px] border-[6px] border-[#1f1f23] shadow-[0_0_50px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden relative" aria-label="Demonstrativo de Métricas de ROI">
+          <div class="w-[85vw] md:w-full max-w-[320px] h-[560px] bg-[#09090b] rounded-[40px] border-[6px] border-[#1f1f23] shadow-[0_0_50px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden relative snap-center flex-shrink-0" aria-label="Demonstrativo de Métricas de ROI">
             <!-- Notch do Celular -->
             <div class="w-28 h-4 bg-[#1f1f23] rounded-b-2xl absolute top-0 left-1/2 -translate-x-1/2 z-30"></div>
             
-            <iframe src="demo/inicio.html" title="Finance Class Demo" class="w-full h-full border-none flex-1 mt-6"></iframe>
+            <iframe src="demo/inicio.html" title="Finance Class Demo" class="w-full h-full border-none flex-1 rounded-[34px]"></iframe>
           </div>
           
           <!-- Smartphone 3: Agendamento IA -->
-          <div class="w-full max-w-[320px] h-[560px] bg-[#09090b] rounded-[40px] border-[6px] border-[#1f1f23] shadow-[0_0_50px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden relative" aria-label="Simulador de Agendamento IA">
+          <div class="w-[85vw] md:w-full max-w-[320px] h-[560px] bg-[#09090b] rounded-[40px] border-[6px] border-[#1f1f23] shadow-[0_0_50px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden relative snap-center flex-shrink-0" aria-label="Simulador de Agendamento IA">
             <!-- Notch do Celular -->
             <div class="w-28 h-4 bg-[#1f1f23] rounded-b-2xl absolute top-0 left-1/2 -translate-x-1/2 z-30"></div>
             
@@ -643,10 +652,10 @@
         </div>
         
         <!-- Indicadores de Carrossel -->
-        <div class="flex justify-center gap-2 mt-8">
-          <span class="w-2 h-2 rounded-full bg-primary shadow-[0_0_6px_rgba(75,142,255,0.8)]"></span>
-          <span class="w-2 h-2 rounded-full bg-white/20"></span>
-          <span class="w-2 h-2 rounded-full bg-white/20"></span>
+        <div id="smartphones-indicators" class="flex justify-center gap-2 mt-8">
+          <span class="w-6 h-1 rounded-full bg-primary shadow-[0_0_6px_rgba(75,142,255,0.8)] transition-all duration-300"></span>
+          <span class="w-1.5 h-1 rounded-full bg-white/20 transition-all duration-300"></span>
+          <span class="w-1.5 h-1 rounded-full bg-white/20 transition-all duration-300"></span>
         </div>
       </div>
     </section>
@@ -849,6 +858,16 @@
       }
     }
 
+    // Recupera ou cria um sessionId persistente na sessão atual
+    function getSessionId() {
+      let sessId = sessionStorage.getItem('axion_chat_session_id');
+      if (!sessId) {
+        sessId = 'sess-' + Math.random().toString(36).substring(2, 15) + '-' + Date.now();
+        sessionStorage.setItem('axion_chat_session_id', sessId);
+      }
+      return sessId;
+    }
+
     async function sendChatMessage(text) {
       appendMessage(text, 'user');
       showTypingIndicator();
@@ -862,7 +881,7 @@
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ message: text })
+          body: JSON.stringify({ message: text, sessionId: getSessionId() })
         });
 
         hideTypingIndicator();
@@ -925,6 +944,26 @@
         4: "04:15 PM"
       };
       alert(`Simulação de Agendamento: Reunião pré-marcada para quarta-feira, dia 15, às ${slotsText[selectedSlot]}!`);
+    }
+
+    // Lógica do carrossel de smartphones em mobile
+    const smartphonesContainer = document.getElementById('smartphones-container');
+    const smartphonesIndicators = document.getElementById('smartphones-indicators');
+    if (smartphonesContainer && smartphonesIndicators) {
+      smartphonesContainer.addEventListener('scroll', throttle(() => {
+        const dots = smartphonesIndicators.querySelectorAll('span');
+        const containerWidth = smartphonesContainer.clientWidth;
+        const scrollLeft = smartphonesContainer.scrollLeft;
+        const activeIndex = Math.round(scrollLeft / containerWidth);
+        
+        dots.forEach((dot, index) => {
+          if (index === activeIndex) {
+            dot.className = 'w-6 h-1 rounded-full bg-primary shadow-[0_0_6px_rgba(75,142,255,0.8)] transition-all duration-300';
+          } else {
+            dot.className = 'w-1.5 h-1 rounded-full bg-white/20 transition-all duration-300';
+          }
+        });
+      }, 100));
     }
   </script>
 </body>
