@@ -142,28 +142,46 @@
         const nodeGroup = new THREE.Group();
         scene.add(nodeGroup);
 
-        const roundedCubeGeo = new THREE.RoundedBoxGeometry(2, 2, 2, 4, 0.3);
+        let nodeGeo;
+        if (typeof THREE.RoundedBoxGeometry !== 'undefined') {
+            nodeGeo = new THREE.RoundedBoxGeometry(2, 2, 2, 4, 0.3);
+        } else {
+            nodeGeo = new THREE.BoxGeometry(2, 2, 2);
+        }
+        
         const textureLoader = new THREE.TextureLoader();
 
         const orbitingToolsCount = tools.filter(t => !t.isCenter).length;
         let orbitIndex = 0;
 
         tools.forEach((tool) => {
-            const toolTexture = textureLoader.load(tool.image);
-
+            // Material base com a cor da ferramenta (Fallback se a textura falhar ou CORS local)
             const cubeMaterial = new THREE.MeshStandardMaterial({
-                map: toolTexture,
+                color: tool.color,
                 roughness: 0.3,
                 metalness: 0.2
             });
 
-            const mesh = new THREE.Mesh(roundedCubeGeo, cubeMaterial);
+            // Tentativa de carregar a textura
+            textureLoader.load(
+                tool.image,
+                function(texture) {
+                    cubeMaterial.map = texture;
+                    cubeMaterial.color.setHex(0xffffff); // Remove a cor base para mostrar a textura perfeitamente
+                    cubeMaterial.needsUpdate = true;
+                },
+                undefined,
+                function(err) {
+                    console.warn("Aviso: Textura " + tool.image + " não pôde ser carregada localmente (CORS ou caminho). Usando cor de fallback.");
+                }
+            );
+
+            const mesh = new THREE.Mesh(nodeGeo, cubeMaterial);
 
             // LÓGICA DE POSICIONAMENTO: Centro vs Órbita
             if (tool.isCenter) {
                 // n8n fica exatamente no centro
                 mesh.position.set(0, 0, 0);
-                // TAMANHO AUMENTADO AQUI: Passou de 1.4 para 2.5!
                 mesh.scale.set(2.5, 2.5, 2.5);
             } else {
                 // Os demais calculam seu espaço no círculo externo
