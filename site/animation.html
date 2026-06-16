@@ -73,7 +73,7 @@
         // 1. CONFIGURAÇÃO BÁSICA
         // ==========================================
         function getDeviceZ() {
-            return window.innerWidth < 768 ? 28 : 18;
+            return window.innerWidth < 768 ? 20 : 12;
         }
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -144,7 +144,7 @@
 
         let nodeGeo;
         if (typeof THREE.RoundedBoxGeometry !== 'undefined') {
-            nodeGeo = new THREE.RoundedBoxGeometry(2, 2, 2, 4, 0.3);
+            nodeGeo = new THREE.RoundedBoxGeometry(2, 2, 2, 6, 0.7);
         } else {
             nodeGeo = new THREE.BoxGeometry(2, 2, 2);
         }
