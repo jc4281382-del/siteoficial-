@@ -1,19 +1,92 @@
 <!DOCTYPE html>
 <html class="dark" lang="pt-BR">
-
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta name="description" content="A AXION cria agentes de IA sob medida, integrações automatizadas complexas e ecossistemas digitais robustos para empresas escalarem sua eficiência e faturamento.">
-  <title>AXION | Automação Inteligente para Empresas</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Agentes de IA para WhatsApp, automação de processos com n8n e sistemas sob medida. Ajudamos empresas brasileiras a escalar sem aumentar equipe ou custos. Fale com a AXION.">
+  <meta name="keywords" content="agentes de IA, automação empresarial, WhatsApp IA, n8n, automação de processos, inteligência artificial para empresas, atendimento automático, AXION, Jean AXION">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="AXION — Jean">
+  <link rel="canonical" href="https://axion.tec.br/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://axion.tec.br/">
+  <meta property="og:title" content="AXION | Agentes de IA e Automação para Empresas Brasileiras">
+  <meta property="og:description" content="Agentes de IA para WhatsApp, automação de processos e sistemas sob medida. Escale sua operação sem aumentar equipe ou custos.">
+  <meta property="og:image" content="https://axion.tec.br/og-image.png">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="AXION">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AXION | Agentes de IA e Automação para Empresas">
+  <meta name="twitter:description" content="Escale sua operação com agentes de IA para WhatsApp, automações e sistemas inteligentes.">
+  <meta name="twitter:image" content="https://axion.tec.br/og-image.png">
+
+  <title>AXION | Agentes de IA e Automação para Empresas Brasileiras</title>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "AXION",
+    "url": "https://axion.tec.br",
+    "logo": "https://axion.tec.br/logo.png",
+    "description": "Criamos agentes de IA, automações e sistemas inteligentes que reduzem custos, aceleram operações e transformam atendimento em crescimento.",
+    "foundingLocation": {
+      "@type": "Place",
+      "addressCountry": "BR",
+      "addressLocality": "Rio de Janeiro"
+    },
+    "sameAs": [
+      "https://www.instagram.com/axion_jc",
+      "https://wa.me/5521992341112"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+55-21-99234-1112",
+      "contactType": "customer service",
+      "availableLanguage": "Portuguese"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Soluções AXION",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Agentes de IA para WhatsApp",
+            "description": "Atendimento 24/7, follow-up de vendas e qualificação automática de leads via agente de IA integrado ao WhatsApp."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Automação Empresarial com n8n",
+            "description": "Arquitetura de fluxos complexos utilizando n8n e integrações customizadas para eliminar processos manuais."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Desenvolvimento Full Stack",
+            "description": "Aplicações web, dashboards de dados e sistemas robustos sob medida com React e Next.js."
+          }
+        }
+      ]
+    }
+  }
+  </script>
+
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@500&display=swap"
-    rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-    rel="stylesheet">
-  <script id="tailwind-config">
-    tailwind.config = {
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  
+  <script id="tailwind-config">tailwind.config = {
       darkMode: "class",
       theme: {
         extend: {
@@ -95,10 +168,8 @@
           }
         }
       }
-    }
-  </script>
-  <style>
-    body {
+    }</script>
+  <style>body {
       background-color: #050505;
       color: #e5e2e1;
       overflow-x: hidden;
@@ -212,12 +283,11 @@
     .scrollbar-none {
       -ms-overflow-style: none;  /* IE and Edge */
       scrollbar-width: none;  /* Firefox */
-    }
-  </style>
+    }</style>
 </head>
 
 <body class="font-body-md text-body-md selection:bg-primary selection:text-on-primary">
-<div id="demo-modal" role="dialog" aria-modal="true" aria-label="Demo ao vivo do aplicativo">
+  <div id="demo-modal" role="dialog" aria-modal="true" aria-label="Demo ao vivo do aplicativo">
   <div id="demo-modal-inner">
     <div id="demo-modal-header">
       <div style="display:flex;align-items:center;gap:10px;">
@@ -239,55 +309,45 @@
     </div>
   </div>
 </div>
-  <header
-    class="fixed top-0 w-full z-50 bg-surface/5 backdrop-blur-xl border-b border-white/10 shadow-[0_0_20px_rgba(173,198,255,0.1)]">
+
+  <header class="fixed top-0 w-full z-50 bg-surface/5 backdrop-blur-xl border-b border-white/10 shadow-[0_0_20px_rgba(173,198,255,0.1)]">
     <div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 w-full max-w-container-max mx-auto gap-4">
       <div class="flex items-center gap-2 shrink-0">
-        <img alt="AXION Logo" class="w-8 h-8" src="logo.png">
+        <img alt="Logo AXION" class="w-8 h-8" src="logo.png">
         <span class="font-display-lg text-xl md:text-3xl font-bold tracking-tighter bg-gradient-to-r from-[#052FF0] to-[#7133ED] text-transparent bg-clip-text">AXION</span>
       </div>
       <nav class="hidden md:flex items-center gap-8">
-        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg px-2 py-1"
-          href="#solucoes">Soluções</a>
-        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg px-2 py-1"
-          href="#tecnologia">Tecnologia</a>
-        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg px-2 py-1"
-          href="#impacto">Impacto</a>
-        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg px-2 py-1"
-          href="#empresa">Empresa</a>
+        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg px-2 py-1" href="#solucoes">Soluções</a>
+        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg px-2 py-1" href="#tecnologia">Tecnologia</a>
+        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg px-2 py-1" href="#impacto">Impacto</a>
+        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg px-2 py-1" href="#empresa">Empresa</a>
       </nav>
-      <button onclick="openWhatsApp()"
-        class="bg-primary-container text-on-primary-container px-4 md:px-6 py-2 rounded-full font-semibold scale-95 active:scale-90 transition-transform whitespace-nowrap shrink-0 text-sm md:text-base outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background">
+      <button onclick="openWhatsApp()" class="bg-primary-container text-on-primary-container px-4 md:px-6 py-2 rounded-full font-semibold scale-95 active:scale-90 transition-transform whitespace-nowrap shrink-0 text-sm md:text-base outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background">
         Automatizar Minha Operação
       </button>
     </div>
   </header>
 
   <main class="relative">
-    <section class="relative min-h-[90vh] flex items-center pt-20 pb-10 overflow-hidden circuit-bg">
+    <section class="relative min-h-[85vh] flex items-center pt-24 pb-16 overflow-hidden circuit-bg">
+      <div class="absolute inset-0 bg-gradient-to-b from-[#050505] via-[#050505]/95 to-[#050505] z-0 pointer-events-none"></div>
       
-      <!-- iframe Desktop: aparece no fundo, apenas em telas md+ (carregado dinamicamente via JS) -->
-      <iframe id="animation-iframe-desktop" data-src="animation.html" class="hidden md:block absolute top-0 right-0 w-[60%] h-full z-0 border-none pointer-events-none" title="AXION 3D Architecture"></iframe>
-      
-      <div class="absolute inset-0 bg-gradient-to-b from-[#050505] via-[#050505]/80 to-[#050505] md:bg-gradient-to-r md:from-[#050505] md:via-[#050505]/90 md:to-transparent z-0 pointer-events-none"></div>
-      
-      <div class="container mx-auto px-6 md:px-margin-desktop max-w-container-max grid md:grid-cols-2 gap-8 items-center relative z-20">
-        
-        <div class="space-y-6 md:pt-0 pointer-events-auto text-center md:text-left">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-high border border-white/10 mx-auto md:mx-0">
+      <div class="container mx-auto px-6 md:px-margin-desktop max-w-3xl relative z-20 text-center flex flex-col items-center">
+        <div class="space-y-6 pointer-events-auto">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-high border border-white/10 mx-auto">
             <span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
             <span class="font-label-sm text-label-sm text-tertiary uppercase tracking-widest">Soluções corporativas de IA</span>
           </div>
           
-          <h1 class="font-display-lg text-4xl md:text-display-lg text-on-surface leading-tight">
-            Automação Inteligente para Empresas que Querem <span class="text-primary">Escalar</span>
+          <h1 class="font-display-lg text-3xl md:text-5xl lg:text-6xl text-on-surface leading-tight font-black tracking-tight max-w-2xl mx-auto">
+            Agentes de IA que Trabalham por Você — 24 horas, 7 dias.
           </h1>
           
-          <p class="text-on-surface-variant text-lg md:text-xl max-w-xl mx-auto md:mx-0">
-            Criamos agentes de IA, automações e sistemas inteligentes que reduzem custos, aceleram operações e transformam atendimento em crescimento.
+          <p class="text-on-surface-variant text-base md:text-lg max-w-xl mx-auto">
+            A AXION implementa agentes de IA para WhatsApp, automações com n8n e sistemas sob medida que escalam sua operação sem aumentar equipe — e sem amadorismo.
           </p>
           
-          <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+          <div class="flex justify-center pt-2">
             <button onclick="openWhatsApp()" class="glow-button bg-gradient-to-r from-primary-container to-secondary-container text-white px-8 py-4 rounded-full font-bold flex items-center gap-2 outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background">
               Agendar Meu Diagnóstico
               <span class="material-symbols-outlined">arrow_forward</span>
@@ -297,188 +357,104 @@
       </div>
     </section>
 
-
-
     <section class="py-24 bg-surface-container-lowest">
       <div class="container mx-auto px-margin-desktop max-w-container-max">
         <div class="text-center mb-16">
-          <h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">O Que a AXION Resolve</h2>
+          <h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">Sua empresa está travada em algum desses pontos?</h2>
           <div class="w-24 h-1 bg-gradient-to-r from-primary to-tertiary mx-auto"></div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div class="glass-card p-8 rounded-xl group hover:border-primary/50 transition-colors"
-            style="border-color: rgba(255, 255, 255, 0.1);">
+          <div class="glass-card p-8 rounded-xl group hover:border-primary/50 transition-colors" style="border-color: rgba(255, 255, 255, 0.1);">
             <span class="material-symbols-outlined text-4xl text-primary mb-4">schedule</span>
             <h3 class="text-xl font-bold mb-2">Atendimento lento</h3>
-            <p class="text-on-surface-variant">Reduza o tempo de espera de minutos para milissegundos com agentes de IA
-              treinados.</p>
+            <p class="text-on-surface-variant">Enquanto você demora para responder, o concorrente fecha o cliente. Agentes de IA respondem em milissegundos, 24/7.</p>
           </div>
-          <div class="glass-card p-8 rounded-xl group hover:border-primary/50 transition-colors"
-            style="border-color: rgba(255, 255, 255, 0.1);">
+          <div class="glass-card p-8 rounded-xl group hover:border-primary/50 transition-colors" style="border-color: rgba(255, 255, 255, 0.1);">
             <span class="material-symbols-outlined text-4xl text-primary mb-4">person_add_disabled</span>
-            <h3 class="text-xl font-bold mb-2">Leads sem acompanhamento</h3>
-            <p class="text-on-surface-variant">Nunca mais perca um lead por falta de follow-up instantâneo e
-              qualificação automática.</p>
+            <h3 class="text-xl font-bold mb-2">Lead que não vira cliente</h3>
+            <p class="text-on-surface-variant">Follow-up manual falha. Qualificação automática via IA captura, nutre e encaminha o lead certo na hora certa.</p>
           </div>
-          <div class="glass-card p-8 rounded-xl group hover:border-primary/50 transition-colors"
-            style="border-color: rgba(255, 255, 255, 0.1);">
+          <div class="glass-card p-8 rounded-xl group hover:border-primary/50 transition-colors" style="border-color: rgba(255, 255, 255, 0.1);">
             <span class="material-symbols-outlined text-4xl text-primary mb-4">manufacturing</span>
-            <h3 class="text-xl font-bold mb-2">Operações manuais</h3>
-            <p class="text-on-surface-variant">Elimine tarefas repetitivas que drenam a energia criativa da sua equipe
-              técnica.</p>
+            <h3 class="text-xl font-bold mb-2">Equipe sobrecarregada em tarefas repetitivas</h3>
+            <p class="text-on-surface-variant">Seu time é caro demais para fazer o que uma automação faz melhor e sem errar.</p>
           </div>
-          <div class="glass-card p-8 rounded-xl group hover:border-primary/50 transition-colors"
-            style="border-color: rgba(255, 255, 255, 0.1);">
+          <div class="glass-card p-8 rounded-xl group hover:border-primary/50 transition-colors" style="border-color: rgba(255, 255, 255, 0.1);">
             <span class="material-symbols-outlined text-4xl text-primary mb-4">psychology_alt</span>
-            <h3 class="text-xl font-bold mb-2">Equipes sobrecarregadas</h3>
-            <p class="text-on-surface-variant">Escale sua produtividade sem aumentar proporcionalmente a folha de
-              pagamento.</p>
+            <h3 class="text-xl font-bold mb-2">Crescer sem contratar mais</h3>
+            <p class="text-on-surface-variant">Escale 3x o volume operacional sem aumentar proporcionalmente a folha de pagamento.</p>
           </div>
-          <div class="glass-card p-8 rounded-xl group hover:border-primary/50 transition-colors"
-            style="border-color: rgba(255, 255, 255, 0.1);">
+          <div class="glass-card p-8 rounded-xl group hover:border-primary/50 transition-colors" style="border-color: rgba(255, 255, 255, 0.1);">
             <span class="material-symbols-outlined text-4xl text-primary mb-4">hub</span>
-            <h3 class="text-xl font-bold mb-2">Falta de integração</h3>
-            <p class="text-on-surface-variant">Conecte seus softwares ligados a sistemas modernos de forma transparente.
-            </p>
+            <h3 class="text-xl font-bold mb-2">Sistemas que não se falam</h3>
+            <p class="text-on-surface-variant">CRM, WhatsApp, e-mail, planilha e ERP em universos separados. A AXION conecta tudo.</p>
           </div>
-          <div class="glass-card p-8 rounded-xl group hover:border-primary/50 transition-colors"
-            style="border-color: rgba(255, 255, 255, 0.1);">
-            <span class="material-symbols-outlined text-4xl text-primary mb-4">settings_suggest</span>
-            <h3 class="text-xl font-bold mb-2">Processos sem automação</h3>
-            <p class="text-on-surface-variant">Transforme fluxos de trabalho arcaicos em pipelines digitais eficientes e
-              auditáveis.</p>
+          <div class="glass-card p-8 rounded-xl group hover:border-primary/50 transition-colors" style="border-color: rgba(255, 255, 255, 0.1);">
+            <span class="material-symbols-outlined text-4xl text-primary mb-4">trending_down</span>
+            <h3 class="text-xl font-bold mb-2">Custos operacionais altos</h3>
+            <p class="text-on-surface-variant">Reduza despesas sem cortar qualidade — agentes de IA trabalham 24/7 pelo custo de uma assinatura.</p>
           </div>
         </div>
       </div>
     </section>
+
     <section class="py-24 relative overflow-hidden" id="solucoes">
       <div class="container mx-auto px-margin-desktop max-w-container-max relative z-10">
         <div class="grid md:grid-cols-2 gap-16 items-center">
           <div>
-            <h2 class="font-headline-lg text-headline-lg text-on-surface mb-8">Soluções que Transformam</h2>
+            <h2 class="font-headline-lg text-headline-lg text-on-surface mb-8">Agentes de IA, Automação e Desenvolvimento Sob Medida</h2>
             <div class="space-y-12">
               <div class="flex gap-6">
-                <div
-                  class="w-12 h-12 flex-shrink-0 rounded-lg bg-primary/10 flex items-center justify-center border border-primary/30">
+                <div class="w-12 h-12 flex-shrink-0 rounded-lg bg-primary/10 flex items-center justify-center border border-primary/30">
                   <span class="material-symbols-outlined text-primary">smart_toy</span>
                 </div>
                 <div>
-                  <h4 class="text-xl font-bold text-on-surface mb-2">Agentes de IA Inteligentes</h4>
-                  <p class="text-on-surface-variant">Atendimento e Vendas no Piloto Automático. Escale o volume de chamados e qualificações da sua empresa sem adicionar um centavo a mais na folha de pagamento. Automatizamos processos repetitivos para que sua equipe foque exclusivamente no fechamento e na estratégia.</p>
+                  <h4 class="text-xl font-bold text-on-surface mb-2">Agentes de IA para WhatsApp</h4>
+                  <p class="text-on-surface-variant">Atendimento e vendas no piloto automático. O agente responde, qualifica, agenda e reporta — enquanto você foca no que importa. Sem script engessado, sem chatbot genérico: IA treinada para o seu negócio com ferramentas reais integradas.</p>
                 </div>
               </div>
               <div class="flex gap-6">
-                <div
-                  class="w-12 h-12 flex-shrink-0 rounded-lg bg-tertiary/10 flex items-center justify-center border border-tertiary/30">
-                  <span class="material-symbols-outlined text-tertiary">monitor_heart</span>
+                <div class="w-12 h-12 flex-shrink-0 rounded-lg bg-tertiary/10 flex items-center justify-center border border-tertiary/30">
+                  <span class="material-symbols-outlined text-tertiary">alt_route</span>
                 </div>
                 <div>
-                  <h4 class="text-xl font-bold text-on-surface mb-2">Manager Clinical (SaaS B2B)</h4>
-                  <p class="text-on-surface-variant">Tire sua clínica do escuro e assuma o controle do seu caixa. Centralizamos agendamentos, pagamentos e CRM em um painel inteligente integrado ao Supabase. Elimine a sensação de estar perdido: com relatórios precisos, você sabe exatamente se a operação dá lucro, e zera horários ociosos.</p>
+                  <h4 class="text-xl font-bold text-on-surface mb-2">Automação de Processos com n8n</h4>
+                  <p class="text-on-surface-variant">Fluxos complexos que conectam WhatsApp, CRM, e-mail, planilhas, APIs e ERPs numa única arquitetura inteligente. Elimine o trabalho manual que consome horas da sua equipe toda semana.</p>
                 </div>
               </div>
               <div class="flex gap-6">
-                <div
-                  class="w-12 h-12 flex-shrink-0 rounded-lg bg-secondary/10 flex items-center justify-center border border-secondary/30">
-                  <span class="material-symbols-outlined text-secondary">account_balance</span>
+                <div class="w-12 h-12 flex-shrink-0 rounded-lg bg-secondary/10 flex items-center justify-center border border-secondary/30">
+                  <span class="material-symbols-outlined text-secondary">terminal</span>
                 </div>
                 <div>
-                  <h4 class="text-xl font-bold text-on-surface mb-2">Finance Class (SaaS Financeiro)</h4>
-                  <p class="text-on-surface-variant">Clareza mental e controle absoluto do seu dinheiro. O fim das planilhas confusas. Uma arquitetura multi-tenant robusta que permite gerenciar múltiplas faturas de cartão de crédito (como centralizar os gastos da esposa, Ana, e os seus no mesmo lugar), categorizar despesas e poupar um tempo precioso. Conta com um Consultor Financeiro em IA para guiar suas decisões.</p>
+                  <h4 class="text-xl font-bold text-on-surface mb-2">Desenvolvimento Full Stack</h4>
+                  <p class="text-on-surface-variant">Aplicações web, dashboards em tempo real e sistemas robustos em React e Next.js. Interfaces que impressionam — e que funcionam de verdade no backend.</p>
+                </div>
+              </div>
+              <div class="flex gap-6">
+                <div class="w-12 h-12 flex-shrink-0 rounded-lg bg-primary-fixed/10 flex items-center justify-center border border-primary-fixed/30">
+                  <span class="material-symbols-outlined text-primary-fixed">dns</span>
+                </div>
+                <div>
+                  <h4 class="text-xl font-bold text-on-surface mb-2">Infraestrutura e Integrações</h4>
+                  <p class="text-on-surface-variant">Deploy escalável com Supabase, PostgreSQL e APIs de alta performance. A base técnica que sustenta qualquer volume de operação sem travar.</p>
                 </div>
               </div>
             </div>
           </div>
           <div class="relative">
-            <div
-              class="aspect-square rounded-full border-2 border-dashed border-primary/20 absolute -inset-10 animate-[spin_60s_linear_infinite] pointer-events-none">
-            </div>
-            <div class="glass-card rounded-2xl overflow-hidden relative z-10 shadow-2xl p-6 flex flex-col items-center justify-center min-h-[380px]"
-              style="border-color: rgba(255, 255, 255, 0.1);">
-              
-              <!-- Diagrama SVG de Integração Inteligente -->
-              <svg viewBox="0 0 400 300" class="w-full h-auto max-w-[360px] opacity-90 transition-all duration-500 hover:scale-105" aria-hidden="true">
-                <defs>
-                  <!-- Gradientes -->
-                  <linearGradient id="purpleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#9d05ff" />
-                    <stop offset="100%" stop-color="#4b8eff" />
-                  </linearGradient>
-                  <linearGradient id="cyanGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#00dbe9" />
-                    <stop offset="100%" stop-color="#4b8eff" />
-                  </linearGradient>
-                  <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stop-color="#9d05ff" stop-opacity="0.3" />
-                    <stop offset="50%" stop-color="#00dbe9" stop-opacity="0.8" />
-                    <stop offset="100%" stop-color="#4b8eff" stop-opacity="0.3" />
-                  </linearGradient>
-                  
-                  <!-- Filtros de Brilho (Glow Effect) -->
-                  <filter id="glowPurple" x="-20%" y="-20%" width="140%" height="140%">
-                    <feGaussianBlur stdDeviation="6" result="blur" />
-                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                  </filter>
-                  <filter id="glowCyan" x="-20%" y="-20%" width="140%" height="140%">
-                    <feGaussianBlur stdDeviation="6" result="blur" />
-                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                  </filter>
-                </defs>
-                
-                <!-- Conexões -->
-                <path d="M 60,150 Q 130,90 200,150" fill="none" stroke="url(#lineGradient)" stroke-width="2.5" stroke-dasharray="6,4" />
-                <path d="M 60,150 Q 130,210 200,150" fill="none" stroke="url(#lineGradient)" stroke-width="2" />
-                <path d="M 200,150 Q 270,90 340,150" fill="none" stroke="url(#lineGradient)" stroke-width="2" />
-                <path d="M 200,150 Q 270,210 340,150" fill="none" stroke="url(#lineGradient)" stroke-width="2.5" stroke-dasharray="6,4" />
-                
-                <!-- Nó Esquerdo: Clientes/Canais -->
-                <g class="cursor-pointer" transform="translate(60, 150)">
-                  <circle r="24" fill="#131313" stroke="#9d05ff" stroke-width="2" />
-                  <circle r="18" fill="url(#purpleGradient)" opacity="0.15" filter="url(#glowPurple)" />
-                  <path d="M -8,-6 h 16 a 2,2 0 0 1 2,2 v 8 a 2,2 0 0 1 -2,2 h -10 l -6,4 v -4 a 2,2 0 0 1 -2,-2 v -8 a 2,2 0 0 1 2,-2 z" fill="none" stroke="#adc6ff" stroke-width="1.5" />
-                  <text y="38" text-anchor="middle" fill="#8b90a0" font-family="sans-serif" font-size="10" font-weight="500">Canais / Clientes</text>
-                </g>
-                
-                <!-- Nó Central: AXION Core AI Engine -->
-                <g class="cursor-pointer" transform="translate(200, 150)">
-                  <circle r="44" fill="none" stroke="#00dbe9" stroke-width="1" stroke-dasharray="4,4" opacity="0.4" />
-                  <circle r="36" fill="#131313" stroke="url(#cyanGradient)" stroke-width="2.5" filter="url(#glowCyan)" />
-                  <circle r="26" fill="url(#cyanGradient)" opacity="0.1" />
-                  <path d="M -8,0 L -2,-8 L 6,-2 L 10,-10 M -10,10 L -4,2 L 4,8 L 8,0" fill="none" stroke="#00dbe9" stroke-width="2" stroke-linecap="round" />
-                  <circle r="3" fill="#ffffff" />
-                  <text y="58" text-anchor="middle" fill="#e5e2e1" font-family="sans-serif" font-size="11" font-weight="bold" letter-spacing="1">AXION AI Core</text>
-                </g>
-                
-                <!-- Nó Direito: Sistemas e Integrações -->
-                <g class="cursor-pointer" transform="translate(340, 150)">
-                  <circle r="24" fill="#131313" stroke="#9d05ff" stroke-width="2" />
-                  <circle r="18" fill="url(#purpleGradient)" opacity="0.15" filter="url(#glowPurple)" />
-                  <path d="M -8,-6 C -8,-8 8,-8 8,-6 M -8,-2 C -8,-4 8,-4 8,-2 M -8,2 C -8,0 8,0 8,2 M -8,-6 V 6 C -8,8 8,8 8,6 V -6" fill="none" stroke="#adc6ff" stroke-width="1.5" />
-                  <text y="38" text-anchor="middle" fill="#8b90a0" font-family="sans-serif" font-size="10" font-weight="500">APIs / CRMs / DB</text>
-                </g>
-              </svg>
-              
-              <!-- Texto descritivo de Acessibilidade -->
-              <span class="sr-only">Painel de controle tecnológico representando a automação empresarial da AXION</span>
-
-              <div class="w-full mt-6">
-                <div class="font-label-sm text-label-sm text-primary uppercase tracking-widest mb-2">Status da Integração</div>
-                <div class="flex items-center gap-4">
-                  <div class="flex-1 h-1 bg-white/10 rounded-full overflow-hidden">
-                    <div class="h-full bg-primary w-3/4 animate-[pulse_2s_infinite]"></div>
-                  </div>
-                  <span class="font-label-sm text-label-sm text-on-surface">99.9% Uptime</span>
-                </div>
-              </div>
+            <div class="aspect-square rounded-full border-2 border-dashed border-primary/20 absolute -inset-10 animate-[spin_60s_linear_infinite] pointer-events-none"></div>
+            <div class="glass-card rounded-2xl overflow-hidden relative z-10 shadow-2xl flex flex-col items-center justify-center min-h-[380px]" style="border-color: rgba(255, 255, 255, 0.1);">
+              <iframe id="animation-iframe-desktop" src="animation.html" class="w-full h-[380px] border-none" title="AXION 3D Architecture"></iframe>
             </div>
           </div>
         </div>
       </div>
     </section>
+
     <section class="py-20 border-y border-white/5 bg-surface-container-lowest/50" id="tecnologia">
       <div class="container mx-auto px-margin-desktop max-w-container-max">
-        <p class="font-label-sm text-label-sm text-center text-on-surface-variant uppercase tracking-widest mb-10">
-          Driven by World-Class Tech</p>
+        <p class="font-label-sm text-label-sm text-center text-on-surface-variant uppercase tracking-widest mb-10">Tecnologia de Classe Mundial</p>
         <div class="text-center font-semibold text-lg md:text-2xl tracking-wide text-on-surface-variant opacity-60 hover:opacity-90 transition-opacity duration-300 select-none">
           <span class="hover:text-primary transition-colors duration-300 px-2">n8n</span>
           <span class="text-white/10 mx-2 md:mx-4">|</span>
@@ -489,263 +465,338 @@
           <span class="hover:text-primary transition-colors duration-300 px-2">Anthropic</span>
           <span class="text-white/10 mx-2 md:mx-4">|</span>
           <span class="hover:text-primary transition-colors duration-300 px-2">React</span>
+          <span class="text-white/10 mx-2 md:mx-4">|</span>
+          <span class="hover:text-primary transition-colors duration-300 px-2">Supabase</span>
+          <span class="text-white/10 mx-2 md:mx-4">|</span>
+          <span class="hover:text-primary transition-colors duration-300 px-2">Node.js</span>
+          <span class="text-white/10 mx-2 md:mx-4">|</span>
+          <span class="hover:text-primary transition-colors duration-300 px-2">Vercel</span>
         </div>
       </div>
     </section>
-    <section class="py-32 bg-primary/5">
-      <div class="container mx-auto px-margin-desktop max-w-container-max text-center">
-        <div class="max-w-3xl mx-auto">
-          <span class="material-symbols-outlined text-primary text-6xl mb-6"
-            style="font-variation-settings: 'FILL' 1;">stars</span>
-          <h2 class="font-display-lg text-headline-lg text-on-surface italic">
-            "Não criamos apenas automações. Criamos sistemas inteligentes focados em eficiência, experiência e
-            crescimento."
-          </h2>
+
+    <section class="py-24 bg-surface-container-lowest relative overflow-hidden">
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/20 blur-[150px] rounded-full pointer-events-none z-0"></div>
+      <div class="container mx-auto px-6 md:px-margin-desktop max-w-container-max flex flex-col items-center relative z-10">
+        <div class="w-full max-w-[800px] mx-auto rounded-[12px] overflow-hidden shadow-[0_0_30px_rgba(75,142,255,0.15)] border border-white/10 bg-[#09090b]">
+          <video src="vídeo_fluxo.mp4" class="w-full h-auto block" autoplay loop muted playsinline></video>
         </div>
       </div>
     </section>
+
     <section class="py-24 bg-surface-container-lowest/30" id="impacto">
       <div class="container mx-auto px-6 md:px-margin-desktop max-w-container-max">
-        <h2 class="font-headline-lg text-3xl md:text-headline-lg text-on-surface mb-4 text-center">Teste nossas aplicações</h2>
-        <p class="text-on-surface-variant text-center max-w-lg mx-auto mb-12 text-sm md:text-base">
-          Interaja com nossas simulações em tempo real e comprove a eficiência e velocidade dos ecossistemas AXION.
+        <h2 class="font-headline-lg text-3xl md:text-headline-lg text-on-surface mb-4 text-center">Desenvolvimento</h2>
+        <p class="text-on-surface-variant text-center max-w-2xl mx-auto mb-16 text-sm md:text-base">
+          Projetamos e construímos sistemas integrados, interfaces de alto nível e automações robustas. Confira abaixo alguns dos aplicativos desenvolvidos pela AXION.
         </p>
         
-        <div id="smartphones-container" class="flex md:grid overflow-x-auto md:overflow-x-visible snap-x snap-mandatory md:snap-none md:grid-cols-2 lg:grid-cols-3 gap-8 justify-start md:justify-items-center pb-6 md:pb-0 scrollbar-none" style="scrollbar-width: none;">
-          
-          <!-- Smartphone 1: AXION Agent (Chat IA) -->
-          <div class="w-[85vw] md:w-full max-w-[320px] h-[560px] bg-[#09090b] rounded-[40px] border-[6px] border-[#1f1f23] shadow-[0_0_50px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden relative snap-center flex-shrink-0" aria-label="Simulador de Chat AXION Agent">
-            <!-- Notch do Celular -->
-            <div class="w-28 h-4 bg-[#1f1f23] rounded-b-2xl absolute top-0 left-1/2 -translate-x-1/2 z-30"></div>
-            
-            <!-- Header do Chat -->
-            <div class="pt-6 pb-3 px-4 bg-[#121216] border-b border-white/5 flex items-center gap-3 shrink-0">
-              <div class="w-8 h-8 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center shadow-lg">
-                <span class="material-symbols-outlined text-[18px] text-white">smart_toy</span>
-              </div>
-              <div>
-                <div class="font-bold text-white text-[12px] leading-tight">AXION Agent</div>
-                <div class="flex items-center gap-1.5">
-                  <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
-                  <span class="text-[9px] text-[#8e8e93] font-medium uppercase tracking-wider">Online</span>
-                </div>
-              </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 justify-items-center">
+          <div class="group relative flex flex-col items-center w-full max-w-[280px] md:max-w-full">
+            <div class="absolute -inset-1 bg-gradient-to-r from-primary/30 to-secondary/30 rounded-[36px] blur-xl opacity-20 group-hover:opacity-60 transition duration-500"></div>
+            <div class="relative bg-[#09090b] rounded-[36px] border border-white/10 overflow-hidden shadow-2xl p-2 hover:scale-[1.03] transition-transform duration-300 w-full">
+              <img src="smartphone_agent.png" alt="Fluxo de Agente IA no WhatsApp" class="w-full h-auto object-contain">
             </div>
-            
-            <!-- Área de Mensagens -->
-            <div id="chat-messages-container" class="flex-1 overflow-y-auto p-4 space-y-3 flex flex-col text-[11px] scrollbar-none" style="scrollbar-width: none;">
-              <!-- Mensagens iniciais removidas para falar diretamente com IA -->
-              
-              <!-- Botões de Resposta Rápida -->
-              <div id="chat-quick-replies" class="flex flex-wrap gap-2 pt-1">
-                <button onclick="handleQuickReply('Começar')" class="border border-primary/30 hover:border-primary text-primary text-[10px] px-3 py-1.5 rounded-full bg-primary/5 hover:bg-primary/10 transition-all font-semibold outline-none focus-visible:ring-2 focus-visible:ring-primary">
-                  Começar
-                </button>
-              </div>
-              
-              <!-- Typing Indicator -->
-              <div id="chat-typing-indicator" class="hidden bg-[#1c1c22] p-3 rounded-2xl rounded-tl-none max-w-[40%] self-start border border-white/5 flex items-center justify-center gap-1">
-                <span class="w-1.5 h-1.5 bg-[#8b90a0] rounded-full animate-bounce [animation-duration:1s]"></span>
-                <span class="w-1.5 h-1.5 bg-[#8b90a0] rounded-full animate-bounce [animation-duration:1s] [animation-delay:0.2s]"></span>
-                <span class="w-1.5 h-1.5 bg-[#8b90a0] rounded-full animate-bounce [animation-duration:1s] [animation-delay:0.4s]"></span>
-              </div>
-            </div>
-            
-            <!-- Campo de Entrada do Chat -->
-            <form id="chat-input-form" onsubmit="handleChatSubmit(event)" class="p-3 bg-[#121216] border-t border-white/5 flex gap-2 shrink-0">
-              <input id="chat-user-input" type="text" placeholder="Digite sua dúvida..." class="flex-1 bg-[#1c1c22] border border-white/10 text-white rounded-full px-3 py-1.5 text-[11px] placeholder-[#8b90a0] outline-none focus:border-primary/50 transition-colors">
-              <button type="submit" class="w-7 h-7 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center hover:scale-105 active:scale-95 transition-transform outline-none focus-visible:ring-2 focus-visible:ring-primary shrink-0">
-                <span class="material-symbols-outlined text-[14px]">send</span>
-              </button>
-            </form>
+            <h4 class="mt-6 text-lg font-bold text-white tracking-tight text-center">Arquitetura de Agentes de IA</h4>
+            <p class="text-xs text-on-surface-variant text-center mt-1">Fluxos inteligentes integrados aos canais</p>
           </div>
           
-          <!-- Smartphone 2: ROI do Projeto -->
-          <div class="w-[85vw] md:w-full max-w-[320px] h-[560px] bg-[#09090b] rounded-[40px] border-[6px] border-[#1f1f23] shadow-[0_0_50px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden relative snap-center flex-shrink-0" aria-label="Demonstrativo de Métricas de ROI">
-            <!-- Notch do Celular -->
-            <div class="w-28 h-4 bg-[#1f1f23] rounded-b-2xl absolute top-0 left-1/2 -translate-x-1/2 z-30"></div>
-            
-            <div class="w-full h-full flex-1 relative bg-[#131313]">
-              <iframe src="demo/inicio.html" title="Finance Class Demo" class="absolute top-0 left-0 w-[125%] h-[125%] border-none scale-[0.8] origin-top-left pointer-events-auto"></iframe>
+          <div class="group relative flex flex-col items-center w-full max-w-[280px] md:max-w-full">
+            <div class="absolute -inset-1 bg-gradient-to-r from-secondary/30 to-tertiary/30 rounded-[36px] blur-xl opacity-20 group-hover:opacity-60 transition duration-500"></div>
+            <div class="relative bg-[#09090b] rounded-[36px] border border-white/10 overflow-hidden shadow-2xl p-2 hover:scale-[1.03] transition-transform duration-300 w-full">
+              <img src="smartphone_reports.png" alt="Painel de Relatórios" class="w-full h-auto object-contain">
             </div>
+            <h4 class="mt-6 text-lg font-bold text-white tracking-tight text-center">Dashboards e Relatórios</h4>
+            <p class="text-xs text-on-surface-variant text-center mt-1">Métricas de performance em tempo real</p>
           </div>
           
-          <!-- Smartphone 3: Agendamento IA -->
-          <div class="w-[85vw] md:w-full max-w-[320px] h-[560px] bg-[#09090b] rounded-[40px] border-[6px] border-[#1f1f23] shadow-[0_0_50px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden relative snap-center flex-shrink-0" aria-label="Simulador de Agendamento IA">
-            <!-- Notch do Celular -->
-            <div class="w-28 h-4 bg-[#1f1f23] rounded-b-2xl absolute top-0 left-1/2 -translate-x-1/2 z-30"></div>
-            
-            <!-- Header do Agendamento -->
-            <div class="pt-8 pb-3 px-5 text-center shrink-0 border-b border-white/5 bg-[#121216]">
-              <div class="font-black text-white text-[13px]">Agendamento IA</div>
-              <div class="text-[9px] text-[#8e8e93] font-medium tracking-wide">Escolha o melhor horário</div>
+          <div class="group relative flex flex-col items-center w-full max-w-[280px] md:max-w-full">
+            <div class="absolute -inset-1 bg-gradient-to-r from-tertiary/30 to-primary/30 rounded-[36px] blur-xl opacity-20 group-hover:opacity-60 transition duration-500"></div>
+            <div class="relative bg-[#09090b] rounded-[36px] border border-white/10 overflow-hidden shadow-2xl p-2 hover:scale-[1.03] transition-transform duration-300 w-full">
+              <img src="smartphone_finance.png" alt="Aplicativo Finance Class" class="w-full h-auto object-contain">
             </div>
-            
-            <!-- Área do Calendário e Horários -->
-            <div class="flex-1 p-5 flex flex-col justify-between overflow-y-auto scrollbar-none" style="scrollbar-width: none;">
-              
-              <!-- Dias do Calendário -->
-              <div>
-                <div class="flex justify-between gap-1 mb-4">
-                  <div class="flex-1 flex flex-col items-center p-1 rounded-lg text-[#8e8e93] hover:bg-white/5 transition-colors cursor-pointer text-[10px]">
-                    <span>D</span><span class="font-bold text-white/50 mt-1">12</span>
-                  </div>
-                  <div class="flex-1 flex flex-col items-center p-1 rounded-lg text-[#8e8e93] hover:bg-white/5 transition-colors cursor-pointer text-[10px]">
-                    <span>S</span><span class="font-bold text-white/50 mt-1">13</span>
-                  </div>
-                  <div class="flex-1 flex flex-col items-center p-1 rounded-lg text-[#8e8e93] hover:bg-white/5 transition-colors cursor-pointer text-[10px]">
-                    <span>T</span><span class="font-bold text-white/50 mt-1">14</span>
-                  </div>
-                  <!-- Dia Selecionado -->
-                  <div class="flex-1 flex flex-col items-center p-1 rounded-xl bg-gradient-to-b from-[#052FF0] to-[#7133ED] text-white shadow-md text-[10px] cursor-pointer">
-                    <span>Q</span><span class="font-black mt-1">15</span>
-                  </div>
-                  <div class="flex-1 flex flex-col items-center p-1 rounded-lg text-[#8e8e93] hover:bg-white/5 transition-colors cursor-pointer text-[10px]">
-                    <span>Q</span><span class="font-bold text-white/50 mt-1">16</span>
-                  </div>
-                  <div class="flex-1 flex flex-col items-center p-1 rounded-lg text-[#8e8e93] hover:bg-white/5 transition-colors cursor-pointer text-[10px]">
-                    <span>S</span><span class="font-bold text-white/50 mt-1">17</span>
-                  </div>
-                  <div class="flex-1 flex flex-col items-center p-1 rounded-lg text-[#8e8e93] hover:bg-white/5 transition-colors cursor-pointer text-[10px]">
-                    <span>D</span><span class="font-bold text-white/50 mt-1">18</span>
-                  </div>
-                </div>
-                
-                <p class="text-[9px] text-[#8e8e93] font-bold uppercase tracking-wider mb-2.5">Horários Disponíveis</p>
-                <!-- Grid de Horários -->
-                <div class="grid grid-cols-2 gap-2.5">
-                  <div id="time-slot-1" onclick="selectTimeSlot(1)" class="time-slot border border-primary text-primary bg-primary/10 rounded-xl py-3 text-center text-[10px] font-bold cursor-pointer transition-all">
-                    09:00 AM
-                  </div>
-                  <div id="time-slot-2" onclick="selectTimeSlot(2)" class="time-slot border border-white/10 hover:border-white/20 text-[#e5e2e1] rounded-xl py-3 text-center text-[10px] font-medium cursor-pointer transition-all">
-                    10:30 AM
-                  </div>
-                  <div id="time-slot-3" onclick="selectTimeSlot(3)" class="time-slot border border-white/10 hover:border-white/20 text-[#e5e2e1] rounded-xl py-3 text-center text-[10px] font-medium cursor-pointer transition-all">
-                    02:00 PM
-                  </div>
-                  <div id="time-slot-4" onclick="selectTimeSlot(4)" class="time-slot border border-white/10 hover:border-white/20 text-[#e5e2e1] rounded-xl py-3 text-center text-[10px] font-medium cursor-pointer transition-all">
-                    04:15 PM
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Botão Confirmar -->
-              <button onclick="handleAppointmentSubmit()" class="w-full py-3 mt-4 bg-gradient-to-r from-primary to-secondary text-white font-bold text-[11px] rounded-2xl shadow-[0_0_20px_rgba(75,142,255,0.25)] hover:scale-[1.02] active:scale-[0.98] transition-transform outline-none focus-visible:ring-2 focus-visible:ring-primary">
-                AGENDAR AGORA
-              </button>
-              
-            </div>
+            <h4 class="mt-6 text-lg font-bold text-white tracking-tight text-center">Sistemas Sob Medida</h4>
+            <p class="text-xs text-on-surface-variant text-center mt-1">Soluções completas e integradas</p>
           </div>
-          
-        </div>
-        
-        <!-- Indicadores de Carrossel -->
-        <div id="smartphones-indicators" class="flex justify-center gap-2 mt-8">
-          <span class="w-6 h-1 rounded-full bg-primary shadow-[0_0_6px_rgba(75,142,255,0.8)] transition-all duration-300"></span>
-          <span class="w-1.5 h-1 rounded-full bg-white/20 transition-all duration-300"></span>
-          <span class="w-1.5 h-1 rounded-full bg-white/20 transition-all duration-300"></span>
         </div>
       </div>
     </section>
-    <!-- Nova Seção: Visão e Conceitos de Design -->
-    <section class="py-24 bg-surface-container-lowest" id="design">
+
+    <section class="py-24 bg-surface-container-lowest" id="portfolio">
       <div class="container mx-auto px-margin-desktop max-w-container-max">
         <div class="text-center mb-16">
-          <h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">Construindo o Futuro: Nossos Conceitos de Interface</h2>
+          <h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">Sistemas que Construímos — e que Funcionam</h2>
           <div class="w-24 h-1 bg-gradient-to-r from-primary to-tertiary mx-auto mb-8"></div>
           <p class="text-on-surface-variant text-lg max-w-3xl mx-auto">
-            Acreditamos que a alta tecnologia exige um design impecável. Exploramos continuamente novas fronteiras de UX/UI, criando interfaces modernas, dark-mode e altamente responsivas que aplicamos no desenvolvimento dos nossos aplicativos em Next.js e integrações complexas.
+            Cada projeto foi entregue com documentação em tempo real, integração completa e zero amadorismo.
           </p>
         </div>
         
-        <!-- Grid para Mockups de Design -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Placeholder 1 -->
-          <div class="glass-card rounded-2xl overflow-hidden group hover:border-primary/50 transition-colors" style="border-color: rgba(255, 255, 255, 0.1);">
-            <div class="aspect-video bg-[#1a1a1a] flex items-center justify-center relative overflow-hidden">
-              <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent"></div>
-              <span class="material-symbols-outlined text-4xl text-on-surface-variant/50">image</span>
+          <!-- Card 1 -->
+          <div class="glass-card rounded-2xl overflow-hidden flex flex-col group hover:border-primary/50 transition-colors" style="border-color: rgba(255, 255, 255, 0.1);">
+            <div class="h-48 bg-[#121216] p-4 flex flex-col justify-end border-b border-white/5 relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-br from-[#22c55e]/10 to-transparent"></div>
+                <div class="bg-[#1c1c22] border border-white/10 rounded-xl p-3 w-[80%] self-start relative z-10 mb-2 shadow-lg">
+                    <div class="w-16 h-2 bg-white/10 rounded-full mb-2"></div>
+                    <div class="w-full h-2 bg-white/5 rounded-full"></div>
+                </div>
+                <div class="bg-gradient-to-r from-[#052FF0]/80 to-[#7133ED]/80 border border-white/10 rounded-xl p-3 w-[70%] self-end relative z-10 shadow-lg">
+                    <div class="w-12 h-2 bg-white/20 rounded-full mb-2"></div>
+                    <div class="w-[90%] h-2 bg-white/10 rounded-full"></div>
+                </div>
             </div>
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-2">Dashboard Executivo</h3>
-              <p class="text-sm text-on-surface-variant">Conceito de interface para análise de dados em tempo real.</p>
+            <div class="p-6 flex flex-col flex-1">
+              <div class="mb-4">
+                 <span class="inline-flex items-center px-2 py-1 rounded text-xs font-bold bg-[#22c55e]/10 text-[#22c55e] border border-[#22c55e]/20">-39% de Custo Operacional</span>
+              </div>
+              <h3 class="text-xl font-bold mb-3">Agente IA para Atendimento e Vendas</h3>
+              <p class="text-sm text-on-surface-variant mb-6 flex-1">Agente integrado ao WhatsApp, e-mail e CRM com qualificação automática de leads, follow-up programado e métricas em tempo real. Atende +300 interações simultâneas sem contratar um atendente.</p>
+              <a href="#impacto" class="text-primary font-semibold hover:text-primary-container transition-colors inline-flex items-center gap-1">Ver demonstração <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
             </div>
           </div>
-          <!-- Placeholder 2 -->
-          <div class="glass-card rounded-2xl overflow-hidden group hover:border-tertiary/50 transition-colors" style="border-color: rgba(255, 255, 255, 0.1);">
-            <div class="aspect-video bg-[#1a1a1a] flex items-center justify-center relative overflow-hidden">
-              <div class="absolute inset-0 bg-gradient-to-br from-tertiary/10 to-transparent"></div>
-              <span class="material-symbols-outlined text-4xl text-on-surface-variant/50">image</span>
+
+          <!-- Card 2 -->
+          <div class="glass-card rounded-2xl overflow-hidden flex flex-col group hover:border-tertiary/50 transition-colors" style="border-color: rgba(255, 255, 255, 0.1);">
+            <div class="h-48 bg-[#121216] p-4 flex flex-col justify-center gap-3 border-b border-white/5 relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-br from-[#00dbe9]/10 to-transparent"></div>
+                <div class="bg-[#1c1c22] border border-white/10 rounded-xl p-4 flex justify-between items-center relative z-10 shadow-lg">
+                    <div>
+                        <div class="w-10 h-2 bg-white/10 rounded-full mb-2"></div>
+                        <div class="w-24 h-3 bg-white/20 rounded-full"></div>
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-[#00dbe9]/20 border border-[#00dbe9]/30"></div>
+                </div>
+                <div class="flex gap-2 relative z-10">
+                    <div class="bg-[#1c1c22] border border-white/10 rounded-lg p-3 flex-1 shadow-lg">
+                        <div class="w-8 h-1.5 bg-white/10 rounded-full mb-2"></div>
+                        <div class="w-16 h-2 bg-white/20 rounded-full"></div>
+                    </div>
+                    <div class="bg-[#1c1c22] border border-white/10 rounded-lg p-3 flex-1 shadow-lg">
+                        <div class="w-8 h-1.5 bg-white/10 rounded-full mb-2"></div>
+                        <div class="w-16 h-2 bg-white/20 rounded-full"></div>
+                    </div>
+                </div>
             </div>
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-2">Painel de CRM</h3>
-              <p class="text-sm text-on-surface-variant">Design system focado em conversão e gestão de leads.</p>
+            <div class="p-6 flex flex-col flex-1">
+              <div class="mb-4">
+                 <span class="inline-flex items-center px-2 py-1 rounded text-xs font-bold bg-[#00dbe9]/10 text-[#00dbe9] border border-[#00dbe9]/20">Controle Total do Caixa</span>
+              </div>
+              <h3 class="text-xl font-bold mb-3">Manager Clinical — SaaS para Clínicas</h3>
+              <p class="text-sm text-on-surface-variant mb-6 flex-1">Plataforma de gestão que centraliza agendamentos, pagamentos e relatórios financeiros em tempo real. O gestor sabe exatamente se a clínica dá lucro — consulta por consulta.</p>
+              <button class="btn-demo-live self-start" data-demo-title="Manager Clinical">Acessar demo ao vivo <span class="material-symbols-outlined text-sm">arrow_forward</span></button>
             </div>
           </div>
-          <!-- Placeholder 3 -->
-          <div class="glass-card rounded-2xl overflow-hidden group hover:border-secondary/50 transition-colors" style="border-color: rgba(255, 255, 255, 0.1);">
-            <div class="aspect-video bg-[#1a1a1a] flex items-center justify-center relative overflow-hidden">
-              <div class="absolute inset-0 bg-gradient-to-br from-secondary/10 to-transparent"></div>
-              <span class="material-symbols-outlined text-4xl text-on-surface-variant/50">image</span>
+
+          <!-- Card 3 -->
+          <div class="glass-card rounded-2xl overflow-hidden flex flex-col group hover:border-secondary/50 transition-colors" style="border-color: rgba(255, 255, 255, 0.1);">
+            <div class="h-48 bg-[#121216] p-4 flex flex-col justify-center gap-4 border-b border-white/5 relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-br from-[#dfb7ff]/10 to-transparent"></div>
+                <div class="text-center relative z-10 mt-2">
+                    <div class="text-[10px] text-white/40 font-bold mb-1 uppercase tracking-wider">Saldo Atual</div>
+                    <div class="text-2xl font-black text-white">R$ 18.420,00</div>
+                </div>
+                <div class="flex gap-2 relative z-10 px-2">
+                    <div class="bg-[#1c1c22] border border-white/10 rounded-lg p-2.5 flex-1 shadow-lg flex items-center gap-2">
+                        <div class="w-1.5 h-6 bg-[#22c55e] rounded-full"></div>
+                        <div>
+                            <div class="w-10 h-1.5 bg-white/10 rounded-full mb-1"></div>
+                            <div class="w-14 h-2 bg-white/20 rounded-full"></div>
+                        </div>
+                    </div>
+                    <div class="bg-[#1c1c22] border border-white/10 rounded-lg p-2.5 flex-1 shadow-lg flex items-center gap-2">
+                        <div class="w-1.5 h-6 bg-[#ef4444] rounded-full"></div>
+                        <div>
+                            <div class="w-10 h-1.5 bg-white/10 rounded-full mb-1"></div>
+                            <div class="w-14 h-2 bg-white/20 rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-2">App Financeiro</h3>
-              <p class="text-sm text-on-surface-variant">Arquitetura de UX para controle multi-tenant.</p>
+            <div class="p-6 flex flex-col flex-1">
+              <div class="mb-4">
+                 <span class="inline-flex items-center px-2 py-1 rounded text-xs font-bold bg-[#dfb7ff]/10 text-[#dfb7ff] border border-[#dfb7ff]/20">Multi-tenant com IA</span>
+              </div>
+              <h3 class="text-xl font-bold mb-3">Finance Class — App Financeiro Pessoal</h3>
+              <p class="text-sm text-on-surface-variant mb-6 flex-1">Arquitetura multi-tenant para gestão de múltiplas faturas de cartão de crédito, categorização automática de despesas e consultor financeiro integrado em IA.</p>
+              <a href="#impacto" class="text-primary font-semibold hover:text-primary-container transition-colors inline-flex items-center gap-1">Ver no simulador <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="py-32 relative overflow-hidden" id="empresa">
-      <div class="absolute inset-0 bg-primary/10">
-        <div class="absolute top-0 left-0 w-full h-full opacity-10 circuit-bg"></div>
-        <div
-          class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl bg-primary/20 blur-[150px] rounded-full">
+    <section class="py-24 bg-surface-container-lowest/50" id="design">
+      <div class="container mx-auto px-margin-desktop max-w-container-max">
+        <div class="text-center mb-16">
+          <h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">Design que Não Parece Tecnologia — Parece Futuro</h2>
+          <div class="w-24 h-1 bg-gradient-to-r from-primary to-tertiary mx-auto mb-8"></div>
+          <p class="text-on-surface-variant text-lg max-w-3xl mx-auto">
+            Todo sistema que a AXION entrega tem uma interface que o usuário quer abrir. Acreditamos que alta tecnologia e design impecável são inseparáveis.
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Card 1 -->
+          <div class="glass-card rounded-2xl overflow-hidden group hover:border-primary/50 transition-colors" style="border-color: rgba(255, 255, 255, 0.1);">
+            <div class="aspect-video bg-[#1a1a1a] flex flex-col items-center justify-center relative overflow-hidden p-6">
+              <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent"></div>
+              <div class="w-full flex gap-3 mb-4 relative z-10">
+                <div class="flex-1 bg-[#242424] border border-white/5 rounded-lg p-3">
+                  <div class="text-[9px] text-white/50 mb-1">Atendimentos</div>
+                  <div class="text-sm font-bold">+312 <span class="text-[#22c55e] text-[10px]">↑23%</span></div>
+                </div>
+                <div class="flex-1 bg-[#242424] border border-white/5 rounded-lg p-3">
+                  <div class="text-[9px] text-white/50 mb-1">Conversão</div>
+                  <div class="text-sm font-bold">68% <span class="text-[#22c55e] text-[10px]">↑11%</span></div>
+                </div>
+              </div>
+              <div class="w-full flex items-end justify-between gap-2 h-16 relative z-10 px-2">
+                <div class="w-full bg-primary/40 rounded-t-sm h-[40%]"></div>
+                <div class="w-full bg-primary/60 rounded-t-sm h-[60%]"></div>
+                <div class="w-full bg-primary/30 rounded-t-sm h-[30%]"></div>
+                <div class="w-full bg-primary/80 rounded-t-sm h-[80%]"></div>
+                <div class="w-full bg-primary/50 rounded-t-sm h-[50%]"></div>
+                <div class="w-full bg-primary/90 rounded-t-sm h-[90%]"></div>
+                <div class="w-full bg-primary rounded-t-sm h-[100%]"></div>
+              </div>
+              <div class="w-full text-center text-[8px] text-white/40 mt-2 relative z-10 uppercase tracking-widest">Volume de Chamados — Últimos 7 dias</div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2">Dashboard Executivo</h3>
+            </div>
+          </div>
+          
+          <!-- Card 2 -->
+          <div class="glass-card rounded-2xl overflow-hidden group hover:border-tertiary/50 transition-colors" style="border-color: rgba(255, 255, 255, 0.1);">
+            <div class="aspect-video bg-[#1a1a1a] flex flex-col items-center justify-center relative overflow-hidden p-6 gap-2">
+              <div class="absolute inset-0 bg-gradient-to-br from-tertiary/10 to-transparent"></div>
+              
+              <div class="w-full bg-[#242424] border border-white/5 rounded-lg p-2.5 flex items-center gap-3 relative z-10">
+                <div class="w-6 h-6 rounded-full bg-gradient-to-br from-gray-600 to-gray-800"></div>
+                <div class="flex-1">
+                  <div class="w-16 h-1.5 bg-white/20 rounded-full mb-1"></div>
+                  <div class="w-10 h-1.5 bg-white/10 rounded-full"></div>
+                </div>
+                <div class="px-2 py-0.5 rounded text-[8px] font-bold bg-[#eab308]/10 text-[#eab308] border border-[#eab308]/20">Morno</div>
+              </div>
+              
+              <div class="w-full bg-[#242424] border border-white/5 rounded-lg p-2.5 flex items-center gap-3 relative z-10">
+                <div class="w-6 h-6 rounded-full bg-gradient-to-br from-gray-500 to-gray-700"></div>
+                <div class="flex-1">
+                  <div class="w-20 h-1.5 bg-white/20 rounded-full mb-1"></div>
+                  <div class="w-12 h-1.5 bg-white/10 rounded-full"></div>
+                </div>
+                <div class="px-2 py-0.5 rounded text-[8px] font-bold bg-[#ef4444]/10 text-[#ef4444] border border-[#ef4444]/20">Quente</div>
+              </div>
+              
+              <div class="w-full bg-primary/5 border border-primary/40 rounded-lg p-2.5 flex items-center gap-3 relative z-10 shadow-[0_0_15px_rgba(173,198,255,0.15)] scale-[1.02]">
+                <div class="w-6 h-6 rounded-full bg-gradient-to-br from-primary to-secondary"></div>
+                <div class="flex-1">
+                  <div class="w-24 h-1.5 bg-white/30 rounded-full mb-1"></div>
+                  <div class="w-14 h-1.5 bg-white/20 rounded-full"></div>
+                </div>
+                <div class="px-2 py-0.5 rounded text-[8px] font-bold bg-primary/20 text-primary border border-primary/30">Fechar</div>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2">CRM Integrado</h3>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="glass-card rounded-2xl overflow-hidden group hover:border-secondary/50 transition-colors" style="border-color: rgba(255, 255, 255, 0.1);">
+            <div class="aspect-video bg-[#1a1a1a] flex flex-col items-center justify-center relative overflow-hidden p-6 gap-4">
+              <div class="absolute inset-0 bg-gradient-to-br from-secondary/10 to-transparent"></div>
+              
+              <div class="text-center relative z-10">
+                <div class="text-2xl font-black text-white tracking-tight">R$ 18.420,00</div>
+              </div>
+              
+              <div class="w-full flex gap-3 relative z-10">
+                <div class="flex-1 bg-[#242424] border border-white/5 rounded-xl p-3 flex flex-col items-center">
+                  <div class="w-6 h-6 rounded-full bg-[#22c55e]/20 flex items-center justify-center mb-2">
+                    <span class="material-symbols-outlined text-[#22c55e] text-[12px]">arrow_downward</span>
+                  </div>
+                  <div class="w-12 h-1.5 bg-white/20 rounded-full mb-1"></div>
+                  <div class="w-8 h-1.5 bg-white/10 rounded-full"></div>
+                </div>
+                <div class="flex-1 bg-[#242424] border border-white/5 rounded-xl p-3 flex flex-col items-center">
+                  <div class="w-6 h-6 rounded-full bg-[#ef4444]/20 flex items-center justify-center mb-2">
+                    <span class="material-symbols-outlined text-[#ef4444] text-[12px]">arrow_upward</span>
+                  </div>
+                  <div class="w-12 h-1.5 bg-white/20 rounded-full mb-1"></div>
+                  <div class="w-8 h-1.5 bg-white/10 rounded-full"></div>
+                </div>
+              </div>
+              
+              <div class="w-full relative z-10">
+                <div class="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+                  <div class="h-full w-[65%] bg-gradient-to-r from-secondary to-primary rounded-full"></div>
+                </div>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2">Finance Class</h3>
+            </div>
+          </div>
         </div>
       </div>
+    </section>
+
+    <section class="py-32 relative overflow-hidden">
+      <div class="absolute inset-0 bg-primary/10">
+        <div class="absolute top-0 left-0 w-full h-full opacity-10 circuit-bg"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl bg-primary/20 blur-[150px] rounded-full"></div>
+      </div>
       <div class="container mx-auto px-margin-desktop max-w-container-max relative z-10 text-center">
-        <h2 class="font-display-lg text-display-lg mb-8">Vamos construir o futuro da sua operação?</h2>
-        <div class="flex flex-col items-center gap-8">
-          <button onclick="openWhatsApp()"
-            class="glow-button bg-[#25D366] text-white px-12 py-5 rounded-full text-xl font-black flex items-center gap-3 hover:scale-105 transition-transform outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background">
+        <h2 class="font-display-lg text-4xl md:text-5xl lg:text-7xl mb-8 leading-tight">Pronto para parar de carregar sua operação sozinho?</h2>
+        <div class="flex flex-col items-center gap-6">
+          <button onclick="openWhatsApp()" class="glow-button bg-[#25D366] text-white px-12 py-5 rounded-full text-xl font-black flex items-center gap-3 hover:scale-105 transition-transform outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background">
             <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24">
-              <path
-                d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.246 2.248 3.484 5.232 3.483 8.413-.003 6.557-5.338 11.892-11.893 11.892-1.997-.001-3.951-.5-5.688-1.448l-6.308 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.886.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z">
-              </path>
+              <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.246 2.248 3.484 5.232 3.483 8.413-.003 6.557-5.338 11.892-11.893 11.892-1.997-.001-3.951-.5-5.688-1.448l-6.308 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.886.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"></path>
             </svg>
-            Falar com Especialista
+            Falar com a AXION →
           </button>
-          <p class="font-label-sm text-label-sm text-on-surface-variant max-w-xs">Estrategistas prontos para escalar sua
-            operação.</p>
+          <p class="text-on-surface-variant">Diagnóstico gratuito. Sem compromisso. Sem enrolação.</p>
         </div>
       </div>
     </section>
   </main>
-  <footer class="bg-surface-container-lowest py-12 border-t border-white/5">
-    <div
-      class="flex flex-col md:flex-row justify-between items-center px-margin-desktop max-w-container-max mx-auto gap-gutter">
-      <div class="flex flex-col items-center md:items-start gap-4">
+
+  <footer class="bg-surface-container-lowest border-t border-white/5 py-12">
+    <div class="container mx-auto px-margin-desktop max-w-container-max flex flex-col md:flex-row justify-between items-center gap-6">
+      <div class="flex flex-col items-center md:items-start gap-2 text-center md:text-left">
         <div class="flex items-center gap-2">
-          <img alt="AXION Logo" class="w-6 h-6" src="logo.png">
-          <span class="font-headline-lg text-headline-lg font-black bg-gradient-to-r from-[#052FF0] to-[#7133ED] text-transparent bg-clip-text">AXION</span>
+          <img alt="Logo AXION" class="w-6 h-6" src="logo.png">
+          <span class="font-bold tracking-tighter bg-gradient-to-r from-[#052FF0] to-[#7133ED] text-transparent bg-clip-text">AXION</span>
         </div>
-        <p class="font-label-sm text-label-sm text-on-surface-variant">© 2026 AXION Enterprise. All rights reserved.</p>
+        <p class="text-on-surface-variant text-sm">© 2026 AXION Enterprise. Todos os direitos reservados.</p>
+        <p class="text-on-surface-variant text-sm">Rio de Janeiro, RJ — Brasil</p>
       </div>
-      <div class="flex gap-8">
-        <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-tertiary-fixed hover:drop-shadow-[0_0_8px_rgba(0,219,233,0.5)] transition-all outline-none focus-visible:ring-2 focus-visible:ring-primary rounded px-1"
-          href="#">Privacy Policy</a>
-        <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-tertiary-fixed hover:drop-shadow-[0_0_8px_rgba(0,219,233,0.5)] transition-all outline-none focus-visible:ring-2 focus-visible:ring-primary rounded px-1"
-          href="#">Terms of Service</a>
-        <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-tertiary-fixed hover:drop-shadow-[0_0_8px_rgba(0,219,233,0.5)] transition-all outline-none focus-visible:ring-2 focus-visible:ring-primary rounded px-1"
-          href="#">Legal Notice</a>
-        <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-tertiary-fixed hover:drop-shadow-[0_0_8px_rgba(0,219,233,0.5)] transition-all outline-none focus-visible:ring-2 focus-visible:ring-primary rounded px-1"
-          href="#">Security</a>
+      
+      <div class="flex flex-col items-center md:items-end gap-4">
+        <div class="flex items-center gap-4">
+          <a href="https://www.instagram.com/axion_jc" target="_blank" rel="noopener noreferrer" class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2 text-sm">
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            @axion_jc
+          </a>
+          <a href="https://wa.me/5521992341112" target="_blank" rel="noopener noreferrer" class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2 text-sm">
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.246 2.248 3.484 5.232 3.483 8.413-.003 6.557-5.338 11.892-11.893 11.892-1.997-.001-3.951-.5-5.688-1.448l-6.308 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.886.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"></path></svg>
+            WhatsApp
+          </a>
+        </div>
+        <div class="flex items-center gap-4 text-xs text-on-surface-variant">
+          <a href="#" class="hover:text-primary transition-colors">Política de Privacidade</a>
+          <span>|</span>
+          <a href="#" class="hover:text-primary transition-colors">Termos de Uso</a>
+        </div>
       </div>
     </div>
   </footer>
+
   <script>
-    // Função Throttle clássica para performance
+// Função Throttle clássica para performance
     function throttle(func, limit) {
       let inThrottle;
       return function() {
@@ -847,15 +898,65 @@
 
     document.addEventListener('click', (e) => {
       const btn = e.target.closest('.btn-demo-live');
-      if (btn) {
-        const title = btn.dataset.demoTitle || 'Manager Clinic';
-        // Ofuscação de credenciais: email (demo@managerclinic.app) e senha (demo1234)
-        const user = atob("ZGVtb0BtYW5hZ2VyY2xpbmljLmFwcA=="); // demo@managerclinic.app
-        const pass = atob("ZGVtbzEyMzQ="); // demo1234
-        const baseUrl = "https://manager-clinic.vercel.app";
-        const url = `${baseUrl}/?email=${encodeURIComponent(user)}&password=${encodeURIComponent(pass)}&demo=true`;
-        openDemoModal(url, title);
+// Função Throttle clássica para performance
+    function throttle(func, limit) {
+      let inThrottle;
+      return function() {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+          func.apply(context, args);
+          inThrottle = true;
+          setTimeout(() => inThrottle = false, limit);
+        }
       }
+    }
+
+    // Abertura dinâmica e ofuscada do WhatsApp
+    function openWhatsApp() {
+      const parts = ["55", "21", "99234", "1112"];
+      const url = `https://wa.me/${parts.join("")}`;
+      window.open(url, '_blank');
+    }
+
+    const desktopIframe = document.getElementById('animation-iframe-desktop');
+
+
+
+    function sendToAnimation(data) {
+      if (desktopIframe && desktopIframe.contentWindow) {
+        try { desktopIframe.contentWindow.postMessage(data, '*'); } catch(e) {}
+      }
+    }
+
+    window.addEventListener('scroll', throttle(() => {
+      sendToAnimation({
+        type: 'scroll',
+        scrollY: window.scrollY,
+        scrollProgress: window.scrollY / (document.body.scrollHeight - window.innerHeight)
+      });
+    }, 16), { passive: true });
+
+    document.addEventListener('mousemove', throttle((e) => {
+      document.querySelectorAll('.glass-card').forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const isInside = e.clientX >= rect.left && e.clientX <= rect.right &&
+                         e.clientY >= rect.top && e.clientY <= rect.bottom;
+        card.style.borderColor = isInside
+          ? `rgba(173, 198, 255, ${0.1 + ((e.clientX - rect.left) / rect.width * 0.3)})`
+          : 'rgba(255, 255, 255, 0.1)';
+      });
+    }, 16));
+
+    // Scroll suave para links de âncora
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
     });
 
     // ==========================================
@@ -1005,5 +1106,4 @@
     }
   </script>
 </body>
-
 </html>

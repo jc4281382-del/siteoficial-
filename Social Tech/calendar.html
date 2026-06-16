@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-PT">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Pro-SMM | Calendário</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-client.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #e4e1ec;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .glass-card {
+            background: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid #2e2e2e;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #13131a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #464554;
+            border-radius: 10px;
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#0e0d15",
+                        "primary-fixed": "#e2dfff",
+                        "on-primary-container": "#e7e4ff",
+                        "on-tertiary-container": "#e7e5ff",
+                        "error": "#ffb4ab",
+                        "on-error": "#690005",
+                        "on-tertiary": "#1000a9",
+                        "error-container": "#93000a",
+                        "surface-variant": "#35343c",
+                        "on-surface": "#e4e1ec",
+                        "outline": "#918f9f",
+                        "tertiary": "#c0c1ff",
+                        "outline-variant": "#464554",
+                        "surface-container-low": "#1b1b23",
+                        "surface-container": "#1f1f27",
+                        "secondary": "#c6c6cb",
+                        "tertiary-container": "#5355e0",
+                        "surface-dim": "#13131a",
+                        "tertiary-fixed": "#e1e0ff",
+                        "on-secondary-fixed": "#1a1b1f",
+                        "on-tertiary-fixed": "#07006c",
+                        "secondary-fixed-dim": "#c6c6cb",
+                        "on-tertiary-fixed-variant": "#2f2ebe",
+                        "on-secondary": "#2f3034",
+                        "inverse-on-surface": "#302f38",
+                        "surface": "#13131a",
+                        "on-primary-fixed": "#0c006a",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed-dim": "#c2c1ff",
+                        "on-primary-fixed-variant": "#3631b4",
+                        "surface-container-highest": "#35343c",
+                        "on-background": "#e4e1ec",
+                        "surface-container-high": "#2a2931",
+                        "on-surface-variant": "#c7c4d6",
+                        "secondary-container": "#46464b",
+                        "inverse-surface": "#e4e1ec",
+                        "on-secondary-container": "#b5b4ba",
+                        "surface-bright": "#393841",
+                        "on-secondary-fixed-variant": "#46464b",
+                        "inverse-primary": "#4f4ccd",
+                        "surface-tint": "#c2c1ff",
+                        "primary": "#c2c1ff",
+                        "background": "#13131a",
+                        "secondary-fixed": "#e3e2e7",
+                        "primary-container": "#5856d6",
+                        "tertiary-fixed-dim": "#c0c1ff",
+                        "on-primary": "#1c0b9f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "0.25rem",
+                        "margin-desktop": "2rem",
+                        "sm": "0.5rem",
+                        "lg": "1.5rem",
+                        "xl": "2rem",
+                        "gutter": "1rem",
+                        "base": "4px",
+                        "margin-mobile": "1rem",
+                        "md": "1rem"
+                    },
+                    "fontFamily": {
+                        "title-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "title-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-surface">
+    <!-- Navigation Drawer (Desktop Only) -->
+    <aside
+        class="hidden md:flex flex-col h-full py-lg fixed left-0 top-0 h-full w-[240px] bg-surface dark:bg-surface border-r border-outline-variant dark:border-outline-variant z-50">
+        <div class="px-md mb-xl">
+            <h1 class="font-headline-lg text-headline-lg text-primary font-bold">Pro-SMM</h1>
+            <p class="text-on-surface-variant font-label-sm text-label-sm mt-xs">Studio v2.4</p>
+        </div>
+        <nav class="flex-1 space-y-xs">
+            <div
+                class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 cursor-pointer active:scale-95" onclick="window.location.href='inicio.html'">
+                <span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+                <span class="font-body-md text-body-md">Feed Simulator</span>
+            </div>
+            <div
+                class="flex items-center gap-md px-md py-sm border-l-2 border-primary text-primary font-bold bg-primary-container/10 transition-colors duration-200 cursor-pointer active:scale-95" onclick="window.location.href='calendar.html'">
+                <span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+                <span class="font-body-md text-body-md">Calendar</span>
+            </div>
+            <div
+                class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 cursor-pointer active:scale-95" onclick="window.location.href='aprovacao.html'">
+                <span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+                <span class="font-body-md text-body-md">Approvals</span>
+            </div>
+            <div
+                class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 cursor-pointer active:scale-95" onclick="window.location.href='config.html'">
+                <span class="material-symbols-outlined" data-icon="settings">settings</span>
+                <span class="font-body-md text-body-md">Settings</span>
+            </div>
+        </nav>
+        <div class="px-md mt-auto pt-lg border-t border-outline-variant">
+            <div
+                class="flex items-center gap-sm p-sm rounded-xl hover:bg-surface-container-high transition-all cursor-pointer">
+                <div
+                    class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold overflow-hidden">
+                    <img alt="Client Logo" class="w-full h-full object-cover"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1FkdAX9wNTyj1viVyuVXTZB2NENfERjCW9MrExi5xz15bg4wfn4UIT5dq2fhPG128FnluDOuGWlSWL0zEoAQmhMsNUE-ptXsLQ3t5taQOTXz5CWTgsgQ36LNrGmHXJwiGjUv_sFmACzYX5sa5Hew5x7bUnteAM7ieYuUkXUztMvUwExoPnmLV1BeFv-d8q66iZ6HlqjBT6pdc53QCvT4Deb4B6ngyihOhUEsza8KzYP9Bwqu60zxg7ezqOCNPV8D7xlCsa2ObmEs" />
+                </div>
+                <div class="overflow-hidden">
+                    <p class="font-label-sm text-label-sm font-bold truncate">Client Selector</p>
+                    <p class="text-[10px] text-on-surface-variant">@ClientA</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+    <!-- Top AppBar -->
+    <header
+        class="fixed top-0 right-0 w-full md:w-[calc(100%-240px)] z-40 bg-surface/80 backdrop-blur-md flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 border-b border-outline-variant dark:border-outline-variant">
+        <div class="flex items-center gap-md">
+            <span class="md:hidden material-symbols-outlined text-primary cursor-pointer" data-icon="menu">menu</span>
+            <h2 class="font-title-md text-title-md text-primary font-bold">Calendário</h2>
+        </div>
+        <div class="flex items-center gap-sm">
+            <div class="hover:bg-surface-container-highest rounded-full p-2 transition-all duration-300 cursor-pointer">
+                <span class="material-symbols-outlined text-on-surface-variant" data-icon="search">search</span>
+            </div>
+            <div
+                class="hover:bg-surface-container-highest rounded-full p-2 transition-all duration-300 cursor-pointer relative">
+                <span class="material-symbols-outlined text-on-surface-variant"
+                    data-icon="notifications">notifications</span>
+                <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+            </div>
+            <div class="w-8 h-8 rounded-full border border-outline-variant overflow-hidden md:ml-2">
+                <img alt="User" class="w-full h-full"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeBmoijhxfiz-X2RumB-6Yrk6Fm6tVYm4R1IjxzvVc5NcP5CkELYJc1rUQJPVllf5-Ap9CLTy2e7ducM5YuPewvl29GZbd_Djvtsdwek3dAzosmDjZ7_hTfXf4kmH863GsaNpeAWeKtbgJY7cAYZGRFwJAOflEUkSrz2uNp8Kf3yJeGvoiKllzJiBa3rRseskvv5fozeFc7uP3zBj7QRLjxjVA0ediBFY3oPEZg8bffp6GBQclxClF44WuFwMWFQKmcd_GLCyQMG4" />
+            </div>
+        </div>
+    </header>
+    <!-- Main Content -->
+    <main class="pt-20 pb-24 md:pb-8 md:pl-[240px] min-h-screen px-margin-mobile md:px-margin-desktop">
+        <!-- Filter Bar -->
+        <section class="mb-lg overflow-x-auto">
+            <div class="flex items-center gap-sm pb-2 whitespace-nowrap">
+                <button
+                    class="px-md py-sm bg-primary text-on-primary font-label-sm text-label-sm rounded-full transition-all active:scale-95">Todos</button>
+                <button
+                    class="px-md py-sm border border-outline-variant text-on-surface-variant hover:bg-surface-container-high font-label-sm text-label-sm rounded-full transition-all active:scale-95 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-green-500"></span> Aprovados
+                </button>
+                <button
+                    class="px-md py-sm border border-outline-variant text-on-surface-variant hover:bg-surface-container-high font-label-sm text-label-sm rounded-full transition-all active:scale-95 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-yellow-500"></span> Pendentes
+                </button>
+                <button
+                    class="px-md py-sm border border-outline-variant text-on-surface-variant hover:bg-surface-container-high font-label-sm text-label-sm rounded-full transition-all active:scale-95 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-gray-500"></span> Rascunhos
+                </button>
+            </div>
+        </section>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+            <!-- Calendar Section -->
+            <section class="lg:col-span-8">
+                <div class="glass-card rounded-xl p-md">
+                    <div class="flex justify-between items-center mb-md">
+                        <h3 class="font-title-md text-title-md text-on-surface">Outubro 2023</h3>
+                        <div class="flex gap-2">
+                            <button class="p-sm rounded-full hover:bg-surface-container-highest transition-colors">
+                                <span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+                            </button>
+                            <button class="p-sm rounded-full hover:bg-surface-container-highest transition-colors">
+                                <span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="calendar-grid text-center font-label-sm text-label-sm text-on-surface-variant mb-sm">
+                        <div>DOM</div>
+                        <div>SEG</div>
+                        <div>TER</div>
+                        <div>QUA</div>
+                        <div>QUI</div>
+                        <div>SEX</div>
+                        <div>SÁB</div>
+                    </div>
+                    <div id="calendar-days" class="calendar-grid gap-1">
+                        <!-- Os dias do calendário e os indicadores de posts serão renderizados dinamicamente -->
+                    </div>
+                </div>
+            </section>
+            <!-- Daily Schedule Section -->
+            <section class="lg:col-span-4">
+                <div class="flex flex-col h-full">
+                    <div class="flex items-center justify-between mb-md">
+                        <h3 class="font-title-md text-title-md text-on-surface">Agendamentos de Hoje</h3>
+                        <span class="font-label-sm text-label-sm text-primary">Ver todos</span>
+                    </div>
+                    <div id="daily-schedule-list" class="space-y-sm">
+                        <!-- Os agendamentos do dia selecionado serão renderizados aqui -->
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <!-- FAB -->
+    <button
+        class="fixed bottom-20 md:bottom-8 right-margin-mobile md:right-margin-desktop w-14 h-14 bg-primary text-on-primary rounded-2xl shadow-lg flex items-center justify-center transition-all hover:rotate-90 active:scale-95 z-50">
+        <span class="material-symbols-outlined text-3xl" data-icon="add">add</span>
+    </button>
+    <!-- Bottom Navigation (Mobile Only) -->
+    <nav
+        class="fixed bottom-0 w-full lg:hidden z-50 bg-surface-container dark:bg-surface-container border-t border-outline-variant shadow-lg flex justify-around items-center h-16 px-4 pb-safe">
+        <div
+            class="flex flex-col items-center justify-center text-on-surface-variant p-2 active:bg-surface-bright scale-95 transition-transform cursor-pointer" onclick="window.location.href='inicio.html'">
+            <span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+            <span class="font-label-sm text-label-sm">Feed</span>
+        </div>
+        <div
+            class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl p-2 active:bg-surface-bright scale-95 transition-transform cursor-pointer" onclick="window.location.href='calendar.html'">
+            <span class="material-symbols-outlined" data-icon="calendar_today"
+                style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+            <span class="font-label-sm text-label-sm">Agenda</span>
+        </div>
+        <div
+            class="flex flex-col items-center justify-center text-on-surface-variant p-2 active:bg-surface-bright scale-95 transition-transform cursor-pointer" onclick="window.location.href='aprovacao.html'">
+            <span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+            <span class="font-label-sm text-label-sm">Aprova</span>
+        </div>
+        <div
+            class="flex flex-col items-center justify-center text-on-surface-variant p-2 active:bg-surface-bright scale-95 transition-transform cursor-pointer" onclick="window.location.href='config.html'">
+            <span class="material-symbols-outlined" data-icon="settings">settings</span>
+            <span class="font-label-sm text-label-sm">Ajustes</span>
+        </div>
+    </nav>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const calendarDaysContainer = document.getElementById('calendar-days');
+            const dailyScheduleContainer = document.getElementById('daily-schedule-list');
+            
+            let allPosts = [];
+            let selectedDateStr = '2023-10-24'; // Data default com posts semeados
+            let activeFilter = 'Todos';
+
+            // Inicializar Supabase
+            await initializeDefaultData();
+
+            // Sincronizar seletor de filtros
+            const filterButtons = document.querySelectorAll('main > section.mb-lg button');
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Reset styling for all
+                    filterButtons.forEach(b => {
+                        b.className = 'px-md py-sm border border-outline-variant text-on-surface-variant hover:bg-surface-container-high font-label-sm text-label-sm rounded-full transition-all active:scale-95 flex items-center gap-2';
+                    });
+                    
+                    // Style active button
+                    btn.className = 'px-md py-sm bg-primary text-on-primary font-label-sm text-label-sm rounded-full transition-all active:scale-95 flex items-center gap-2';
+                    
+                    const text = btn.textContent.trim();
+                    if (text.includes('Todos')) activeFilter = 'Todos';
+                    else if (text.includes('Aprovados')) activeFilter = 'Aprovado';
+                    else if (text.includes('Pendentes')) activeFilter = 'Aguardando';
+                    else if (text.includes('Rascunhos')) activeFilter = 'Rascunho';
+
+                    renderCalendar();
+                    renderDailySchedule();
+                });
+            });
+
+            // Buscar posts do Supabase
+            async function fetchPosts() {
+                try {
+                    const { data, error } = await supabase
+                        .from('posts')
+                        .select('*')
+                        .eq('client_id', DEFAULT_CLIENT_ID);
+                    
+                    if (error) throw error;
+                    allPosts = data || [];
+                } catch (err) {
+                    console.error('Erro ao buscar posts para calendário:', err);
+                }
+            }
+
+            // Gerar calendário de Outubro de 2023
+            function renderCalendar() {
+                calendarDaysContainer.innerHTML = '';
+
+                // Setembro 2023 (dias de preenchimento de domingo a sábado)
+                // Outubro de 2023 começa em um domingo (dia 1)
+                // Portanto, preenchemos os dias de 24 a 30 de setembro como dimmed
+                for (let i = 24; i <= 30; i++) {
+                    const dayDiv = document.createElement('div');
+                    dayDiv.className = 'h-20 md:h-28 border border-outline-variant/30 rounded-lg flex flex-col p-2 text-on-surface-variant/50 opacity-40';
+                    dayDiv.textContent = i.toString();
+                    calendarDaysContainer.appendChild(dayDiv);
+                }
+
+                // Outubro de 2023 (31 dias)
+                for (let day = 1; day <= 31; day++) {
+                    const dayStr = day < 10 ? `0${day}` : `${day}`;
+                    const currentDateVal = `2023-10-${dayStr}`;
+                    
+                    // Filtrar posts do dia atual no calendário
+                    const dayPosts = allPosts.filter(post => {
+                        const postDate = post.scheduled_at.split('T')[0];
+                        if (postDate !== currentDateVal) return false;
+                        if (activeFilter !== 'Todos') {
+                            if (activeFilter === 'Aguardando') {
+                                return post.status === 'Aguardando' || post.status === 'Pendente';
+                            }
+                            return post.status === activeFilter;
+                        }
+                        return true;
+                    });
+
+                    const isSelected = currentDateVal === selectedDateStr;
+                    
+                    const dayDiv = document.createElement('div');
+                    dayDiv.className = `h-20 md:h-28 border rounded-lg flex flex-col p-2 bg-surface-container-low transition-colors hover:bg-surface-container-high cursor-pointer relative ${
+                        isSelected 
+                        ? 'border-primary/80 bg-primary/10 shadow-[0_0_10px_rgba(194,193,255,0.1)]' 
+                        : 'border-outline-variant/30'
+                    }`;
+
+                    dayDiv.innerHTML = `<span class="${isSelected ? 'text-primary font-bold' : 'text-on-surface'}">${day}</span>`;
+
+                    // Renderizar bolinhas de status
+                    if (dayPosts.length > 0) {
+                        const dotsContainer = document.createElement('div');
+                        dotsContainer.className = 'mt-auto flex gap-1 flex-wrap';
+                        
+                        dayPosts.slice(0, 3).forEach(post => {
+                            const dot = document.createElement('span');
+                            let dotColor = 'bg-green-500';
+                            if (post.status === 'Aguardando' || post.status === 'Pendente') dotColor = 'bg-yellow-500';
+                            if (post.status === 'Rascunho') dotColor = 'bg-gray-500';
+                            dot.className = `w-1.5 h-1.5 rounded-full ${dotColor}`;
+                            dotsContainer.appendChild(dot);
+                        });
+                        dayDiv.appendChild(dotsContainer);
+                    }
+
+                    // Evento de clique
+                    dayDiv.addEventListener('click', () => {
+                        selectedDateStr = currentDateVal;
+                        renderCalendar();
+                        renderDailySchedule();
+                    });
+
+                    calendarDaysContainer.appendChild(dayDiv);
+                }
+            }
+
+            // Gerar agendamentos do dia selecionado
+            function renderDailySchedule() {
+                dailyScheduleContainer.innerHTML = '';
+                
+                // Filtrar posts que batem com a data selecionada e o filtro ativo
+                const filteredPosts = allPosts.filter(post => {
+                    const postDate = post.scheduled_at.split('T')[0];
+                    if (postDate !== selectedDateStr) return false;
+                    if (activeFilter !== 'Todos') {
+                        if (activeFilter === 'Aguardando') {
+                            return post.status === 'Aguardando' || post.status === 'Pendente';
+                        }
+                        return post.status === activeFilter;
+                    }
+                    return true;
+                });
+
+                if (filteredPosts.length === 0) {
+                    dailyScheduleContainer.innerHTML = `
+                        <div class="glass-card rounded-xl p-lg text-center text-on-surface-variant text-body-sm w-full">
+                            Nenhum agendamento para este dia.
+                        </div>`;
+                    return;
+                }
+
+                filteredPosts.forEach(post => {
+                    const time = post.scheduled_at.split('T')[1]?.substring(0, 5) || '12:00';
+                    const hour = parseInt(time.split(':')[0]);
+                    const ampm = hour >= 12 ? 'PM' : 'AM';
+                    const isVideo = post.type === 'Vídeo';
+
+                    let badgeColor = 'bg-green-500/10 text-green-500 border-green-500/20';
+                    if (post.status === 'Aguardando' || post.status === 'Pendente') {
+                        badgeColor = 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20';
+                    }
+                    if (post.status === 'Rascunho') {
+                        badgeColor = 'bg-outline/10 text-on-surface-variant border-outline/20';
+                    }
+
+                    const card = document.createElement('div');
+                    card.className = 'glass-card rounded-xl p-md flex gap-md items-start transition-transform hover:scale-[1.02] cursor-pointer w-full';
+                    card.innerHTML = `
+                        <div class="flex flex-col items-center min-w-[60px]">
+                            <span class="font-bold text-primary font-title-md text-title-md">${time}</span>
+                            <span class="text-[10px] text-on-surface-variant uppercase">${ampm}</span>
+                        </div>
+                        <div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container-high flex items-center justify-center">
+                            ${post.media_url 
+                                ? `<img alt="Post" class="w-full h-full object-cover" src="${post.media_url}" />`
+                                : `<span class="material-symbols-outlined text-outline">${isVideo ? 'movie' : 'image'}</span>`
+                            }
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-start mb-1">
+                                <span class="text-[10px] font-bold py-0.5 px-2 ${badgeColor} border rounded-full uppercase">${post.status}</span>
+                                <span class="material-symbols-outlined text-[18px] ${isVideo ? 'text-blue-400' : 'text-pink-500'}">${isVideo ? 'movie' : 'image'}</span>
+                            </div>
+                            <p class="text-body-sm font-body-sm line-clamp-2 text-on-surface-variant">${post.caption || 'Sem legenda'}</p>
+                        </div>
+                    `;
+                    dailyScheduleContainer.appendChild(card);
+                });
+            }
+
+            // Ação do FAB
+            const fab = document.querySelector('button.fixed.bottom-20, button.fixed.bottom-8');
+            if (fab) {
+                fab.addEventListener('click', () => {
+                    window.location.href = 'inicio.html';
+                });
+            }
+
+            // Carga inicial
+            await fetchPosts();
+            renderCalendar();
+            renderDailySchedule();
+
+            // Atmosfera interativa original
+            document.addEventListener('mousemove', (e) => {
+                const cards = document.querySelectorAll('.glass-card');
+                const x = e.clientX / window.innerWidth - 0.5;
+                const y = e.clientY / window.innerHeight - 0.5;
+
+                cards.forEach(card => {
+                    const rect = card.getBoundingClientRect();
+                    const cardX = (rect.left + rect.width / 2) / window.innerWidth - 0.5;
+                    const cardY = (rect.top + rect.height / 2) / window.innerHeight - 0.5;
+
+                    const distance = Math.sqrt(Math.pow(x - cardX, 2) + Math.pow(y - cardY, 2));
+                    if (distance < 0.3) {
+                        card.style.transform = `translateY(${y * 10}px) translateX(${x * 10}px)`;
+                    } else {
+                        card.style.transform = `translateY(0) translateX(0)`;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

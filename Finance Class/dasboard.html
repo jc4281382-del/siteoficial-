@@ -1,19 +1,25 @@
 <!DOCTYPE html>
-
 <html class="dark" lang="pt-BR">
-
 <head>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="icon" type="image/jpeg" sizes="192x192" href="app-icon.jpg" />
+    <link rel="icon" type="image/jpeg" sizes="512x512" href="app-icon.jpg" />
+    <link class="apple-touch-icon" rel="apple-touch-icon" href="app-icon.jpg" />
+    <link rel="manifest" href="manifest.json" />
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
-    <title>FinPulse - Diagnóstico Geral</title>
+    <title>Finance Class - Diagnóstico Geral</title>
+    <script>
+        const originalWarn = console.warn;
+        console.warn = (...args) => {
+            if (typeof args[0] === 'string' && args[0].includes('cdn.tailwindcss.com should not be used in production')) return;
+            originalWarn(...args);
+        };
+    </script>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;display=swap" rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-        rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -126,49 +132,38 @@
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
 
-        /* Custom scrollbar suppression for clean PWA look */
         ::-webkit-scrollbar {
             display: none;
         }
     </style>
 </head>
-
 <body class="bg-background text-on-surface selection:bg-primary/30 min-h-screen pb-32">
     <!-- Top App Bar -->
-    <header
-        class="bg-surface/80 dark:bg-surface/80 backdrop-blur-xl docked full-width top-0 border-b border-white/10 shadow-sm flex justify-between items-center w-full px-container-margin py-base sticky top-0 z-50">
+    <header class="bg-surface/80 dark:bg-surface/80 backdrop-blur-xl docked full-width top-0 border-b border-white/10 shadow-sm flex justify-between items-center w-full px-container-margin py-base sticky top-0 z-50">
         <div class="flex items-center gap-3">
-            <img alt="FinPulse Logo" class="h-8 w-8 object-contain"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnv9MnY1Qyg8FEoInuXieaL1kyYaeYj8lEIZIRgrzEaxi2Es_0Wy1ekqGjDWgE2U1afe_xTID-vBPG2SBlB5URJhTxyHHo156Wu7wWiCk6nnGaKVSsaW-eUBqnSMpPJqhD_8eK7cDywhJlC1fO75abzYgKSmm6xoXrTVyfZNHN4LpQ0x8xAfNuB5JgMoNzlUs2W53-Oryg3TBJPsK8YSAG0btvtYl2oL-JtQLuYcMRdt5d2VrQuQYCPyOrkqelhZu6I8V8wDP4IfU" />
+            <div class="h-8 w-8 rounded-lg vibrant-gradient flex items-center justify-center text-white text-xs font-bold cursor-pointer" onclick="window.location.href='inicio.html'">FC</div>
             <h1 class="font-display-lg text-headline-md text-primary dark:text-primary-fixed-dim">Diagnóstico Geral</h1>
         </div>
         <div class="relative active:scale-95 transition-transform duration-200 flex items-center gap-4">
             <span class="material-symbols-outlined text-white/90 cursor-pointer" id="btn-logout" title="Sair" onclick="window.db.auth.signOut()">logout</span>
-            <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/20">
-                <img class="w-full h-full object-cover"
-                    data-alt="Close up professional headshot of a sleek, modern professional avatar with stylized lighting in a digital futuristic setting with vibrant blue and purple accents."
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8VejHwofbZ6sZXZchi_zzCUYvuhQ0tIdRQumEW4UGlGd-vFaJB-3nhAc1fG7AEv8ZiEgg7E2FT2DWbOGYi5bYJ3OgmJChzUBEdtXmI5qw0-GjYB4uuCS1E65SepJY4IXOzBVhBatv__9w94s247-bj5uAWfPTd1p4m2pfsRh3vzBS9Mx-JiDNvpVz9QQWnwfnalqbq63o6O5-BxM8IV7W3f-G9MUw_w3CgYEygyT1_5QzVK2IPHk4Pzjquhbu_JcboX6BAem1LX8" />
+            <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/20 cursor-pointer" onclick="window.location.href='inicio.html'">
+                <img id="profile-img-top" alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmcBV6w-B9MtxWqrgjj3GHyfTkCjuQbOj3y4QWGDi3inxnrH5zkaL_jFSX1sO_RfOP8mSPlk5pp3d3VAYuJCN8Ag1FSnfRDjC8gui2LTc-bxCSAB6deGsOom-FfgPwbXrHQHMPGMSDUDMZsCoLw8fxwlRoROvoUxh47FAEdBiwsOYYGv8oyrMnviLIIMhsN5GDC7GvXud8gFztm_Sfq0V5d2Mbv5TH90giFkp2yKCrpRqPpxMSeP4PRylWJBNTX0kqQ1WIfVOqwPU" />
             </div>
         </div>
     </header>
+    
     <main class="px-container-margin pt-stack-md flex flex-col gap-gutter">
         <!-- Filters Pill-style -->
         <div class="flex gap-2 overflow-x-auto pb-2 -mx-5 px-5 no-scrollbar">
-            <button
-                class="bg-primary text-on-primary px-6 py-2 rounded-full font-label-md text-label-md transition-all active:scale-95 shrink-0">Mês</button>
-            <button
-                class="bg-surface-container-high text-on-surface-variant/80 px-6 py-2 rounded-full font-label-md text-label-md transition-all hover:bg-surface-container-highest shrink-0">Trimestre</button>
-            <button
-                class="bg-surface-container-high text-on-surface-variant/80 px-6 py-2 rounded-full font-label-md text-label-md transition-all hover:bg-surface-container-highest shrink-0">Ano</button>
-            <button
-                class="bg-surface-container-high text-on-surface-variant/80 px-6 py-2 rounded-full font-label-md text-label-md transition-all hover:bg-surface-container-highest shrink-0">Personalizado</button>
+            <button class="bg-primary text-on-primary px-6 py-2 rounded-full font-label-md text-label-md transition-all active:scale-95 shrink-0">Mês</button>
+            <button class="bg-surface-container-high text-on-surface-variant/80 px-6 py-2 rounded-full font-label-md text-label-md transition-all hover:bg-surface-container-highest shrink-0">Trimestre</button>
+            <button class="bg-surface-container-high text-on-surface-variant/80 px-6 py-2 rounded-full font-label-md text-label-md transition-all hover:bg-surface-container-highest shrink-0">Ano</button>
+            <button class="bg-surface-container-high text-on-surface-variant/80 px-6 py-2 rounded-full font-label-md text-label-md transition-all hover:bg-surface-container-highest shrink-0">Personalizado</button>
         </div>
         <!-- Alertas Section -->
-        <section
-            class="bg-secondary-container/10 border border-secondary-container/30 rounded-xl p-4 flex gap-4 items-start">
+        <section id="alert-section" class="bg-secondary-container/10 border border-secondary-container/30 rounded-xl p-4 flex gap-4 items-start">
             <div class="bg-secondary-container/20 p-2 rounded-lg">
-                <span class="material-symbols-outlined text-secondary"
-                    style="font-variation-settings: 'FILL' 1;">warning</span>
+                <span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">warning</span>
             </div>
             <div class="flex flex-col gap-1">
                 <p class="font-body-md text-on-surface-variant text-sm">
@@ -202,10 +197,16 @@
                     <p id="total-saidas" class="font-headline-md text-lg text-on-surface">R$ 0,00</p>
                 </div>
             </div>
-            <div
-                class="bg-tertiary-container/20 px-3 py-2 rounded-lg flex items-center gap-2 self-start border border-tertiary-container/30 mt-2">
+            <div class="bg-tertiary-container/20 px-3 py-2 rounded-lg flex items-center gap-2 self-start border border-tertiary-container/30 mt-2">
                 <span class="text-sm">✅</span>
                 <span class="font-label-sm text-label-sm text-tertiary-fixed">Você está gastando dentro da meta</span>
+            </div>
+        </section>
+        <!-- Gráfico de Saúde Financeira -->
+        <section class="glass-card rounded-2xl p-6 flex flex-col gap-4">
+            <h4 class="font-headline-md text-body-lg">Saúde Financeira</h4>
+            <div class="w-full h-48 relative">
+                <canvas id="saude-financeira-chart"></canvas>
             </div>
         </section>
         <!-- Card Investimentos -->
@@ -222,12 +223,12 @@
                     <span>Alocação</span>
                     <span class="text-on-surface">Total 100%</span>
                 </div>
-                <div class="w-full h-3 bg-white/5 rounded-full overflow-hidden flex">
+                <div id="alocacao-bar" class="w-full h-3 bg-white/5 rounded-full overflow-hidden flex">
                     <div class="h-full bg-primary" style="width: 65%"></div>
                     <div class="h-full bg-secondary" style="width: 25%"></div>
                     <div class="h-full bg-tertiary" style="width: 10%"></div>
                 </div>
-                <div class="flex flex-wrap gap-4 mt-1">
+                <div id="alocacao-legend" class="flex flex-wrap gap-4 mt-1">
                     <div class="flex items-center gap-2">
                         <div class="w-2 h-2 rounded-full bg-primary"></div>
                         <span class="font-label-sm text-label-sm text-on-surface-variant">Renda Fixa (65%)</span>
@@ -248,104 +249,15 @@
             <!-- Card 2: Gastos por Categoria -->
             <section class="glass-card rounded-2xl p-6 flex flex-col gap-6">
                 <h4 class="font-headline-md text-body-lg">Gastos por Categoria</h4>
-                <div class="flex flex-col gap-4">
-                    <!-- Moradia -->
-                    <div class="flex flex-col gap-2">
-                        <div class="flex justify-between items-center text-sm">
-                            <div class="flex items-center gap-2">
-                                <span class="material-symbols-outlined text-secondary text-lg">home_work</span>
-                                <span class="font-body-md text-on-surface-variant">Moradia</span>
-                            </div>
-                            <span class="font-label-md">40%</span>
-                        </div>
-                        <div class="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
-                            <div class="h-full bg-secondary transition-all duration-1000" style="width: 40%"></div>
-                        </div>
-                    </div>
-                    <!-- Alimentação -->
-                    <div class="flex flex-col gap-2">
-                        <div class="flex justify-between items-center text-sm">
-                            <div class="flex items-center gap-2">
-                                <span class="material-symbols-outlined text-secondary text-lg">restaurant</span>
-                                <span class="font-body-md text-on-surface-variant">Alimentação</span>
-                            </div>
-                            <span class="font-label-md">30%</span>
-                        </div>
-                        <div class="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
-                            <div class="h-full bg-secondary transition-all duration-1000" style="width: 30%"></div>
-                        </div>
-                    </div>
-                    <!-- Lazer -->
-                    <div class="flex flex-col gap-2">
-                        <div class="flex justify-between items-center text-sm">
-                            <div class="flex items-center gap-2">
-                                <span class="material-symbols-outlined text-secondary text-lg">sports_esports</span>
-                                <span class="font-body-md text-on-surface-variant">Lazer</span>
-                            </div>
-                            <span class="font-label-md">15%</span>
-                        </div>
-                        <div class="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
-                            <div class="h-full bg-secondary transition-all duration-1000" style="width: 15%"></div>
-                        </div>
-                    </div>
-                    <!-- Transporte -->
-                    <div class="flex flex-col gap-2">
-                        <div class="flex justify-between items-center text-sm">
-                            <div class="flex items-center gap-2">
-                                <span class="material-symbols-outlined text-secondary text-lg">directions_car</span>
-                                <span class="font-body-md text-on-surface-variant">Transporte</span>
-                            </div>
-                            <span class="font-label-md">15%</span>
-                        </div>
-                        <div class="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
-                            <div class="h-full bg-secondary transition-all duration-1000" style="width: 15%"></div>
-                        </div>
-                    </div>
+                <div id="gastos-container" class="flex flex-col gap-4 flex-1">
+                    <p class="text-on-surface-variant text-sm">Carregando...</p>
                 </div>
             </section>
             <!-- Card 3: Receitas -->
             <section class="glass-card rounded-2xl p-6 flex flex-col gap-6">
                 <h4 class="font-headline-md text-body-lg">Fontes de Receita</h4>
-                <div class="flex flex-col gap-4">
-                    <div class="flex items-center justify-between group">
-                        <div class="flex items-center gap-3">
-                            <div
-                                class="w-10 h-10 rounded-xl bg-tertiary/10 flex items-center justify-center text-tertiary">
-                                <span class="material-symbols-outlined">payments</span>
-                            </div>
-                            <div>
-                                <p class="font-body-md text-on-surface">Salário</p>
-                                <p class="font-label-sm text-on-surface-variant text-xs">82% do total</p>
-                            </div>
-                        </div>
-                        <p class="font-label-md text-on-surface">R$ 7.000,00</p>
-                    </div>
-                    <div class="flex items-center justify-between group">
-                        <div class="flex items-center gap-3">
-                            <div
-                                class="w-10 h-10 rounded-xl bg-tertiary/10 flex items-center justify-center text-tertiary">
-                                <span class="material-symbols-outlined">laptop_mac</span>
-                            </div>
-                            <div>
-                                <p class="font-body-md text-on-surface">Freelance</p>
-                                <p class="font-label-sm text-on-surface-variant text-xs">12% do total</p>
-                            </div>
-                        </div>
-                        <p class="font-label-md text-on-surface">R$ 1.000,00</p>
-                    </div>
-                    <div class="flex items-center justify-between group">
-                        <div class="flex items-center gap-3">
-                            <div
-                                class="w-10 h-10 rounded-xl bg-tertiary/10 flex items-center justify-center text-tertiary">
-                                <span class="material-symbols-outlined">analytics</span>
-                            </div>
-                            <div>
-                                <p class="font-body-md text-on-surface">Dividendos</p>
-                                <p class="font-label-sm text-on-surface-variant text-xs">6% do total</p>
-                            </div>
-                        </div>
-                        <p class="font-label-md text-on-surface">R$ 500,00</p>
-                    </div>
+                <div id="receitas-container" class="flex flex-col gap-4 flex-1">
+                    <p class="text-on-surface-variant text-sm">Carregando...</p>
                 </div>
             </section>
         </div>
@@ -353,71 +265,278 @@
         <section class="glass-card rounded-2xl p-6 flex flex-col gap-4 border-l-4 border-primary">
             <div class="flex justify-between items-start">
                 <div>
-                    <p class="font-label-md text-on-surface-variant uppercase text-xs">Fatura Atual • Vence 15 Out</p>
+                    <p class="font-label-md text-on-surface-variant uppercase text-xs">Fatura Atual • <span id="fatura-vencimento">Vence 15 Out</span></p>
                     <h3 id="fatura-atual" class="font-headline-md text-headline-md mt-1">R$ 0,00</h3>
                 </div>
                 <span class="material-symbols-outlined text-primary-fixed-dim">credit_card</span>
             </div>
             <div class="flex flex-col gap-2 mt-2">
                 <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
-                    <div class="h-full vibrant-gradient" style="width: 34.5%"></div>
+                    <div id="fatura-progress-bar" class="h-full vibrant-gradient" style="width: 0%"></div>
                 </div>
                 <div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant">
-                    <span>Limite utilizado: R$ 6.550,00</span>
-                    <span>Total: R$ 19.000,00</span>
+                    <span id="limite-utilizado-text">Limite utilizado: R$ 0,00</span>
+                    <span id="limite-total-text">Total: R$ 0,00</span>
                 </div>
             </div>
-            <button
-                class="vibrant-gradient text-white w-full py-3 rounded-xl font-headline-md text-body-md mt-2 shadow-lg shadow-primary/20 active:scale-[0.98] transition-all">Pagar
-                Fatura</button>
         </section>
     </main>
+
     <!-- Bottom Navigation Bar -->
-    <nav
-        class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pt-2 pb-6 bg-surface/90 dark:bg-surface/90 backdrop-blur-2xl border-t border-white/5 rounded-t-xl shadow-[0_-4px_20px_rgba(0,0,0,0.4)]">
-        <a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-all active:scale-90 duration-300"
-            href="#">
-            <span class="material-symbols-outlined">home</span>
-            <span class="font-label-sm text-[10px] mt-1">Início</span>
+    <nav class="bg-surface/90 dark:bg-surface/90 backdrop-blur-2xl text-primary dark:text-primary-fixed-dim font-label-sm text-label-sm docked full-width bottom-0 rounded-t-xl border-t border-white/5 shadow-[0_-4px_20px_rgba(0,0,0,0.4)] fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pt-2 pb-6 h-20">
+        <!-- Início -->
+        <a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-all active:scale-90 duration-300" href="inicio.html">
+            <span class="material-symbols-outlined mb-0.5">home</span>
+            <span class="font-label-sm">Início</span>
         </a>
-        <a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-all active:scale-90 duration-300"
-            href="#">
-            <span class="material-symbols-outlined">swap_horiz</span>
-            <span class="font-label-sm text-[10px] mt-1">Transações</span>
+        <!-- Transações -->
+        <a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-all active:scale-90 duration-300" href="transacoes.html">
+            <span class="material-symbols-outlined mb-0.5">swap_horiz</span>
+            <span class="font-label-sm">Transações</span>
         </a>
-        <a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-all active:scale-90 duration-300"
-            href="#">
-            <span class="material-symbols-outlined">credit_card</span>
-            <span class="font-label-sm text-[10px] mt-1">Cartões</span>
+        <!-- Cartões -->
+        <a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-all active:scale-90 duration-300" href="credito.html">
+            <span class="material-symbols-outlined mb-0.5">credit_card</span>
+            <span class="font-label-sm">Cartões</span>
         </a>
-        <a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-all active:scale-90 duration-300"
-            href="#">
-            <span class="material-symbols-outlined">leaderboard</span>
-            <span class="font-label-sm text-[10px] mt-1">Analítico</span>
+        <!-- Investimentos -->
+        <a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-all active:scale-90 duration-300" href="investimentos.html">
+            <span class="material-symbols-outlined mb-0.5">trending_up</span>
+            <span class="font-label-sm">Investimentos</span>
         </a>
-        <a class="flex flex-col items-center justify-center bg-primary-container/20 text-primary dark:text-primary-fixed-dim rounded-xl px-4 py-1.5 active:scale-90 transition-all duration-300"
-            href="#">
-            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">troubleshoot</span>
-            <span class="font-label-sm text-[10px] mt-1">Diagnóstico</span>
+        <!-- Dashboard -->
+        <a class="flex flex-col items-center justify-center bg-primary-container/20 text-primary dark:text-primary-fixed-dim rounded-xl px-4 py-1.5 active:scale-90 transition-all duration-300" href="dasboard.html">
+            <span class="material-symbols-outlined mb-0.5" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+            <span class="font-label-sm">Dashboard</span>
         </a>
     </nav>
-    <!-- Micro-interaction for smooth loading entries -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const cards = document.querySelectorAll('.glass-card, section');
-            cards.forEach((card, index) => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                card.style.transition = `all 0.5s ease-out ${index * 0.1}s`;
-                setTimeout(() => {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, 50);
-            });
-        });
-    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/db.js"></script>
     <script src="js/app.js"></script>
-</body>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Carrega foto de perfil no topo
+            const savedProfilePic = localStorage.getItem('profile_picture');
+            if (savedProfilePic) {
+                const img = document.getElementById('profile-img-top');
+                if (img) img.src = savedProfilePic;
+            }
 
+            var fc = window.formatCurrency || function(v) {
+                return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(v || 0);
+            };
+
+            try {
+                if (typeof window.db === 'undefined' || typeof window.db.metrics === 'undefined') {
+                    console.error('db.js not loaded');
+                    return;
+                }
+                var results = await Promise.all([
+                    window.db.metrics.getDashboardMetrics(),
+                    window.db.transacoes.list(),
+                    window.db.investimentos.list(),
+                    window.db.cartoes.list()
+                ]);
+                var metrics = results[0], transacoes = results[1], investimentos = results[2], cartoes = results[3];
+
+                var expenses = (transacoes || []).filter(function(t) { return (t.valor || 0) < 0; });
+                var incomes = (transacoes || []).filter(function(t) { return (t.valor || 0) > 0; });
+                
+                var gastosPorCategoria = {};
+                expenses.forEach(function(t) {
+                    var cat = t.categoria || 'Outros';
+                    gastosPorCategoria[cat] = (gastosPorCategoria[cat] || 0) + Math.abs(t.valor || 0);
+                });
+                var totalGastos = Object.values(gastosPorCategoria).reduce(function(s, v) { return s + v; }, 0);
+                
+                var receitasPorOrigem = {};
+                incomes.forEach(function(t) {
+                    var key = t.descricao || t.categoria || 'Outros';
+                    receitasPorOrigem[key] = (receitasPorOrigem[key] || 0) + (t.valor || 0);
+                });
+                var totalReceitas = Object.values(receitasPorOrigem).reduce(function(s, v) { return s + v; }, 0);
+                
+                var tipos = {}, totalInvestido = 0;
+                (investimentos || []).forEach(function(inv) {
+                    var valor = Number(inv.valor_investido || 0);
+                    // Proporção de rendimento a cada 30 dias decorridos
+                    const dataCriacao = new Date(inv.criado_em);
+                    const dataAtual = new Date();
+                    const diferencaTempo = Math.max(0, dataAtual - dataCriacao);
+                    const diasDecorridos = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24));
+                    const periodosDe30Dias = diasDecorridos / 30;
+                    const valorAtualizado = valor * (1 + (Number(inv.rentabilidade || 0) / 100) * periodosDe30Dias);
+                    
+                    totalInvestido += valorAtualizado;
+                    var tipo = 'Renda Fixa'; // Padrão
+                    tipos[tipo] = (tipos[tipo] || 0) + valorAtualizado;
+                });
+
+                // 1. Saldo
+                var saldoEl = document.getElementById('saldo-disponivel');
+                if (saldoEl) saldoEl.textContent = fc(metrics.saldo);
+                var entradasEl = document.getElementById('total-entradas');
+                if (entradasEl) entradasEl.textContent = fc(metrics.entradas);
+                var saidasEl = document.getElementById('total-saidas');
+                if (saidasEl) saidasEl.textContent = fc(metrics.saidas);
+
+                // Gráfico Chart.js - Saúde Financeira
+                var ctx = document.getElementById('saude-financeira-chart');
+                if (ctx) {
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Entradas', 'Saídas'],
+                            datasets: [{
+                                label: 'Valor em R$',
+                                data: [metrics.entradas, metrics.saidas],
+                                backgroundColor: [
+                                    '#00dce5', // tertiary (Entradas)
+                                    '#ffb4ab'  // error (Saídas)
+                                ],
+                                borderRadius: 6
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    grid: { color: 'rgba(255,255,255,0.05)' },
+                                    ticks: { color: '#c4c5d9' }
+                                },
+                                x: {
+                                    grid: { display: false },
+                                    ticks: { color: '#c4c5d9' }
+                                }
+                            }
+                        }
+                    });
+                }
+
+                // 2. Patrimônio / Alocação
+                var patrimonioEl = document.getElementById('patrimonio-total');
+                if (patrimonioEl) patrimonioEl.textContent = fc(totalInvestido);
+                
+                var tipoCores = { 'Renda Fixa': 'bg-primary', 'Ações': 'bg-secondary', 'Cripto': 'bg-tertiary' };
+                var alocacaoBar = document.getElementById('alocacao-bar');
+                var alocacaoLegend = document.getElementById('alocacao-legend');
+                if (alocacaoBar && alocacaoLegend) {
+                    alocacaoBar.innerHTML = '';
+                    alocacaoLegend.innerHTML = '';
+                    if (totalInvestido > 0) {
+                        var entries = Object.entries(tipos).sort(function(a, b) { return b[1] - a[1]; });
+                        entries.forEach(function(entry) {
+                            var tipo = entry[0], valor = entry[1];
+                            var pct = ((valor / totalInvestido) * 100).toFixed(0);
+                            var cor = tipoCores[tipo] || 'bg-primary';
+                            var barDiv = document.createElement('div');
+                            barDiv.className = 'h-full ' + cor;
+                            barDiv.style.width = pct + '%';
+                            alocacaoBar.appendChild(barDiv);
+                            var legendDiv = document.createElement('div');
+                            legendDiv.className = 'flex items-center gap-2';
+                            legendDiv.innerHTML = '<div class="w-2 h-2 rounded-full ' + cor + '"></div><span class="font-label-sm text-label-sm text-on-surface-variant">' + tipo + ' (' + pct + '%)</span>';
+                            alocacaoLegend.appendChild(legendDiv);
+                        });
+                    } else {
+                        alocacaoBar.innerHTML = '<div class="h-full bg-white/10" style="width: 100%"></div>';
+                        alocacaoLegend.innerHTML = '<div class="flex items-center gap-2"><span class="font-label-sm text-label-sm text-on-surface-variant">Nenhum investimento cadastrado</span></div>';
+                    }
+                }
+
+                // 3. Gastos por Categoria
+                var gastosContainer = document.getElementById('gastos-container');
+                if (gastosContainer) {
+                    gastosContainer.innerHTML = '';
+                    if (totalGastos > 0) {
+                        var catIcons = { 'Moradia': 'home_work', 'Alimentação': 'restaurant', 'Lazer': 'sports_esports', 'Transporte': 'directions_car', 'Saúde': 'local_hospital', 'Educação': 'school', 'Serviços': 'build' };
+                        var entries = Object.entries(gastosPorCategoria).sort(function(a, b) { return b[1] - a[1]; });
+                        entries.forEach(function(entry) {
+                            var cat = entry[0], valor = entry[1];
+                            var pct = ((valor / totalGastos) * 100).toFixed(0);
+                            var icon = catIcons[cat] || 'category';
+                            var item = document.createElement('div');
+                            item.className = 'flex flex-col gap-2 mt-2';
+                            item.innerHTML = '<div class="flex justify-between items-center text-sm"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary text-lg">' + icon + '</span><span class="font-body-md text-on-surface-variant">' + cat + '</span></div><span class="font-label-md">' + pct + '%</span></div><div class="w-full h-1.5 bg-white/5 rounded-full overflow-hidden"><div class="h-full bg-secondary transition-all duration-1000" style="width: ' + pct + '%"></div></div>';
+                            gastosContainer.appendChild(item);
+                        });
+                    } else {
+                        gastosContainer.innerHTML = '<p class="text-on-surface-variant text-sm">Nenhum gasto registrado.</p>';
+                    }
+                }
+
+                // 4. Fontes de Receita
+                var receitasContainer = document.getElementById('receitas-container');
+                if (receitasContainer) {
+                    receitasContainer.innerHTML = '';
+                    if (totalReceitas > 0) {
+                        var entries = Object.entries(receitasPorOrigem).sort(function(a, b) { return b[1] - a[1]; });
+                        entries.forEach(function(entry) {
+                            var origem = entry[0], valor = entry[1];
+                            var pct = ((valor / totalReceitas) * 100).toFixed(0);
+                            var item = document.createElement('div');
+                            item.className = 'flex items-center justify-between group mt-2';
+                            item.innerHTML = '<div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-tertiary/10 flex items-center justify-center text-tertiary"><span class="material-symbols-outlined">payments</span></div><div><p class="font-body-md text-on-surface">' + origem + '</p><p class="font-label-sm text-on-surface-variant text-xs">' + pct + '% do total</p></div></div><p class="font-label-md text-on-surface">' + fc(valor) + '</p>';
+                            receitasContainer.appendChild(item);
+                        });
+                    } else {
+                        receitasContainer.innerHTML = '<p class="text-on-surface-variant text-sm">Nenhuma receita registrada.</p>';
+                    }
+                }
+
+                // 5. Alertas
+                var alertSection = document.getElementById('alert-section');
+                if (alertSection) {
+                    if (totalGastos > 0 || totalReceitas > 0) {
+                        var alertMsg = '', dicaMsg = '';
+                        if (totalGastos > 0) {
+                            var topGasto = Object.entries(gastosPorCategoria).sort(function(a, b) { return b[1] - a[1]; })[0];
+                            alertMsg = 'Seus maiores gastos foram em ' + topGasto[0] + ' (' + fc(topGasto[1]) + ')';
+                        } else { alertMsg = 'Acompanhe seus gastos mensais.'; }
+                        if (totalReceitas > 0) {
+                            var topReceita = Object.entries(receitasPorOrigem).sort(function(a, b) { return b[1] - a[1]; })[0];
+                            dicaMsg = 'Sua principal fonte de receita é ' + topReceita[0] + ' (' + fc(topReceita[1]) + ')';
+                        } else { dicaMsg = 'Continue gerenciando suas finanças.'; }
+                        alertSection.innerHTML = '<div class="bg-secondary-container/20 p-2 rounded-lg"><span class="material-symbols-outlined text-secondary" style="font-variation-settings: \'FILL\' 1;">warning</span></div><div class="flex flex-col gap-1"><p class="font-body-md text-on-surface-variant text-sm"><span class="font-bold text-on-surface">Alerta:</span> ' + alertMsg + '</p><p class="font-label-sm text-label-sm text-secondary/80"><span class="font-bold">Dica:</span> ' + dicaMsg + '</p></div>';
+                    } else {
+                        alertSection.innerHTML = '<div class="bg-secondary-container/20 p-2 rounded-lg"><span class="material-symbols-outlined text-secondary" style="font-variation-settings: \'FILL\' 1;">warning</span></div><div class="flex flex-col gap-1"><p class="font-body-md text-on-surface-variant text-sm"><span class="font-bold text-on-surface">Alerta:</span> Adicione transações para ver alertas personalizados.</p></div>';
+                    }
+                }
+
+                // 6. Fatura
+                var faturaEl = document.getElementById('fatura-atual');
+                if (faturaEl) faturaEl.textContent = fc(metrics.limiteUtilizado);
+                var faturaProgress = document.getElementById('fatura-progress-bar');
+                var limUtil = metrics.limiteUtilizado || 0;
+                var limTotal = metrics.limiteTotal || 1;
+                var pctLimite = Math.min((limUtil / limTotal) * 100, 100);
+                if (faturaProgress) faturaProgress.style.width = pctLimite + '%';
+                var limiteUtilizadoEl = document.getElementById('limite-utilizado-text');
+                var limiteTotalEl = document.getElementById('limite-total-text');
+                if (limiteUtilizadoEl) limiteUtilizadoEl.textContent = 'Limite utilizado: ' + fc(limUtil);
+                if (limiteTotalEl) limiteTotalEl.textContent = 'Total: ' + fc(limTotal);
+                
+                var vencEl = document.getElementById('fatura-vencimento');
+                if (vencEl && cartoes && cartoes.length > 0) {
+                    var primeiro = cartoes[0];
+                    var months = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+                    var now = new Date();
+                    var month = now.getMonth();
+                    if (primeiro.vencimento_dia <= now.getDate()) {
+                        month = (month + 1) % 12;
+                    }
+                    vencEl.textContent = 'Vence ' + primeiro.vencimento_dia + ' ' + months[month];
+                }
+            } catch (err) {
+                console.error('Erro ao carregar dados do dashboard:', err);
+            }
+        });
+    </script>
+</body>
 </html>

@@ -1,18 +1,23 @@
 <!DOCTYPE html>
-
-<html class="dark" lang="pt-br">
-
+<html class="dark" lang="pt-BR">
 <head>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="icon" type="image/jpeg" sizes="192x192" href="app-icon.jpg" />
+    <link rel="icon" type="image/jpeg" sizes="512x512" href="app-icon.jpg" />
+    <link rel="apple-touch-icon" href="app-icon.jpg" />
+    <link rel="manifest" href="manifest.json" />
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script>
+        const originalWarn = console.warn;
+        console.warn = (...args) => {
+            if (typeof args[0] === 'string' && args[0].includes('cdn.tailwindcss.com should not be used in production')) return;
+            originalWarn(...args);
+        };
+    </script>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;display=swap" rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-        rel="stylesheet" />
     <style>
         body {
             background-color: #000000;
@@ -133,97 +138,32 @@
         }
     </script>
 </head>
-
 <body class="bg-black min-h-screen pb-32">
     <!-- TopAppBar -->
-    <header
-        class="flex justify-between items-center w-full px-container-margin py-base sticky top-0 z-50 bg-surface/80 dark:bg-surface/80 backdrop-blur-xl border-b border-white/10 shadow-sm">
+    <header class="flex justify-between items-center w-full px-container-margin py-base sticky top-0 z-50 bg-surface/80 backdrop-blur-xl border-b border-white/10 shadow-sm">
         <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 border border-white/10">
-                <img class="w-full h-full object-cover"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuArBjc6_bpKQuye1T2bXOH8IZ8iJzaiYz6Jce13_BrreWEfSu34BKniZtGKMGt0lJc7902YFAf0FVQlQltEYmiychwz-0SpPiRVgUVUelVx0TKtRacIwzkSnEqSIPWxT-TvCehre7DpR2UzHN0HV4bidejNkGtdzIao42WvBG5YC-1Jv-1HnRpL1hGYq7exF0iCPUWEd71cHCxhlT2KCqYhvLT1OY53U-EuOm7TcG7yiHHl8A7J2zmqg6fM2EsMwciP6Vgr7LYb7y4" />
+            <div class="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 border border-white/10 flex items-center justify-center bg-primary/20 cursor-pointer" onclick="window.location.href='inicio.html'">
+                <span class="material-symbols-outlined text-primary">credit_card</span>
             </div>
-            <h1 class="font-headline-md text-headline-md-mobile text-primary dark:text-primary-fixed-dim">Meus Cartões
-            </h1>
+            <h1 class="font-headline-md text-headline-md-mobile text-primary dark:text-primary-fixed-dim">Meus Cartões</h1>
         </div>
         <div class="relative active:scale-95 transition-transform duration-200 flex items-center gap-4">
             <span class="material-symbols-outlined text-white/90 cursor-pointer" id="btn-logout" title="Sair" onclick="window.db.auth.signOut()">logout</span>
-            <div
-                class="w-10 h-10 rounded-full overflow-hidden bg-surface-container border border-white/10 active:scale-95 transition-transform duration-200">
-                <img class="w-full h-full object-cover"
-                    data-alt="A high-quality professional portrait of a successful young executive with a clean, modern aesthetic. The lighting is soft and cinematic, highlighting sophisticated features against a minimalist dark grey studio background. The overall mood is elite and secure, perfectly aligned with a high-end financial services application platform."
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxLWSYcm4du8iShELbpVkaK03j_3aYblvTQO6dzTQxR4co2TbdRqGFwzRHHVRic9GEiGwaLtTLnYadQvfIgyXX2ZkT-3htmU0GmnacN7ddJ51z1-wYk-Daxf1LoTHU4WNz9S953Hdm-aJKxSTAD-eeCdCDPsqEGPLVA5hq9d8faJLbnNCCAN1e-dyWbk5GCoAqVUYdWTgZwmBsKBHDpDMxq22yvQcAOTcXKgOXbiIPJAJh4YwLdONwLovcDsUAgRXhc1YrbI9SrA8" />
+            <div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container border border-white/10 active:scale-95 transition-transform duration-200 flex items-center justify-center cursor-pointer" onclick="window.location.href='inicio.html'">
+                <img id="profile-img-top" alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmcBV6w-B9MtxWqrgjj3GHyfTkCjuQbOj3y4QWGDi3inxnrH5zkaL_jFSX1sO_RfOP8mSPlk5pp3d3VAYuJCN8Ag1FSnfRDjC8gui2LTc-bxCSAB6deGsOom-FfgPwbXrHQHMPGMSDUDMZsCoLw8fxwlRoROvoUxh47FAEdBiwsOYYGv8oyrMnviLIIMhsN5GDC7GvXud8gFztm_Sfq0V5d2Mbv5TH90giFkp2yKCrpRqPpxMSeP4PRylWJBNTX0kqQ1WIfVOqwPU" />
             </div>
         </div>
     </header>
+
     <main class="max-w-md mx-auto">
         <!-- Card Carousel -->
         <section class="mt-stack-md">
-            <div class="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar px-container-margin gap-4">
-                <!-- Physical Card (Platinum) -->
-                <div
-                    class="snap-center shrink-0 w-[85vw] max-w-[340px] aspect-[1.586/1] premium-gradient rounded-xl p-6 relative overflow-hidden shadow-2xl flex flex-col justify-between">
-                    <div
-                        class="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2">
-                    </div>
-                    <div class="flex justify-between items-start z-10">
-                        <span class="font-display-lg text-white text-headline-md opacity-90">FinPulse</span>
-                        <div class="material-symbols-outlined text-white/40 text-4xl"
-                            style="font-variation-settings: 'FILL' 1;">contactless</div>
-                    </div>
-                    <div class="z-10 mt-auto">
-                        <div class="flex items-center gap-2 mb-2">
-                            <div class="w-10 h-7 bg-white/20 rounded-md backdrop-blur-sm border border-white/10"></div>
-                        </div>
-                        <p class="font-label-md text-white tracking-[0.2em] mb-4">•••• •••• •••• 8892</p>
-                        <div class="flex justify-between items-end">
-                            <div>
-                                <p class="text-[10px] text-white/60 uppercase font-label-sm">Cardholder</p>
-                                <p class="font-label-md text-white text-label-md">ALEXANDER M. SILVA</p>
-                            </div>
-                            <div class="text-right">
-                                <p class="text-[10px] text-white/60 uppercase font-label-sm">Expires</p>
-                                <p class="font-label-md text-white text-label-md">09/29</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Virtual Card (Glass) -->
-                <div
-                    class="snap-center shrink-0 w-[85vw] max-w-[340px] aspect-[1.586/1] glass-card rounded-xl p-6 relative overflow-hidden flex flex-col justify-between">
-                    <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-primary/20 rounded-full blur-2xl"></div>
-                    <div class="flex justify-between items-start z-10">
-                        <div class="flex flex-col">
-                            <span class="font-display-lg text-primary text-headline-md">Virtual</span>
-                            <span class="font-label-sm text-on-surface-variant/60 -mt-1">Digital Security</span>
-                        </div>
-                        <span class="material-symbols-outlined text-primary"
-                            style="font-variation-settings: 'FILL' 1;">shield</span>
-                    </div>
-                    <div class="z-10 mt-auto">
-                        <p class="font-label-md text-on-surface tracking-[0.2em] mb-4">•••• •••• •••• 1245</p>
-                        <div class="flex justify-between items-end">
-                            <div>
-                                <p class="text-[10px] text-on-surface-variant/60 uppercase font-label-sm">Status</p>
-                                <div class="flex items-center gap-1.5">
-                                    <div class="w-2 h-2 rounded-full bg-tertiary shadow-[0_0_8px_#00dce5]"></div>
-                                    <p class="font-label-md text-on-surface text-label-md">Ativo</p>
-                                </div>
-                            </div>
-                            <button
-                                class="bg-primary-container/20 text-primary-fixed-dim px-3 py-1 rounded-lg border border-primary/10 text-label-sm active:scale-95 transition-all">
-                                Ver Detalhes
-                            </button>
-                        </div>
-                    </div>
-                </div>
+            <div id="card-carousel" class="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar px-container-margin gap-4">
+                <div class="flex items-center justify-center w-full py-12 text-on-surface-variant font-body-md">Carregando cartões...</div>
             </div>
-            <!-- Pagination Indicator -->
-            <div class="flex justify-center gap-2 mt-gutter">
-                <div class="w-6 h-1 rounded-full bg-primary"></div>
-                <div class="w-1.5 h-1 rounded-full bg-surface-container-highest"></div>
-            </div>
+            <div id="card-indicators" class="flex justify-center gap-2 mt-gutter"></div>
         </section>
+
         <!-- Card Details Section -->
         <section class="mt-stack-lg px-container-margin space-y-stack-md">
             <!-- Limite Section -->
@@ -233,117 +173,489 @@
                     <span id="saldo-disponivel" class="text-on-surface font-headline-md text-headline-md">R$ 0,00</span>
                 </div>
                 <div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
-                    <div class="h-full bg-primary w-[0%] shadow-[0_0_12px_rgba(184,195,255,0.4)]"></div>
+                    <div class="h-full bg-primary w-[0%] shadow-[0_0_12px_rgba(184,195,255,0.4)] transition-all duration-300"></div>
                 </div>
                 <div class="flex justify-between items-center text-label-sm font-label-sm">
-                    <span id="limite-utilizado" class="text-on-surface-variant/60">Limite Utilizado: R$ 0,00</span>
-                    <span id="limite-total" class="text-on-surface-variant/60">Total: R$ 0,00</span>
+                    <span id="limite-utilizado" class="text-on-surface-variant/60">Valor gasto: R$ 0,00</span>
+                    <span id="limite-total" class="text-on-surface-variant/60">Limite: R$ 0,00</span>
+                </div>
+                <div class="flex justify-end pt-2 mt-2 border-t border-white/5">
+                    <button id="btn-excluir-cartao" class="text-error/70 hover:text-error text-xs flex items-center gap-1 active:scale-95 transition-all">
+                        <span class="material-symbols-outlined text-[14px]">delete</span> Excluir Cartão
+                    </button>
                 </div>
             </div>
-            <!-- Fatura Section -->
-            <div class="glass-card p-6 rounded-xl flex items-center justify-between border-l-4 border-l-primary">
-                <div>
-                    <span class="text-on-surface-variant font-label-sm text-label-sm block mb-1">Fatura Atual</span>
-                    <span id="fatura-atual" class="text-on-surface font-headline-md text-headline-md">R$ 0,00</span>
-                    <span class="text-error font-label-sm text-label-sm block mt-1">Vence em 15 Out</span>
+
+            <!-- Fatura Detalhada (Substituindo o antigo botão de pagar global) -->
+            <div class="space-y-3">
+                <div class="flex justify-between items-center px-1">
+                    <h2 class="font-headline-md text-lg text-on-surface font-semibold">Transações Atuais</h2>
+                    <span id="vencimento-text" class="hidden"></span>
                 </div>
-                <button
-                    class="bg-primary text-on-primary font-label-md text-label-md px-6 py-3 rounded-xl hover:opacity-90 active:scale-95 transition-all shadow-lg shadow-primary/20">
-                    Pagar Fatura
-                </button>
+                <div id="invoice-items-list" class="space-y-3">
+                    <div class="glass-card p-6 rounded-xl text-center text-on-surface-variant/60 text-sm">
+                        Nenhum gasto ativo nesta fatura.
+                    </div>
+                </div>
             </div>
         </section>
-        <!-- Management Actions -->
+
+        <!-- Novo Cartão Form -->
         <section class="mt-stack-lg px-container-margin pb-10">
-            <h2 class="font-headline-md text-headline-md text-on-surface mb-stack-sm ml-1">Gerenciar</h2>
-            <div class="grid grid-cols-2 gap-4">
-                <button
-                    class="glass-card p-5 rounded-xl flex flex-col items-start gap-4 active:scale-95 transition-transform">
-                    <div
-                        class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
-                        <span class="material-symbols-outlined">block</span>
+            <h2 class="font-headline-md text-headline-md text-on-surface mb-stack-sm ml-1">Novo Cartão</h2>
+            <form id="novo-cartao-form" class="glass-card p-6 rounded-xl space-y-4">
+                <div>
+                    <label class="text-on-surface-variant font-label-sm text-label-sm block mb-1">Nome Impresso no Cartão</label>
+                    <input type="text" id="card-titular" required class="w-full bg-surface-container-high text-on-surface rounded-lg px-4 py-3 border border-outline-variant focus:outline-none focus:border-primary uppercase" placeholder="Ex: ALEXANDER M. SILVA">
+                </div>
+                <div>
+                    <label class="text-on-surface-variant font-label-sm text-label-sm block mb-1">Nome do Cartão (Apelido)</label>
+                    <input type="text" id="card-nome" required class="w-full bg-surface-container-high text-on-surface rounded-lg px-4 py-3 border border-outline-variant focus:outline-none focus:border-primary" placeholder="Ex: Nubank, Inter...">
+                </div>
+                <div>
+                    <label class="text-on-surface-variant font-label-sm text-label-sm block mb-1">Limite (R$)</label>
+                    <input type="number" id="card-limite" required step="0.01" min="0" class="w-full bg-surface-container-high text-on-surface rounded-lg px-4 py-3 border border-outline-variant focus:outline-none focus:border-primary" placeholder="5000">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-on-surface-variant font-label-sm text-label-sm block mb-1">Fechamento</label>
+                        <input type="number" id="card-fechamento" required min="1" max="31" class="w-full bg-surface-container-high text-on-surface rounded-lg px-4 py-3 border border-outline-variant focus:outline-none focus:border-primary" placeholder="Ex: 15">
                     </div>
-                    <span class="font-label-md text-label-md text-on-surface text-left">Bloqueio Temporário</span>
-                </button>
-                <button
-                    class="glass-card p-5 rounded-xl flex flex-col items-start gap-4 active:scale-95 transition-transform">
-                    <div
-                        class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-tertiary">
-                        <span class="material-symbols-outlined">credit_card</span>
+                    <div>
+                        <label class="text-on-surface-variant font-label-sm text-label-sm block mb-1">Vencimento</label>
+                        <input type="number" id="card-vencimento" required min="1" max="31" class="w-full bg-surface-container-high text-on-surface rounded-lg px-4 py-3 border border-outline-variant focus:outline-none focus:border-primary" placeholder="Ex: 20">
                     </div>
-                    <span class="font-label-md text-label-md text-on-surface text-left">Cartão Virtual</span>
+                </div>
+                <button type="submit" class="w-full bg-primary text-on-primary font-label-md text-label-md px-6 py-3 rounded-xl hover:opacity-90 active:scale-95 transition-all shadow-lg shadow-primary/20">
+                    Adicionar Cartão
                 </button>
-                <button
-                    class="glass-card p-5 rounded-xl flex flex-col items-start gap-4 active:scale-95 transition-transform">
-                    <div
-                        class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-secondary">
-                        <span class="material-symbols-outlined">tune</span>
-                    </div>
-                    <span class="font-label-md text-label-md text-on-surface text-left">Ajustar Limite</span>
-                </button>
-                <button
-                    class="glass-card p-5 rounded-xl flex flex-col items-start gap-4 active:scale-95 transition-transform">
-                    <div
-                        class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-on-surface-variant">
-                        <span class="material-symbols-outlined">key</span>
-                    </div>
-                    <span class="font-label-md text-label-md text-on-surface text-left">Alterar Senha</span>
-                </button>
-            </div>
+            </form>
         </section>
     </main>
+
     <!-- BottomNavBar -->
-    <nav
-        class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pt-2 pb-6 bg-surface/90 dark:bg-surface/90 backdrop-blur-2xl border-t border-white/5 shadow-[0_-4px_20px_rgba(0,0,0,0.4)] rounded-t-xl">
-        <a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-all active:scale-90 duration-300"
-            href="#">
-            <span class="material-symbols-outlined">home</span>
-            <span class="font-label-sm text-label-sm">Início</span>
+    <nav class="bg-surface/90 dark:bg-surface/90 backdrop-blur-2xl text-primary dark:text-primary-fixed-dim font-label-sm text-label-sm docked full-width bottom-0 rounded-t-xl border-t border-white/5 shadow-[0_-4px_20px_rgba(0,0,0,0.4)] fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pt-2 pb-6 h-20">
+        <!-- Início -->
+        <a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-all active:scale-90 duration-300" href="inicio.html">
+            <span class="material-symbols-outlined mb-0.5">home</span>
+            <span class="font-label-sm">Início</span>
         </a>
-        <a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-all active:scale-90 duration-300"
-            href="#">
-            <span class="material-symbols-outlined">swap_horiz</span>
-            <span class="font-label-sm text-label-sm">Transações</span>
+        <!-- Transações -->
+        <a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-all active:scale-90 duration-300" href="transacoes.html">
+            <span class="material-symbols-outlined mb-0.5">swap_horiz</span>
+            <span class="font-label-sm">Transações</span>
         </a>
-        <a class="flex flex-col items-center justify-center bg-primary-container/20 text-primary dark:text-primary-fixed-dim rounded-xl px-4 py-1.5 transition-all active:scale-90 duration-300"
-            href="#">
-            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">credit_card</span>
-            <span class="font-label-sm text-label-sm font-bold">Cartões</span>
+        <!-- Cartões -->
+        <a class="flex flex-col items-center justify-center bg-primary-container/20 text-primary dark:text-primary-fixed-dim rounded-xl px-4 py-1.5 active:scale-90 transition-all duration-300" href="credito.html">
+            <span class="material-symbols-outlined mb-0.5" style="font-variation-settings: 'FILL' 1;">credit_card</span>
+            <span class="font-label-sm">Cartões</span>
         </a>
-        <a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-all active:scale-90 duration-300"
-            href="#">
-            <span class="material-symbols-outlined">trending_up</span>
-            <span class="font-label-sm text-label-sm">Investimentos</span>
+        <!-- Investimentos -->
+        <a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-all active:scale-90 duration-300" href="investimentos.html">
+            <span class="material-symbols-outlined mb-0.5">trending_up</span>
+            <span class="font-label-sm">Investimentos</span>
+        </a>
+        <!-- Dashboard -->
+        <a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-all active:scale-90 duration-300" href="dasboard.html">
+            <span class="material-symbols-outlined mb-0.5">dashboard</span>
+            <span class="font-label-sm">Dashboard</span>
         </a>
     </nav>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/db.js"></script>
+    <script src="js/app.js"></script>
     <script>
-        // Micro-interaction for management buttons
-        document.querySelectorAll('button').forEach(btn => {
-            btn.addEventListener('touchstart', function () {
-                this.classList.add('opacity-80');
-            });
-            btn.addEventListener('touchend', function () {
-                this.classList.remove('opacity-80');
-            });
-        });
+        let currentCards = [];
+        let allTransactions = [];
+        let activeCardIndex = 0;
 
-        // Simple carousel scroll effect observation
-        const carousel = document.querySelector('.hide-scrollbar');
-        carousel.addEventListener('scroll', () => {
-            const indicators = document.querySelectorAll('.w-6, .w-1\\.5');
-            const scrollPercent = carousel.scrollLeft / (carousel.scrollWidth - carousel.clientWidth);
+        // formatCurrency já está declarado em app.js
 
-            if (scrollPercent < 0.5) {
-                indicators[0].className = "w-6 h-1 rounded-full bg-primary transition-all duration-300";
-                indicators[1].className = "w-1.5 h-1 rounded-full bg-surface-container-highest transition-all duration-300";
+        // Formata Data Didática
+        function formatDate(dia) {
+            const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+            const now = new Date();
+            let month = now.getMonth();
+            let year = now.getFullYear();
+            if (dia <= now.getDate()) {
+                month = (month + 1) % 12;
+                if (month === 0) year++;
+            }
+            return `${dia} ${months[month]}`;
+        }
+
+        // Criar o Card HTML (Design FinPulse)
+        function createCardSlide(card, isFirst, invoiceTotal) {
+            const wrapper = document.createElement('div');
+            // Design premium do FinPulse
+            wrapper.className = 'snap-center shrink-0 w-[85vw] max-w-[340px] aspect-[1.586/1] rounded-2xl p-6 relative overflow-hidden shadow-2xl flex flex-col justify-between';
+            if (isFirst) {
+                wrapper.style.background = 'linear-gradient(135deg, #2d5bff 0%, #6e06d0 100%)';
             } else {
-                indicators[0].className = "w-1.5 h-1 rounded-full bg-surface-container-highest transition-all duration-300";
-                indicators[1].className = "w-6 h-1 rounded-full bg-primary transition-all duration-300";
+                wrapper.classList.add('glass-card');
+            }
+            
+            // Círculos de luz
+            const glow1 = document.createElement('div');
+            glow1.className = 'absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3';
+            wrapper.appendChild(glow1);
+
+            // Row Superior: Logo FinPulse e Contactless
+            const topRow = document.createElement('div');
+            topRow.className = 'flex justify-between items-start z-10 w-full';
+            topRow.innerHTML = `
+                <span class="font-display-lg text-white text-2xl font-bold tracking-tight">${card.nome || 'FinPulse'}</span>
+                <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-md">
+                    <span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">contactless</span>
+                </div>
+            `;
+            wrapper.appendChild(topRow);
+
+            // Chip e Número do Cartão
+            const midRow = document.createElement('div');
+            midRow.className = 'z-10 mt-4';
+            midRow.innerHTML = `
+                <div class="w-12 h-8 bg-white/20 rounded-md backdrop-blur-md border border-white/10 mb-4"></div>
+                <div class="text-white text-xl font-medium tracking-[0.2em]">•••• •••• •••• 8892</div>
+            `;
+            wrapper.appendChild(midRow);
+
+            // Row Inferior: Nome e Validade
+            const bottom = document.createElement('div');
+            bottom.className = 'z-10 mt-auto flex justify-between items-end';
+            const cardTitulares = JSON.parse(localStorage.getItem('card_titulares') || '{}');
+            const cardTitular = cardTitulares[card.id] || 'ALEXANDER M. SILVA';
+
+            bottom.innerHTML = `
+                <div class="flex flex-col">
+                    <span class="text-white/70 font-label-sm text-[10px] uppercase tracking-wider mb-0.5">Titular do Cartão</span>
+                    <span class="text-white font-label-md text-sm tracking-widest">${cardTitular.toUpperCase()}</span>
+                </div>
+                <div class="text-right">
+                    <p class="font-label-sm text-white/60 text-[10px] uppercase mb-1">Expires</p>
+                    <p class="font-label-md text-white text-sm font-semibold">09/29</p>
+                </div>
+            `;
+            wrapper.appendChild(bottom);
+
+            return wrapper;
+        }
+
+        // Atualizar os detalhes do Cartão Ativo (Dinâmico)
+        function updateActiveCardDetails() {
+            if (!currentCards.length) return;
+            const card = currentCards[activeCardIndex];
+
+            const saldoEl = document.getElementById('saldo-disponivel');
+            const utilizadoEl = document.getElementById('limite-utilizado');
+            const totalEl = document.getElementById('limite-total');
+            const progressBar = document.querySelector('.h-2.w-full .h-full');
+            const invoiceListEl = document.getElementById('invoice-items-list');
+
+            // Todas as transações deste cartão
+            const cardTransacoes = allTransactions.filter(t => t.cartao_id === card.id);
+            
+            // Compras (valores negativos e não são pagamentos de parcela)
+            const compras = cardTransacoes.filter(t => t.valor < 0 && (!t.descricao || !t.descricao.startsWith('Pgto Parcela')));
+            
+            // Pagamentos realizados para este cartão
+            const pagamentos = cardTransacoes.filter(t => t.valor > 0 && t.descricao && t.descricao.startsWith('Pgto Parcela'));
+
+            let itemsMarkup = '';
+
+            compras.forEach(compra => {
+                const valTotal = Math.abs(Number(compra.valor));
+                const parcelasTotal = parseInt(compra.parcelas) || 1;
+                const valParcela = valTotal / parcelasTotal;
+
+                // Contar quantas parcelas já foram pagas buscando pelo ID da compra na descrição dos pagamentos
+                const parcelasPagas = pagamentos.filter(p => p.descricao && p.descricao.includes(compra.id)).length;
+                const parcelasRestantes = parcelasTotal - parcelasPagas;
+
+                // Se já pagou tudo, não mostra na lista de ativos
+                if (parcelasRestantes <= 0) return;
+
+                const statusStr = parcelasTotal > 1 ? `Parcela atual ${parcelasPagas + 1}/${parcelasTotal}` : 'Parcela atual 1/1';
+                // Usando a data original da compra ou vencimento fictício
+                const vencimentoStr = compra.data ? formatDate(new Date(compra.data).getDate()) : '15';
+                const descricaoTexto = compra.descricao || 'Compra sem descrição';
+
+                itemsMarkup += `
+                    <div class="glass-card p-4 rounded-xl flex items-center justify-between mt-3 border-b border-white/5 transition-all">
+                        <div class="flex-1 min-w-0 pr-4">
+                            <p class="font-label-md text-on-surface truncate font-semibold text-[15px]">${descricaoTexto}</p>
+                            <p class="font-label-sm text-xs text-on-surface-variant/80 mt-1">Total: ${formatCurrency(valTotal)} em ${parcelasTotal}x</p>
+                            <p class="font-label-sm text-xs text-on-surface-variant/80 mt-1">Vence dia ${vencimentoStr}</p>
+                            <p class="font-label-sm text-[13px] text-tertiary mt-1.5 font-medium">Valor da parcela: ${formatCurrency(valParcela)}</p>
+                            <p class="font-label-sm text-[11px] text-primary mt-1">${statusStr}</p>
+                        </div>
+                        <div class="flex flex-col items-end justify-center gap-2 shrink-0">
+                            <button onclick="payInvoiceItem('${compra.id}', '${descricaoTexto}', ${valParcela}, '${card.id}')" 
+                                class="bg-primary hover:brightness-110 text-on-primary font-bold text-xs px-5 py-2.5 rounded-xl transition-all active:scale-95 shadow-lg">
+                                Pago
+                            </button>
+                            <button onclick="deleteCardTransaction('${compra.id}')" class="text-error/70 hover:text-error text-[11px] flex items-center gap-1 active:scale-95 transition-all mt-1">
+                                <span class="material-symbols-outlined text-[13px]">delete</span> Excluir
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            if (itemsMarkup === '') {
+                invoiceListEl.innerHTML = `
+                    <div class="glass-card p-8 rounded-xl text-center text-on-surface-variant/60 text-sm">
+                        Nenhum gasto ativo neste cartão.
+                    </div>
+                `;
+            } else {
+                invoiceListEl.innerHTML = itemsMarkup;
+            }
+
+            // O Gasto Total do cartão é a soma real de todas as transações (compras - pagamentos)
+            // Compras são negativas e pagamentos são positivos
+            const rawBalance = cardTransacoes.reduce((sum, t) => sum + Number(t.valor), 0);
+            
+            // Valor gasto real é o saldo devedor (quando rawBalance é negativo)
+            let cardUsed = 0;
+            if (rawBalance < 0) {
+                cardUsed = Math.abs(rawBalance);
+            }
+
+            const limiteTotal = Number(card.limite);
+            const disponivel = Math.max(0, limiteTotal - cardUsed);
+
+            saldoEl.innerText = formatCurrency(disponivel);
+            utilizadoEl.innerText = `Valor gasto: ${formatCurrency(cardUsed)}`;
+            totalEl.innerText = `Limite: ${formatCurrency(limiteTotal)}`;
+
+            if (progressBar) {
+                const pct = limiteTotal > 0 ? Math.min(100, (cardUsed / limiteTotal) * 100) : 0;
+                progressBar.style.width = `${pct}%`;
+            }
+
+            // Ação de excluir o cartão
+            const btnExcluir = document.getElementById('btn-excluir-cartao');
+            if (btnExcluir) {
+                btnExcluir.onclick = () => deleteCard(card.id, card.nome);
+            }
+        }
+
+        // Excluir Cartão de Crédito
+        async function deleteCard(cardId, cardNome) {
+            if (!confirm(`Tem certeza que deseja excluir o cartão "${cardNome}" e todo o seu histórico? Esta ação não pode ser desfeita.`)) return;
+            try {
+                const btnExcluir = document.getElementById('btn-excluir-cartao');
+                if (btnExcluir) btnExcluir.innerText = 'Excluindo...';
+                
+                await window.db.cartoes.remove(cardId);
+                alert('Cartão excluído com sucesso.');
+                
+                activeCardIndex = 0;
+                await loadCards();
+            } catch (err) {
+                alert('Erro ao excluir cartão: ' + err.message);
+                const btnExcluir = document.getElementById('btn-excluir-cartao');
+                if (btnExcluir) btnExcluir.innerHTML = '<span class="material-symbols-outlined text-[14px]">delete</span> Excluir Cartão';
+            }
+        }
+
+        // Quitar Item da Fatura
+        async function payInvoiceItem(transacaoId, descricao, valorParcela, cardId) {
+            if (!confirm(`Confirmar o pagamento de R$ ${valorParcela.toFixed(2).replace('.', ',')} para a parcela de: ${descricao}?`)) {
+                return;
+            }
+            try {
+                // 1. Insere despesa comum (saída) na conta corrente principal para refletir que o dinheiro saiu do banco
+                await window.db.transacoes.add({
+                    descricao: `Pagamento Fatura: ${descricao}`,
+                    valor: -Math.abs(valorParcela),
+                    categoria: 'Fatura Cartão',
+                    parcelas: 1,
+                    data: new Date().toISOString()
+                });
+
+                // 2. Insere um "pagamento" (entrada) associado ao cartão para liberar limite
+                await window.db.transacoes.add({
+                    descricao: `Pgto Parcela [${transacaoId}]`,
+                    valor: Math.abs(valorParcela),
+                    cartao_id: cardId,
+                    categoria: 'Fatura Cartão',
+                    parcelas: 1,
+                    data: new Date().toISOString()
+                });
+
+                alert('Parcela paga e limites atualizados com sucesso!');
+                
+                // Recarregar os dados remotos
+                const [transacoes] = await Promise.all([
+                    window.db.transacoes.list(),
+                    window.updateMetrics ? window.updateMetrics() : Promise.resolve()
+                ]);
+                allTransactions = transacoes;
+                await loadCards(); // Recarrega a tela com os novos dados
+
+            } catch (err) {
+                alert('Erro ao processar o pagamento: ' + err.message);
+            }
+        }
+
+        // Excluir Dívida/Compra do Cartão
+        async function deleteCardTransaction(transacaoId) {
+            if (!confirm('Tem certeza que deseja excluir este gasto do cartão? A exclusão é permanente.')) {
+                return;
+            }
+            try {
+                // Remove a compra principal
+                await window.db.transacoes.remove(transacaoId);
+                
+                // Remove todos os pagamentos atrelados a esta compra (se houver)
+                const pagamentosRelacionados = allTransactions.filter(t => t.descricao && t.descricao.includes(transacaoId));
+                for (const p of pagamentosRelacionados) {
+                    await window.db.transacoes.remove(p.id);
+                }
+
+                alert('Gasto excluído com sucesso!');
+                
+                // Recarregar os dados remotos
+                const [transacoes] = await Promise.all([
+                    window.db.transacoes.list(),
+                    window.updateMetrics ? window.updateMetrics() : Promise.resolve()
+                ]);
+                allTransactions = transacoes;
+                await loadCards(); // Recarrega a tela com os novos dados
+            } catch (err) {
+                alert('Erro ao processar a exclusão: ' + err.message);
+            }
+        }
+
+        // Carrega Todos os Cartões e Transações
+        async function loadCards() {
+            try {
+                const carousel = document.getElementById('card-carousel');
+                const indicators = document.getElementById('card-indicators');
+
+                const [cards, transacoes] = await Promise.all([
+                    window.db.cartoes.list(),
+                    window.db.transacoes.list()
+                ]);
+
+                currentCards = cards;
+                allTransactions = transacoes;
+                carousel.innerHTML = '';
+                indicators.innerHTML = '';
+
+                if (!cards.length) {
+                    carousel.innerHTML = `<div class="flex items-center justify-center w-full py-12 text-on-surface-variant font-body-md">Nenhum cartão encontrado. Adicione um abaixo.</div>`;
+                    document.getElementById('saldo-disponivel').innerText = 'R$ 0,00';
+                    document.getElementById('limite-utilizado').innerText = 'Valor gasto: R$ 0,00';
+                    document.getElementById('limite-total').innerText = 'Limite: R$ 0,00';
+                    document.getElementById('invoice-items-list').innerHTML = `<div class="glass-card p-6 rounded-xl text-center text-on-surface-variant/60 text-sm">Nenhum cartão ativo.</div>`;
+                    const progressBar = document.querySelector('.h-2.w-full .h-full');
+                    if (progressBar) progressBar.style.width = '0%';
+                    const btnExcluir = document.getElementById('btn-excluir-cartao');
+                    if (btnExcluir) btnExcluir.style.display = 'none';
+                    return;
+                } else {
+                    const btnExcluir = document.getElementById('btn-excluir-cartao');
+                    if (btnExcluir) btnExcluir.style.display = 'flex';
+                }
+
+                // Cria cada slide
+                cards.forEach((card, i) => {
+                    const cardTransacoes = transacoes.filter(t => t.cartao_id === card.id);
+                    // A fatura visual no card (Apenas indicativo)
+                    const rawBalance = cardTransacoes.reduce((s, t) => s + Number(t.valor), 0);
+                    const cardInvoice = Math.abs(Math.min(rawBalance, 0));
+
+                    const slide = createCardSlide(card, i === 0, cardInvoice);
+                    carousel.appendChild(slide);
+
+                    const dot = document.createElement('div');
+                    dot.className = i === 0 ? 'w-6 h-1 rounded-full bg-primary transition-all duration-300' : 'w-1.5 h-1 rounded-full bg-surface-container-highest transition-all duration-300';
+                    indicators.appendChild(dot);
+                });
+
+                // Sincroniza e define o cartão selecionado
+                updateActiveCardDetails();
+
+                // Evento de rolagem para sincronizar dots e atualizar dados dinamicamente
+                carousel.addEventListener('scroll', () => {
+                    const dots = indicators.querySelectorAll('div');
+                    const slideWidth = carousel.querySelector('.snap-center')?.offsetWidth || carousel.clientWidth;
+                    const idx = Math.round(carousel.scrollLeft / (slideWidth + 16)); // 16px é o gap de espaçamento
+                    if (idx !== activeCardIndex && idx >= 0 && idx < currentCards.length) {
+                        activeCardIndex = idx;
+                        dots.forEach((dot, j) => {
+                            dot.className = j === idx ? 'w-6 h-1 rounded-full bg-primary transition-all duration-300' : 'w-1.5 h-1 rounded-full bg-surface-container-highest transition-all duration-300';
+                        });
+                        updateActiveCardDetails();
+                    }
+                });
+            } catch (err) {
+                console.error("Erro no loadCards:", err);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Carrega foto de perfil no topo
+            const savedProfilePic = localStorage.getItem('profile_picture');
+            if (savedProfilePic) {
+                const img = document.getElementById('profile-img-top');
+                if (img) img.src = savedProfilePic;
+            }
+
+            // Loop de carregamento do DB
+            let attempts = 0;
+            const waitForDb = setInterval(() => {
+                if (window.db && window.db.cartoes) {
+                    clearInterval(waitForDb);
+                    loadCards();
+                }
+                if (++attempts > 50) clearInterval(waitForDb);
+            }, 100);
+
+            // Novo cartão form submit
+            const form = document.getElementById('novo-cartao-form');
+            if (form) {
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const titularInput = document.getElementById('card-titular');
+                    const titular = titularInput ? titularInput.value.trim() : '';
+                    
+                    const nome = document.getElementById('card-nome').value.trim();
+                    const limite = parseFloat(document.getElementById('card-limite').value);
+                    const fechamentoInput = document.getElementById('card-fechamento');
+                    const vencimentoInput = document.getElementById('card-vencimento');
+                    const fechamento_dia = fechamentoInput ? parseInt(fechamentoInput.value) : 15;
+                    const vencimento_dia = vencimentoInput ? parseInt(vencimentoInput.value) : 20;
+
+                    if (!nome || isNaN(limite)) return;
+                    const btn = form.querySelector('button[type="submit"]');
+                    btn.disabled = true;
+                    btn.innerText = 'Adicionando...';
+                    try {
+                        const novoCard = await window.db.cartoes.add({ nome, limite, fechamento_dia, vencimento_dia });
+                        
+                        if (titular && novoCard && novoCard.id) {
+                            const titulares = JSON.parse(localStorage.getItem('card_titulares') || '{}');
+                            titulares[novoCard.id] = titular;
+                            localStorage.setItem('card_titulares', JSON.stringify(titulares));
+                        }
+                        
+                        form.reset();
+                        activeCardIndex = 0; // Reseta para o primeiro slide
+                        await loadCards();
+                    } catch (err) {
+                        alert('Erro ao adicionar cartão: ' + err.message);
+                    } finally {
+                        btn.disabled = false;
+                        btn.innerText = 'Adicionar Cartão';
+                    }
+                });
             }
         });
     </script>
-    <script src="js/db.js"></script>
-    <script src="js/app.js"></script>
 </body>
-
 </html>

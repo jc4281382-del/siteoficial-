@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-client.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #e4e1ec;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .glass-card {
+            background: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid #2e2e2e;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* Custom Toggle Switch */
+        .toggle-checkbox:checked+.toggle-label {
+            background-color: #5856d6;
+        }
+
+        .toggle-checkbox:checked+.toggle-label .toggle-dot {
+            transform: translateX(100%);
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#1000a9",
+                        "on-surface-variant": "#c7c4d6",
+                        "primary-fixed": "#e2dfff",
+                        "on-error-container": "#ffdad6",
+                        "secondary": "#c6c6cb",
+                        "outline-variant": "#464554",
+                        "surface-container-high": "#2a2931",
+                        "on-tertiary-container": "#e7e5ff",
+                        "surface": "#13131a",
+                        "on-secondary-fixed-variant": "#46464b",
+                        "tertiary-fixed": "#e1e0ff",
+                        "surface-container-low": "#1b1b23",
+                        "on-tertiary-fixed-variant": "#2f2ebe",
+                        "on-tertiary-fixed": "#07006c",
+                        "on-primary-fixed": "#0c006a",
+                        "surface-container": "#1f1f27",
+                        "surface-container-lowest": "#0e0d15",
+                        "on-background": "#e4e1ec",
+                        "inverse-on-surface": "#302f38",
+                        "error-container": "#93000a",
+                        "secondary-container": "#46464b",
+                        "primary": "#c2c1ff",
+                        "outline": "#918f9f",
+                        "on-secondary-container": "#b5b4ba",
+                        "tertiary-fixed-dim": "#c0c1ff",
+                        "secondary-fixed-dim": "#c6c6cb",
+                        "surface-bright": "#393841",
+                        "on-surface": "#e4e1ec",
+                        "tertiary-container": "#5355e0",
+                        "on-primary-container": "#e7e4ff",
+                        "surface-variant": "#35343c",
+                        "error": "#ffb4ab",
+                        "surface-tint": "#c2c1ff",
+                        "surface-dim": "#13131a",
+                        "on-primary-fixed-variant": "#3631b4",
+                        "inverse-primary": "#4f4ccd",
+                        "primary-container": "#5856d6",
+                        "tertiary": "#c0c1ff",
+                        "surface-container-highest": "#35343c",
+                        "on-secondary-fixed": "#1a1b1f",
+                        "secondary-fixed": "#e3e2e7",
+                        "primary-fixed-dim": "#c2c1ff",
+                        "background": "#13131a",
+                        "on-error": "#690005",
+                        "inverse-surface": "#e4e1ec",
+                        "on-secondary": "#2f3034",
+                        "on-primary": "#1c0b9f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "1.5rem",
+                        "margin-mobile": "1rem",
+                        "xl": "2rem",
+                        "sm": "0.5rem",
+                        "md": "1rem",
+                        "gutter": "1rem",
+                        "xs": "0.25rem",
+                        "base": "4px",
+                        "margin-desktop": "2rem"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "title-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "title-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-surface">
+    <!-- Navigation Drawer (Desktop Only) -->
+    <aside
+        class="hidden md:flex flex-col h-full py-lg fixed left-0 top-0 h-full w-[240px] bg-surface border-r border-outline-variant z-50">
+        <div class="px-md mb-xl">
+            <h1 class="font-headline-lg text-headline-lg text-primary">Pro-SMM</h1>
+        </div>
+        <nav class="flex-1 space-y-1">
+            <div
+                class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-200 cursor-pointer active:scale-95" onclick="window.location.href='inicio.html'">
+                <span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+                <span class="font-body-md text-body-md">Feed Simulator</span>
+            </div>
+            <div
+                class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-200 cursor-pointer active:scale-95" onclick="window.location.href='calendar.html'">
+                <span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+                <span class="font-body-md text-body-md">Calendar</span>
+            </div>
+            <div
+                class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-200 cursor-pointer active:scale-95" onclick="window.location.href='aprovacao.html'">
+                <span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+                <span class="font-body-md text-body-md">Approvals</span>
+            </div>
+            <div
+                class="flex items-center gap-md px-md py-sm border-l-2 border-primary text-primary font-bold bg-primary-container/10 cursor-pointer active:scale-95" onclick="window.location.href='config.html'">
+                <span class="material-symbols-outlined" data-icon="settings"
+                    style="font-variation-settings: 'FILL' 1;">settings</span>
+                <span class="font-body-md text-body-md">Settings</span>
+            </div>
+        </nav>
+        <div class="px-md pt-lg border-t border-outline-variant mt-auto">
+            <div class="flex items-center gap-sm">
+                <img alt="Client Logo" class="w-8 h-8 rounded-lg bg-surface-container-highest"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEMLfCfY0zs1Mi8dMZ9LIMdrD7_2KFFR6uLlRrEjk24tAWTqe0BDZr2tSQ4qFo7Du7F-JruN5E6GaXTNhWRB2W7fHZvU4AshfWkFadrzL2G3ftRVMjDYdT63EHw5xYULeRGZhnr-RzheJcBhDITu9goCkzMI_sMQ-rWKT-gVB1kjvbMqygw1r-LUBrSxIAqZrJE3p6wHUH1edLJ89zlVl2M2-6CXqXHKpNUjNOUlY1Fw9O7lYuFyUYNX45Zn38yoRpze4DU8pQUZc" />
+                <div class="flex flex-col">
+                    <span class="text-label-sm font-bold text-on-surface">Client Selector</span>
+                    <span class="text-[10px] text-on-surface-variant">@ClientA</span>
+                </div>
+                <span class="material-symbols-outlined text-on-surface-variant ml-auto text-sm"
+                    data-icon="swap_horiz">swap_horiz</span>
+            </div>
+        </div>
+    </aside>
+    <!-- Top App Bar -->
+    <header
+        class="fixed top-0 right-0 w-full md:w-[calc(100%-240px)] z-40 bg-surface/80 backdrop-blur-md border-b border-outline-variant flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16">
+        <div class="flex items-center gap-sm">
+            <img alt="App Logo" class="w-8 h-8 md:hidden"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFKgnFU5y_i3P2U0z2-MkkMlERpUoZ-NGEARBto4026NsVJ1xWKwOnqVbn3l3bJ1CyuNJ6FVFdLVTXRuvrDX1gToprWwO_5ClVw4eoghWUd10Qxib3sJjEdwc6qkVBa8rDjruFRafsDSuWypGzolkIgEn88engGRU42wYuFzqwL_1v_2G1LS64UPAZgOZYqp8TOCw5uLASS4WEUq1MR0oIk7t6ImXJA_JwpitZiUe1P5if-eSUbXLnjy5miZSehT8xpNhgrkhEaD0" />
+            <h2 class="font-title-md text-title-md text-primary">Configurações</h2>
+        </div>
+        <div class="flex items-center gap-md">
+            <button class="hover:bg-surface-container-highest rounded-full p-2 transition-all duration-300">
+                <span class="material-symbols-outlined text-on-surface" data-icon="notifications">notifications</span>
+            </button>
+            <div class="w-8 h-8 rounded-full overflow-hidden bg-primary-container flex items-center justify-center">
+                <img class="w-full h-full object-cover"
+                    data-alt="A professional studio portrait of a modern social media manager with a creative, focused expression. The setting is a dimly lit high-tech workspace with soft purple and blue ambient lighting. The visual style is crisp and professional, using a shallow depth of field to focus on the person, emphasizing a sense of calm control and expertise in a digital world."
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVXAa5AW4nH9ERdivhbcBEr2FmYogykhE4CZ4TtGPaC0n2Lp-HYDZQ1vsGqGIerdQuOmIxCAAyVN2yCDnRoSmV0JJKHAO4jhUqeAcUAdp4ZXYuo3NNUh0DLJ7ZbXgEH_cD7yuBaQVgldusEr5LeGojpG9A0jCu_0PmM1e_zcBjVKOEhZWGqkf9Li_a8BBiq2_l9qORYc6a0RQaIzbbtYOTfmTX7zOSqV2Em7mEoipOY3pFhcLaOpQW19y20zKkStX7BGVfkH2Nlio" />
+            </div>
+        </div>
+    </header>
+    <!-- Main Content Canvas -->
+    <main class="pt-24 pb-24 md:pb-12 px-margin-mobile md:px-margin-desktop md:ml-[240px] max-w-5xl">
+        <!-- Header Section -->
+        <section class="mb-xl">
+            <div class="glass-card rounded-xl p-lg flex flex-col md:flex-row items-center gap-lg">
+                <div class="relative group">
+                    <img class="w-24 h-24 rounded-full border-2 border-primary object-cover"
+                        data-alt="A close-up high-resolution profile image of a young creative professional in a sleek dark studio environment. The lighting features soft violet rim lights that accentuate the silhouette against a charcoal grey background. The mood is sophisticated and utilitarian, reflecting a power-user aesthetic with sharp focus and clean lines."
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDh4_ujdNJ7OYLIJbNE7oW_3SULI527nRMumC07mbfuKbNeqHtHZucaELcfUgaWuC_nG_VeezmFx39XrlUgLn6FxiQcEyjE7IwN56N0vggqMprrvE34FKqNq1V-DK5ZoHBJuwONiZ_00a9h8wQN80f7Sr2bDzxvQU6CC3QDmLqXI2wlSDNfK1pmM-19VivTOedj13DYagNq3L66A7CQTxL4HrAo0bxpi9y10GVXOp8bI3GArSto6a1kjeCge6lK4aTn-4UdFnRMgBE" />
+                    <button
+                        class="absolute bottom-0 right-0 bg-primary text-on-primary p-1.5 rounded-full shadow-lg border-2 border-background">
+                        <span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
+                    </button>
+                </div>
+                <div class="flex-1 text-center md:text-left">
+                    <h3
+                        class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">
+                        Julia Duarte</h3>
+                    <p class="text-on-surface-variant font-body-md text-body-md">Senior Social Media Manager • Pro Plan
+                    </p>
+                </div>
+                <button
+                    class="px-lg py-sm bg-primary text-on-primary font-bold rounded-lg active:scale-95 transition-transform">
+                    Editar Perfil
+                </button>
+            </div>
+        </section>
+        <!-- Main Settings Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-lg">
+            <!-- Account & Security -->
+            <div class="md:col-span-7 space-y-lg">
+                <div class="glass-card rounded-xl p-lg">
+                    <h4 class="font-title-md text-title-md text-primary mb-lg">Conta e Segurança</h4>
+                    <div class="space-y-sm">
+                        <div
+                            class="flex items-center justify-between p-md hover:bg-surface-container-high rounded-lg transition-colors cursor-pointer group">
+                            <div class="flex items-center gap-md">
+                                <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary"
+                                    data-icon="lock">lock</span>
+                                <span class="font-body-md">Alterar Senha</span>
+                            </div>
+                            <span class="material-symbols-outlined text-on-surface-variant"
+                                data-icon="chevron_right">chevron_right</span>
+                        </div>
+                        <div
+                            class="flex items-center justify-between p-md hover:bg-surface-container-high rounded-lg transition-colors cursor-pointer group">
+                            <div class="flex items-center gap-md">
+                                <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary"
+                                    data-icon="security">security</span>
+                                <span class="font-body-md">Segurança de Dois Fatores</span>
+                            </div>
+                            <span class="material-symbols-outlined text-on-surface-variant"
+                                data-icon="chevron_right">chevron_right</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Notifications -->
+                <div class="glass-card rounded-xl p-lg">
+                    <h4 class="font-title-md text-title-md text-primary mb-lg">Preferências de Notificação</h4>
+                    <div class="space-y-lg">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="font-body-md text-on-surface">Alertas de Aprovação</p>
+                                <p class="text-label-sm text-on-surface-variant">Receba alertas quando um post for
+                                    aprovado ou rejeitado</p>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input id="toggle-approval-alerts" class="sr-only toggle-checkbox" type="checkbox" />
+                                <div
+                                    class="w-11 h-6 bg-surface-container-highest rounded-full transition-colors toggle-label">
+                                    <div
+                                        class="absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform toggle-dot">
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="font-body-md text-on-surface">Lembretes de Postagem</p>
+                                <p class="text-label-sm text-on-surface-variant">Notificações 15 minutos antes de posts
+                                    agendados</p>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input id="toggle-post-reminders" class="sr-only toggle-checkbox" type="checkbox" />
+                                <div
+                                    class="w-11 h-6 bg-surface-container-highest rounded-full transition-colors toggle-label">
+                                    <div
+                                        class="absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform toggle-dot">
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="font-body-md text-on-surface">Relatórios Semanais</p>
+                                <p class="text-label-sm text-on-surface-variant">Resumo de métricas enviado toda
+                                    segunda-feira</p>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input id="toggle-weekly-reports" class="sr-only toggle-checkbox" type="checkbox" />
+                                <div
+                                    class="w-11 h-6 bg-surface-container-highest rounded-full transition-colors toggle-label">
+                                    <div
+                                        class="absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform toggle-dot">
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Social & Billing -->
+            <div class="md:col-span-5 space-y-lg">
+                <!-- Social Media Integrations -->
+                <div class="glass-card rounded-xl p-lg">
+                    <div class="flex justify-between items-center mb-lg">
+                        <h4 class="font-title-md text-title-md text-primary">Redes Sociais</h4>
+                        <button class="text-primary text-label-sm font-bold hover:underline">+ Adicionar</button>
+                    </div>
+                    <div class="space-y-md">
+                        <div
+                            class="flex items-center gap-md p-sm bg-surface-container-low rounded-lg border border-outline-variant">
+                            <div
+                                class="w-10 h-10 rounded-full bg-gradient-to-tr from-yellow-500 via-red-500 to-purple-500 flex items-center justify-center">
+                                <img alt="Instagram" class="w-5 h-5"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4NSHgmzlogJtSu37q2CkhkydSYCnpnF9_lGlqtNYd__BjPd6M-CUUgAY9isLitUjzQNO_s1ePTTzZ8VnDE2CWZ5a3Loq0rmx04Mkpe6yEeOH8UBW4exGa9IBR1nqP9U4nATDpEEn0GYWd2JexoleS2YkqSEXsO3oR4c4_1GgD3tgZ67NmOVWCMdQBFB19zW7M2uQjM2DsXgqsaJz1PdSCl5nQMauNYxDtbYeB5fn1UV0ynetLK9LozbG7oxiInpsBt1ZsOl9S9co" />
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-label-sm font-bold">Instagram</p>
+                                <p class="text-[10px] text-on-surface-variant">@juliaduartesocial</p>
+                            </div>
+                            <span
+                                class="px-xs py-0.5 bg-green-500/10 text-green-400 text-[10px] rounded border border-green-500/20">Conectado</span>
+                        </div>
+                        <div
+                            class="flex items-center gap-md p-sm bg-surface-container-low rounded-lg border border-outline-variant">
+                            <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center">
+                                <img alt="Facebook" class="w-5 h-5"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuD31pZ4VLAjFuihDiJ1Tmdilfb99h21fPZ0UpP40bQGsJafaqTCXRvO-MSKcMuZDK0ZC5_HmymVjhaPEzRKYAfwWkbMEHKoCcCEKFuFx_s-bA-QpDShs94OvT5l8zKmWVrYadacj3RY2QTIrTDQw9_H2UdzPf3_pG1CEX75OuvesQzUwzxJT8GRfYR3_UQuGbc2aeTGptx4NdmeXMsPHYomv3bDmwlvotdJpTstGwXXejnhy_um_avLmAwcvgf5vNf7cKkp_hX0zUA" />
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-label-sm font-bold">Facebook</p>
+                                <p class="text-[10px] text-on-surface-variant">Julia Duarte Studio</p>
+                            </div>
+                            <span
+                                class="px-xs py-0.5 bg-green-500/10 text-green-400 text-[10px] rounded border border-green-500/20">Conectado</span>
+                        </div>
+                        <div
+                            class="flex items-center gap-md p-sm bg-surface-container-low rounded-lg border border-outline-variant opacity-60">
+                            <div class="w-10 h-10 rounded-full bg-blue-700 flex items-center justify-center">
+                                <img alt="LinkedIn" class="w-5 h-5"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEJQoUJjsrF1r0SaRZ0Eomq71VBeLPTr-inCXOaE6k9cShMVbok3R1dYptekjgwWfklYPKSuBWIp5rE59NnHzgLUUD5PpmELSsG64S5xlj4rfbfVT9JyztDUQ9k5GsejSlOW68zKRqKaWDGDGh-7f561kEcupMbeuBctTPEn_Cbu5fcZW4QCGvlD5cWpvIrR-__H8JP5UxHOU7y8mRDhojgOiSpTR9qDgzSv01wd5hMvbqM1VH4PNy1bj6dv20KoFY3XAja8Mgtwo" />
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-label-sm font-bold">LinkedIn</p>
+                                <p class="text-[10px] text-on-surface-variant">Pendente</p>
+                            </div>
+                            <span
+                                class="px-xs py-0.5 bg-on-surface-variant/10 text-on-surface-variant text-[10px] rounded border border-outline-variant">Desconectado</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Subscription -->
+                <div class="bg-primary-container text-on-primary-container rounded-xl p-lg border border-primary/20">
+                    <div class="flex items-center justify-between mb-md">
+                        <h4 class="font-title-md text-title-md">Plano Pro</h4>
+                        <span class="bg-white/20 px-sm py-1 rounded-full text-label-sm">Mensal</span>
+                    </div>
+                    <p class="text-body-sm mb-lg opacity-90">Próxima renovação: 12 de Outubro de 2023</p>
+                    <button
+                        class="w-full py-sm bg-white text-primary-container font-bold rounded-lg shadow-sm hover:bg-on-primary-container hover:text-white transition-colors">
+                        Gerenciar Assinatura
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Support & Legal (Horizontal on desktop) -->
+        <section class="mt-xl grid grid-cols-1 md:grid-cols-3 gap-md">
+            <a class="glass-card p-md rounded-lg flex items-center gap-md hover:bg-surface-container-highest transition-colors group"
+                href="#">
+                <span class="material-symbols-outlined text-primary" data-icon="help">help</span>
+                <span class="font-body-md">Central de Ajuda</span>
+            </a>
+            <a class="glass-card p-md rounded-lg flex items-center gap-md hover:bg-surface-container-highest transition-colors group"
+                href="#">
+                <span class="material-symbols-outlined text-primary" data-icon="gavel">gavel</span>
+                <span class="font-body-md">Termos de Uso</span>
+            </a>
+            <button
+                class="glass-card p-md rounded-lg flex items-center gap-md hover:bg-error-container/20 transition-colors group border-error/20">
+                <span class="material-symbols-outlined text-error" data-icon="logout">logout</span>
+                <span class="font-body-md text-error">Sair</span>
+            </button>
+        </section>
+    </main>
+    <!-- Bottom Nav Bar (Mobile Only) -->
+    <nav
+        class="fixed bottom-0 w-full md:hidden z-50 bg-surface-container border-t border-outline-variant shadow-lg flex justify-around items-center h-16 px-4 pb-safe">
+        <div
+            class="flex flex-col items-center justify-center text-on-surface-variant p-2 active:bg-surface-bright scale-95 transition-transform cursor-pointer" onclick="window.location.href='inicio.html'">
+            <span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+            <span class="font-label-sm text-label-sm">Feed</span>
+        </div>
+        <div
+            class="flex flex-col items-center justify-center text-on-surface-variant p-2 active:bg-surface-bright scale-95 transition-transform cursor-pointer" onclick="window.location.href='calendar.html'">
+            <span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+            <span class="font-label-sm text-label-sm">Agenda</span>
+        </div>
+        <div
+            class="flex flex-col items-center justify-center text-on-surface-variant p-2 active:bg-surface-bright scale-95 transition-transform cursor-pointer" onclick="window.location.href='aprovacao.html'">
+            <span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+            <span class="font-label-sm text-label-sm">Aprova</span>
+        </div>
+        <div
+            class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl p-2 scale-95 transition-transform cursor-pointer" onclick="window.location.href='config.html'">
+            <span class="material-symbols-outlined" data-icon="settings"
+                style="font-variation-settings: 'FILL' 1;">settings</span>
+            <span class="font-label-sm text-label-sm">Config</span>
+        </div>
+    </nav>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const toggleApprovalAlerts = document.getElementById('toggle-approval-alerts');
+            const togglePostReminders = document.getElementById('toggle-post-reminders');
+            const toggleWeeklyReports = document.getElementById('toggle-weekly-reports');
+
+            // Inicializar Supabase
+            await initializeDefaultData();
+
+            // Carregar configurações do Supabase
+            async function loadSettings() {
+                try {
+                    const { data: settings, error } = await supabase
+                        .from('app_settings')
+                        .select('*')
+                        .eq('profile_id', DEFAULT_PROFILE_ID)
+                        .eq('client_id', DEFAULT_CLIENT_ID)
+                        .maybeSingle();
+
+                    if (error) throw error;
+                    
+                    if (settings) {
+                        toggleApprovalAlerts.checked = settings.approval_alerts;
+                        togglePostReminders.checked = settings.post_reminders;
+                        toggleWeeklyReports.checked = settings.weekly_reports;
+
+                        // Adicionar classe 'active' ao label pai para manter a estilização visual correta
+                        [toggleApprovalAlerts, togglePostReminders, toggleWeeklyReports].forEach(checkbox => {
+                            const label = checkbox.closest('label');
+                            if (checkbox.checked) {
+                                label.classList.add('active');
+                            } else {
+                                label.classList.remove('active');
+                            }
+                        });
+                    }
+                } catch(err) {
+                    console.error('Erro ao carregar configurações:', err);
+                }
+            }
+
+            // Salvar configurações no Supabase
+            async function saveSettings() {
+                try {
+                    const { error } = await supabase
+                        .from('app_settings')
+                        .update({
+                            approval_alerts: toggleApprovalAlerts.checked,
+                            post_reminders: togglePostReminders.checked,
+                            weekly_reports: toggleWeeklyReports.checked
+                        })
+                        .eq('profile_id', DEFAULT_PROFILE_ID)
+                        .eq('client_id', DEFAULT_CLIENT_ID);
+
+                    if (error) throw error;
+                    console.log('Configurações atualizadas com sucesso no Supabase.');
+                } catch(err) {
+                    console.error('Erro ao salvar configurações:', err);
+                }
+            }
+
+            // Adicionar escutadores para atualizar as configurações no banco em tempo real
+            [toggleApprovalAlerts, togglePostReminders, toggleWeeklyReports].forEach(checkbox => {
+                checkbox.addEventListener('change', async function() {
+                    const label = this.closest('label');
+                    if (this.checked) {
+                        label.classList.add('active');
+                    } else {
+                        label.classList.remove('active');
+                    }
+                    await saveSettings();
+                });
+            });
+
+            // Hover effect for cards
+            document.querySelectorAll('.glass-card').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.borderColor = '#5856d644';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.borderColor = '#2e2e2e';
+                });
+            });
+
+            // Inicializar carga
+            await loadSettings();
+        });
+    </script>
+</body>
+
+</html>

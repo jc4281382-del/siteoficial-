@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Feed Simulator | Studio Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-client.js"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#0c006a",
+                        "on-error": "#690005",
+                        "tertiary-container": "#5355e0",
+                        "inverse-primary": "#4f4ccd",
+                        "secondary-container": "#46464b",
+                        "on-tertiary-fixed": "#07006c",
+                        "on-surface-variant": "#c7c4d6",
+                        "surface": "#13131a",
+                        "on-error-container": "#ffdad6",
+                        "outline": "#918f9f",
+                        "on-surface": "#e4e1ec",
+                        "on-secondary-fixed": "#1a1b1f",
+                        "primary-fixed": "#e2dfff",
+                        "error-container": "#93000a",
+                        "on-tertiary": "#1000a9",
+                        "on-primary-fixed-variant": "#3631b4",
+                        "surface-dim": "#13131a",
+                        "on-tertiary-fixed-variant": "#2f2ebe",
+                        "error": "#ffb4ab",
+                        "secondary-fixed-dim": "#c6c6cb",
+                        "on-primary": "#1c0b9f",
+                        "tertiary-fixed": "#e1e0ff",
+                        "primary-fixed-dim": "#c2c1ff",
+                        "inverse-on-surface": "#302f38",
+                        "inverse-surface": "#e4e1ec",
+                        "tertiary": "#c0c1ff",
+                        "secondary-fixed": "#e3e2e7",
+                        "on-background": "#e4e1ec",
+                        "surface-container": "#1f1f27",
+                        "surface-container-highest": "#35343c",
+                        "surface-bright": "#393841",
+                        "surface-variant": "#35343c",
+                        "on-secondary-container": "#b5b4ba",
+                        "primary-container": "#5856d6",
+                        "surface-container-high": "#2a2931",
+                        "outline-variant": "#464554",
+                        "on-tertiary-container": "#e7e5ff",
+                        "secondary": "#c6c6cb",
+                        "primary": "#c2c1ff",
+                        "surface-container-low": "#1b1b23",
+                        "surface-container-lowest": "#0e0d15",
+                        "on-secondary": "#2f3034",
+                        "surface-tint": "#c2c1ff",
+                        "on-secondary-fixed-variant": "#46464b",
+                        "background": "#0a0a0a",
+                        "tertiary-fixed-dim": "#c0c1ff",
+                        "on-primary-container": "#e7e4ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "2rem",
+                        "xs": "0.25rem",
+                        "base": "4px",
+                        "md": "1rem",
+                        "margin-mobile": "1rem",
+                        "lg": "1.5rem",
+                        "xl": "2rem",
+                        "gutter": "1rem",
+                        "sm": "0.5rem"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "title-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #0a0a0a;
+            color: #e4e1ec;
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(31, 31, 39, 0.4);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(70, 69, 84, 0.5);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #13131a;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #464554;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #c2c1ff;
+        }
+    </style>
+</head>
+<body class="antialiased overflow-hidden">
+<!-- Navigation Drawer -->
+<aside class="fixed left-0 top-0 h-full w-[240px] border-r border-outline-variant dark:border-outline-variant bg-surface hidden md:flex flex-col py-lg z-50">
+<div class="px-md mb-xl">
+<h1 class="font-headline-lg text-headline-lg text-primary font-bold tracking-tight">Studio</h1>
+</div>
+<div class="flex-1 space-y-xs">
+<div class="flex items-center gap-md px-md py-sm border-l-2 border-primary text-primary font-bold bg-primary-container/10 cursor-pointer transition-colors duration-200" onclick="window.location.href='inicio.html'">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+<span class="font-body-md text-body-md">Feed Simulator</span>
+</div>
+<div class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high cursor-pointer transition-colors duration-200 active:scale-95" onclick="window.location.href='calendar.html'">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-body-md text-body-md">Calendar</span>
+</div>
+<div class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high cursor-pointer transition-colors duration-200 active:scale-95" onclick="window.location.href='aprovacao.html'">
+<span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+<span class="font-body-md text-body-md">Approvals</span>
+</div>
+<div class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high cursor-pointer transition-colors duration-200 active:scale-95" onclick="window.location.href='config.html'">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-body-md text-body-md">Settings</span>
+</div>
+</div>
+<div class="px-md mt-auto pt-lg border-t border-outline-variant">
+<div class="flex items-center gap-sm p-sm rounded-lg hover:bg-surface-container-high transition-colors cursor-pointer">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold text-xs">CS</div>
+<div class="flex-1 overflow-hidden">
+<p class="text-sm font-bold truncate">Client Selector</p>
+<p class="text-xs text-on-surface-variant truncate">@ClientA</p>
+</div>
+<span class="material-symbols-outlined text-sm" data-icon="unfold_more">unfold_more</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="md:ml-[240px] h-screen flex flex-col">
+<!-- Top App Bar -->
+<header class="fixed top-0 right-0 w-full md:w-[calc(100%-240px)] z-40 bg-surface/80 backdrop-blur-md border-b border-outline-variant h-16 flex justify-between items-center px-4 md:px-margin-desktop">
+<div class="flex items-center gap-md">
+<button class="md:hidden p-2 text-on-surface-variant">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="font-title-md text-title-md text-primary">Feed Simulator</h2>
+</div>
+<div class="flex items-center gap-sm">
+<div class="hover:bg-surface-container-highest rounded-full p-2 transition-all duration-300 cursor-pointer">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+</div>
+<img alt="Client Logo" class="w-8 h-8 rounded-lg object-cover border border-outline-variant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTs1cI-LDbChZflsvXB78u9RZddvWBMKHsffPdiazKKZwUjt4MqZs-0d3tOWLeG4mp7DyMxB_rMgItTq_3ptOK3y68K9gsFQ9ut2hygaFJF4cVffjnneg1TMd6XckYO4LPnvCsh5g3z8oNZfg_ot7jRI1JoJ7DZAtcPMPQfUWrCVatvm5RCg1ulLwPVdpLdZcNJxBqE7LSjQqxfy5UWpRkXRuMYrkkEq2-FR6pAQyy2dtkNd24DKSkTdklKNojsFpsQQszZ3krJ-k"/>
+</div>
+</header>
+<!-- Content Grid -->
+<div class="pt-16 pb-20 md:pb-0 h-full overflow-y-auto custom-scrollbar">
+<div class="grid grid-cols-1 xl:grid-cols-2 h-full">
+<!-- Left Column: Post Creation -->
+<section class="p-4 md:p-margin-desktop border-r border-outline-variant bg-surface-container-lowest/50">
+<div class="max-w-2xl mx-auto space-y-lg">
+<div>
+<h3 class="font-title-md text-title-md mb-2">Criar Novo Post</h3>
+<p class="text-on-surface-variant text-body-sm">Planeje e visualize seu conteúdo do Instagram em tempo real.</p>
+</div>
+<!-- Tabs -->
+<div class="flex gap-2 p-1 bg-surface-container rounded-xl w-fit">
+<button id="tab-foto" class="px-6 py-2 rounded-lg bg-primary text-on-primary-fixed font-bold text-sm transition-all shadow-sm">Foto</button>
+<button id="tab-video" class="px-6 py-2 rounded-lg text-on-surface-variant hover:text-on-surface font-medium text-sm transition-all">Vídeo</button>
+</div>
+<!-- Upload Area -->
+<div class="relative group">
+<label class="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed border-outline-variant rounded-xl cursor-pointer bg-surface-container-low hover:bg-surface-container hover:border-primary transition-all duration-300">
+<div class="flex flex-col items-center justify-center pt-5 pb-6">
+<span class="material-symbols-outlined text-primary text-4xl mb-3" data-icon="cloud_upload">cloud_upload</span>
+<p id="upload-label-text" class="mb-2 text-sm text-on-surface font-semibold">Selecione uma imagem ou vídeo</p>
+<p class="text-xs text-on-surface-variant">PNG, JPG ou MP4 (Máx. 50MB)</p>
+</div>
+<input id="file-input" class="hidden" type="file" accept="image/*,video/*"/>
+</label>
+</div>
+<!-- URL Input alternative -->
+<div class="space-y-2">
+<label class="text-sm font-medium text-on-surface-variant px-1">Ou cole uma URL da Mídia</label>
+<input id="media-url-input" class="w-full bg-surface-container-low border border-outline-variant rounded-xl p-3 text-body-md focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-outline" placeholder="https://picsum.photos/id/60/800/800" type="url"/>
+</div>
+<!-- Textarea -->
+<div class="space-y-2">
+<label class="text-sm font-medium text-on-surface-variant px-1">Legenda do Post</label>
+<div class="relative">
+<textarea id="post-caption" class="w-full h-32 bg-surface-container-low border border-outline-variant rounded-xl p-md text-body-md focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all resize-none placeholder:text-outline" placeholder="Escreva algo inspirador..."></textarea>
+<span class="absolute bottom-3 right-3 text-[10px] text-outline font-mono">0 / 2200</span>
+</div>
+</div>
+<!-- Meta & Controls -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="space-y-2">
+<label class="text-sm font-medium text-on-surface-variant px-1">Agendamento</label>
+<div class="flex items-center gap-2 bg-surface-container-low border border-outline-variant rounded-xl p-3">
+<span class="material-symbols-outlined text-primary text-sm">calendar_month</span>
+<input id="post-scheduled-at" class="bg-transparent border-none text-sm text-on-surface focus:ring-0 w-full" type="datetime-local" value="2023-10-27T10:00"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-medium text-on-surface-variant px-1">Status de Aprovação</label>
+<div class="flex gap-2">
+<button id="btn-status-rascunho" class="flex-1 py-3 border border-primary bg-primary/10 text-primary rounded-xl text-xs font-bold transition-all active:scale-95">Rascunho</button>
+<button id="btn-status-aguardando" class="flex-1 py-3 border border-outline-variant rounded-xl text-xs font-bold hover:bg-surface-container transition-all active:scale-95">Enviar para Aprovação</button>
+</div>
+</div>
+</div>
+<!-- Primary CTA -->
+<button id="btn-save-post" class="w-full py-4 bg-primary text-on-primary-fixed font-bold rounded-xl shadow-lg shadow-primary/10 hover:shadow-primary/20 hover:brightness-110 active:scale-[0.98] transition-all">
+                            Salvar e Adicionar ao Feed
+                        </button>
+</div>
+</section>
+<!-- Right Column: Instagram Mockup -->
+<section class="p-4 md:p-margin-desktop bg-background flex justify-center items-start">
+<div class="w-full max-w-[400px] bg-black border border-outline-variant rounded-[3rem] p-4 shadow-2xl relative overflow-hidden ring-4 ring-surface-container">
+<!-- Phone Notch Mock -->
+<div class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-20"></div>
+<div class="h-full bg-black overflow-y-auto custom-scrollbar pt-8 rounded-[2.5rem]">
+<!-- Mockup Header -->
+<div class="px-4 py-4 space-y-4">
+<div class="flex items-center justify-between">
+<img alt="Client Profile" class="w-20 h-20 rounded-full p-[2px] border-2 border-tertiary-container object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTs1cI-LDbChZflsvXB78u9RZddvWBMKHsffPdiazKKZwUjt4MqZs-0d3tOWLeG4mp7DyMxB_rMgItTq_3ptOK3y68K9gsFQ9ut2hygaFJF4cVffjnneg1TMd6XckYO4LPnvCsh5g3z8oNZfg_ot7jRI1JoJ7DZAtcPMPQfUWrCVatvm5RCg1ulLwPVdpLdZcNJxBqE7LSjQqxfy5UWpRkXRuMYrkkEq2-FR6pAQyy2dtkNd24DKSkTdklKNojsFpsQQszZ3krJ-k"/>
+<div class="flex flex-1 justify-around text-center px-4">
+<div><p class="font-bold text-sm">128</p><p class="text-[10px] text-outline">Posts</p></div>
+<div><p class="font-bold text-sm">12.4k</p><p class="text-[10px] text-outline">Followers</p></div>
+<div><p class="font-bold text-sm">842</p><p class="text-[10px] text-outline">Following</p></div>
+</div>
+</div>
+<div class="space-y-1">
+<h4 class="font-bold text-sm">@usuario</h4>
+<p class="text-xs text-on-surface-variant leading-relaxed">Criando o futuro das marcas digitais com estética e tecnologia. ✨</p>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 bg-surface-container-highest py-1.5 rounded-lg text-xs font-bold">Edit Profile</button>
+<button class="flex-1 bg-surface-container-highest py-1.5 rounded-lg text-xs font-bold">Share Profile</button>
+</div>
+</div>
+<!-- Mockup Grid Navigation -->
+<div class="flex border-t border-outline-variant/30 mt-4">
+<div class="flex-1 py-3 flex justify-center border-t border-on-surface">
+<span class="material-symbols-outlined text-xl" data-icon="grid_on">grid_on</span>
+</div>
+<div class="flex-1 py-3 flex justify-center text-outline">
+<span class="material-symbols-outlined text-xl" data-icon="movie">movie</span>
+</div>
+<div class="flex-1 py-3 flex justify-center text-outline">
+<span class="material-symbols-outlined text-xl" data-icon="person_pin">person_pin</span>
+</div>
+</div>
+<!-- Mockup Grid Content -->
+<div id="instagram-grid" class="grid grid-cols-3 gap-[1px]">
+    <!-- Os posts do Instagram serão renderizados dinamicamente via JS/Supabase -->
+</div>
+</div>
+<!-- Home Indicator -->
+<div class="absolute bottom-2 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/20 rounded-full"></div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- Bottom Nav Bar (Mobile) -->
+<nav class="fixed bottom-0 w-full lg:hidden z-50 bg-surface-container border-t border-outline-variant shadow-lg flex justify-around items-center h-16 px-4 pb-safe">
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl p-2 scale-95 transition-transform active:bg-surface-bright cursor-pointer" onclick="window.location.href='inicio.html'">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+<span class="font-label-sm text-label-sm">Feed</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant p-2 scale-95 transition-transform active:bg-surface-bright cursor-pointer" onclick="window.location.href='calendar.html'">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-label-sm text-label-sm">Agenda</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant p-2 scale-95 transition-transform active:bg-surface-bright cursor-pointer" onclick="window.location.href='aprovacao.html'">
+<span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+<span class="font-label-sm text-label-sm">Aprova</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant p-2 scale-95 transition-transform active:bg-surface-bright cursor-pointer" onclick="window.location.href='config.html'">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-sm text-label-sm">Config</span>
+</div>
+</nav>
+<script>
+        // Micro-interactions and UI Logic
+        document.addEventListener('DOMContentLoaded', async () => {
+            const textarea = document.getElementById('post-caption');
+            const counter = document.querySelector('.font-mono');
+            const gridContainer = document.getElementById('instagram-grid');
+            
+            textarea.addEventListener('input', (e) => {
+                const length = e.target.value.length;
+                counter.textContent = `${length} / 2200`;
+                if (length > 2200) {
+                    counter.classList.add('text-error');
+                } else {
+                    counter.classList.remove('text-error');
+                }
+            });
+
+            // State variables for new post creation
+            let selectedType = 'Foto';
+            let selectedStatus = 'Rascunho';
+
+            // Tab toggling (Foto vs Vídeo)
+            const tabFoto = document.getElementById('tab-foto');
+            const tabVideo = document.getElementById('tab-video');
+
+            tabFoto.addEventListener('click', () => {
+                selectedType = 'Foto';
+                tabFoto.className = 'px-6 py-2 rounded-lg bg-primary text-on-primary-fixed font-bold text-sm transition-all shadow-sm';
+                tabVideo.className = 'px-6 py-2 rounded-lg text-on-surface-variant hover:text-on-surface font-medium text-sm transition-all';
+            });
+
+            tabVideo.addEventListener('click', () => {
+                selectedType = 'Vídeo';
+                tabVideo.className = 'px-6 py-2 rounded-lg bg-primary text-on-primary-fixed font-bold text-sm transition-all shadow-sm';
+                tabFoto.className = 'px-6 py-2 rounded-lg text-on-surface-variant hover:text-on-surface font-medium text-sm transition-all';
+            });
+
+            // Status toggling (Rascunho vs Aguardando)
+            const btnStatusRascunho = document.getElementById('btn-status-rascunho');
+            const btnStatusAguardando = document.getElementById('btn-status-aguardando');
+
+            btnStatusRascunho.addEventListener('click', () => {
+                selectedStatus = 'Rascunho';
+                btnStatusRascunho.className = 'flex-1 py-3 border border-primary bg-primary/10 text-primary rounded-xl text-xs font-bold transition-all active:scale-95';
+                btnStatusAguardando.className = 'flex-1 py-3 border border-outline-variant rounded-xl text-xs font-bold hover:bg-surface-container transition-all active:scale-95';
+            });
+
+            btnStatusAguardando.addEventListener('click', () => {
+                selectedStatus = 'Aguardando';
+                btnStatusAguardando.className = 'flex-1 py-3 border border-primary bg-primary/10 text-primary rounded-xl text-xs font-bold transition-all active:scale-95';
+                btnStatusRascunho.className = 'flex-1 py-3 border border-outline-variant rounded-xl text-xs font-bold hover:bg-surface-container transition-all active:scale-95';
+            });
+
+            // Local File Change simulation
+            const fileInput = document.getElementById('file-input');
+            const uploadLabelText = document.getElementById('upload-label-text');
+            fileInput.addEventListener('change', (e) => {
+                if(e.target.files && e.target.files[0]) {
+                    uploadLabelText.textContent = `Selecionado: ${e.target.files[0].name}`;
+                }
+            });
+
+            // Initialize database tables
+            await initializeDefaultData();
+
+            // Function to load and render posts
+            async function loadPosts() {
+                try {
+                    const { data: posts, error } = await supabase
+                        .from('posts')
+                        .select('*')
+                        .eq('client_id', DEFAULT_CLIENT_ID)
+                        .order('scheduled_at', { ascending: false });
+
+                    if (error) throw error;
+                    renderInstagramGrid(posts);
+                } catch(err) {
+                    console.error('Erro ao carregar posts:', err);
+                }
+            }
+
+            // Function to render Instagram Grid
+            function renderInstagramGrid(posts) {
+                gridContainer.innerHTML = '';
+                if (!posts || posts.length === 0) {
+                    gridContainer.innerHTML = '<div class="col-span-3 py-10 text-center text-xs text-on-surface-variant">Nenhum post agendado</div>';
+                    return;
+                }
+
+                posts.forEach(post => {
+                    const postDiv = document.createElement('div');
+                    postDiv.className = 'aspect-square relative group overflow-hidden cursor-pointer';
+                    
+                    const isVideo = post.type === 'Vídeo';
+                    const isDraft = post.status === 'Rascunho';
+                    
+                    let statusBadgeColor = 'bg-green-500/80 text-white';
+                    if (post.status === 'Aguardando') statusBadgeColor = 'bg-yellow-500/80 text-black';
+                    if (post.status === 'Rascunho') statusBadgeColor = 'bg-gray-500/80 text-white';
+
+                    postDiv.innerHTML = `
+                        <img class="w-full h-full object-cover ${isDraft ? 'opacity-60 grayscale-[50%]' : ''}" src="${post.media_url}" alt="Post" style="transition: transform 0.4s ease;" />
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-2 text-center">
+                            <span class="material-symbols-outlined text-white text-lg">${isVideo ? 'movie' : 'image'}</span>
+                            <p class="text-[8px] text-white mt-1 line-clamp-2">${post.caption || ''}</p>
+                        </div>
+                        <div class="absolute top-1 right-1 px-1.5 py-0.5 ${statusBadgeColor} rounded-full text-[8px] font-bold shadow-sm">${post.status}</div>
+                        ${isVideo ? `<div class="absolute bottom-1 left-1"><span class="material-symbols-outlined text-white text-xs" data-weight="fill">movie</span></div>` : ''}
+                    `;
+                    
+                    // Add zoom micro-interaction
+                    const img = postDiv.querySelector('img');
+                    postDiv.addEventListener('mouseenter', () => {
+                        img.style.transform = 'scale(1.05)';
+                    });
+                    postDiv.addEventListener('mouseleave', () => {
+                        img.style.transform = 'scale(1)';
+                    });
+
+                    gridContainer.appendChild(postDiv);
+                });
+            }
+
+            // Save Post Action
+            const btnSavePost = document.getElementById('btn-save-post');
+            btnSavePost.addEventListener('click', async () => {
+                const captionVal = textarea.value.trim();
+                const mediaUrlVal = document.getElementById('media-url-input').value.trim();
+                const scheduledAtVal = document.getElementById('post-scheduled-at').value;
+
+                if (!captionVal) {
+                    alert('Por favor, escreva uma legenda para o post.');
+                    return;
+                }
+
+                // Default photo if empty
+                let mediaUrl = mediaUrlVal;
+                if (!mediaUrl) {
+                    mediaUrl = selectedType === 'Vídeo'
+                        ? 'https://lh3.googleusercontent.com/aida-public/AB6AXuBSFIxa2xgejawPJHHXxsAjIKSd7kVHuejrBK2BvyyNtqSM_XRirJ4cVL1xKPfMRwSSXljvSVDPfX26MyU06R4QAGd4z82oCg5Yc9EFF2O-7QXKd9mywUnUVcVQHwWZPK3PX8ii50DHQf-AV7nkBdz_GVYbgvLDbLnIL3iwoP2uU59fY2gvTrcyQRCQWphtJzW-Ll2tyy545CjNJb5LK75omQOLnm3RMLrFHJO11IV1NFec48DjtbVb7PjGDHCKpk-AggjVbpogtJ0'
+                        : 'https://picsum.photos/id/' + Math.floor(Math.random() * 100) + '/800/800';
+                }
+
+                try {
+                    btnSavePost.textContent = 'Enviando...';
+                    btnSavePost.disabled = true;
+
+                    const { error } = await supabase.from('posts').insert({
+                        profile_id: DEFAULT_PROFILE_ID,
+                        client_id: DEFAULT_CLIENT_ID,
+                        type: selectedType,
+                        media_url: mediaUrl,
+                        caption: captionVal,
+                        scheduled_at: scheduledAtVal || new Date().toISOString(),
+                        status: selectedStatus
+                    });
+
+                    if (error) throw error;
+
+                    // Clear form
+                    textarea.value = '';
+                    document.getElementById('media-url-input').value = '';
+                    counter.textContent = '0 / 2200';
+                    uploadLabelText.textContent = 'Selecione uma imagem ou vídeo';
+                    fileInput.value = '';
+                    
+                    alert('Post adicionado com sucesso!');
+                    await loadPosts();
+                } catch(err) {
+                    console.error('Erro ao salvar post:', err);
+                    alert('Erro ao salvar post: ' + err.message);
+                } finally {
+                    btnSavePost.textContent = 'Salvar e Adicionar ao Feed';
+                    btnSavePost.disabled = false;
+                }
+            });
+
+            // Initial load
+            await loadPosts();
+        });
+    </script>
+</body></html>
