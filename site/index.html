@@ -1525,11 +1525,24 @@
           let reply = "";
           if (contentType && contentType.includes('application/json')) {
             const data = await response.json();
-            reply = data.response || data.message || data.output || JSON.stringify(data);
+            reply = data.response || data.message || data.output || data;
           } else {
             reply = await response.text();
           }
-          appendMessage(reply || "Entendido! O agente AXION recebeu e processou sua solicitação.", 'bot');
+
+          if (Array.isArray(reply)) {
+            // Se for um array de mensagens (split), mostra uma por uma com delay
+            for (let i = 0; i < reply.length; i++) {
+              if (i > 0) {
+                showTypingIndicator();
+                await new Promise(r => setTimeout(r, 1000 + Math.random() * 1000)); // Delay natural
+                hideTypingIndicator();
+              }
+              appendMessage(reply[i], 'bot');
+            }
+          } else {
+            appendMessage(typeof reply === 'string' ? reply : JSON.stringify(reply), 'bot');
+          }
         } else {
           throw new Error('Erro na resposta do webhook');
         }
