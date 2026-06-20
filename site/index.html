@@ -1492,12 +1492,12 @@
       }
     }
 
-    // Recupera ou cria um sessionId persistente na sessão atual
+    // Recupera ou cria um sessionId persistente usando localStorage
     function getSessionId() {
-      let sessId = sessionStorage.getItem('axion_chat_session_id');
+      let sessId = localStorage.getItem('axion_chat_session_id');
       if (!sessId) {
         sessId = 'sess-' + Math.random().toString(36).substring(2, 15) + '-' + Date.now();
-        sessionStorage.setItem('axion_chat_session_id', sessId);
+        localStorage.setItem('axion_chat_session_id', sessId);
       }
       return sessId;
     }
