@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SUMMIT ELITE | Guia de Expedições de Alta Montanha</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Hanken+Grotesk:wght@400;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#e2e3df",
+                    "primary-container": "#1b263b",
+                    "on-surface-variant": "#45474d",
+                    "on-secondary-fixed": "#1a1c1a",
+                    "on-primary-fixed": "#101b30",
+                    "outline": "#75777d",
+                    "surface-variant": "#d1e4ff",
+                    "background": "#f8f9ff",
+                    "tertiary-fixed-dim": "#ffb694",
+                    "inverse-on-surface": "#e9f1ff",
+                    "surface-tint": "#545e76",
+                    "surface-container-highest": "#d1e4ff",
+                    "on-secondary-container": "#636562",
+                    "primary-fixed-dim": "#bbc6e2",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed-variant": "#3c475d",
+                    "tertiary-fixed": "#ffdbcc",
+                    "on-tertiary-fixed": "#351000",
+                    "inverse-surface": "#17324d",
+                    "on-primary-container": "#828da7",
+                    "surface-bright": "#f8f9ff",
+                    "tertiary": "#240800",
+                    "surface-container-low": "#eef4ff",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-container": "#e56822",
+                    "primary-fixed": "#d7e2ff",
+                    "surface": "#f8f9ff",
+                    "on-secondary": "#ffffff",
+                    "on-surface": "#001d36",
+                    "on-tertiary-fixed-variant": "#7b2f00",
+                    "surface-dim": "#c2dcff",
+                    "on-background": "#001d36",
+                    "on-secondary-fixed-variant": "#454745",
+                    "outline-variant": "#c5c6cd",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "inverse-primary": "#bbc6e2",
+                    "tertiary-container": "#461700",
+                    "secondary-fixed-dim": "#c6c7c3",
+                    "primary": "#051125",
+                    "surface-container": "#e5efff",
+                    "on-error": "#ffffff",
+                    "secondary-container": "#e2e3df",
+                    "surface-container-high": "#dbe9ff",
+                    "secondary": "#5d5f5c",
+                    "on-primary": "#ffffff",
+                    "surface-container-lowest": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0rem",
+                    "lg": "0rem",
+                    "xl": "0rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "section-gap": "120px",
+                    "margin-mobile": "20px",
+                    "margin-desktop": "64px",
+                    "unit": "8px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Anton"],
+                    "display-xl": ["Anton"],
+                    "body-md": ["Hanken Grotesk"],
+                    "label-sm": ["JetBrains Mono"],
+                    "headline-md": ["Anton"],
+                    "label-caps": ["JetBrains Mono"],
+                    "headline-lg-mobile": ["Anton"],
+                    "body-lg": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "headline-lg": ["48px", {"lineHeight": "52px", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                    "display-xl": ["80px", {"lineHeight": "88px", "letterSpacing": "0.02em", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                    "headline-md": ["32px", {"lineHeight": "36px", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["36px", {"lineHeight": "40px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+        }
+        .diagonal-split {
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+        .diagonal-split-reverse {
+            clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
+        }
+        .hard-shadow {
+            box-shadow: 4px 4px 0px 0px #051125;
+        }
+        .hard-shadow-hover:hover {
+            box-shadow: 6px 6px 0px 0px #051125;
+            transform: translate(-2px, -2px);
+        }
+    </style>
+<style>
+    html {
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
+    }
+    html::-webkit-scrollbar {
+      display: none; /* Chrome, Safari and Opera */
+    }
+    body {
+      min-height: max(884px, 100dvh);
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
+    }
+    body::-webkit-scrollbar {
+      display: none; /* Chrome, Safari and Opera */
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md selection:bg-tertiary-container selection:text-on-tertiary-container">
+<!-- Top Navigation -->
+<header class="fixed top-0 left-0 w-full z-50 bg-primary dark:bg-primary border-b border-outline dark:border-outline-variant flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 w-full">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-primary" data-icon="menu">menu</span>
+<span class="text-headline-md font-headline-md tracking-widest text-on-primary">SUMMIT ELITE</span>
+</div>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="text-label-caps font-label-caps text-tertiary-fixed font-bold hover:bg-primary-container transition-colors px-2 py-1" href="#">HOME</a>
+<a class="text-label-caps font-label-caps text-on-primary-container hover:bg-primary-container transition-colors px-2 py-1" href="#expedicoes">EXPEDIÇÕES</a>
+<a class="text-label-caps font-label-caps text-on-primary-container hover:bg-primary-container transition-colors px-2 py-1" href="#guias">GUIAS</a>
+<a class="text-label-caps font-label-caps text-on-primary-container hover:bg-primary-container transition-colors px-2 py-1" href="#">CONTATO</a>
+</nav>
+<div class="flex items-center">
+<span class="material-symbols-outlined text-on-primary" data-icon="landscape">landscape</span>
+</div>
+</header>
+<main class="overflow-x-hidden">
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center justify-center text-center px-margin-mobile diagonal-split bg-primary pt-16">
+<div class="absolute inset-0 z-0">
+<img alt="Conquiste o Topo" class="w-full h-full object-cover opacity-60 grayscale" data-alt="A panoramic wide-angle photograph of majestic, snow-capped mountain peaks piercing through a sea of thick, low-lying clouds. The lighting is cold and atmospheric, with high-contrast shadows emphasizing the rugged rock faces and icy ridges. The overall aesthetic is minimalist and grand, dominated by deep blues, stark whites, and slate grays, capturing a sense of professional high-altitude mountaineering and extreme adventure." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXR0AmyC5vrgrGvpr4oXURl9bAYOoqGD5ksd1XTfqr5qDU_7SSct2T6uxCBUdRN2cctSP-MOhlxdNBikDK-GHCtWrz5rGJEyu9FVEhODkLXkdCXax3NksCNCX0A6vczdc7hGhQL-bus5p7Ikkfvp6SGXF9okL62aB9vmF5XNH8N4Y_tOb8WgJxKyGGhOWEhyR8sKX-wnRcrvEiem1pC6mucEWQMhbs6RLz4TjV28RvFCyGOVjelcq8dONv1KmGT-Vh1IoeqJWQ9l_k"/>
+<div class="absolute inset-0 bg-gradient-to-b from-primary/40 to-primary/90"></div>
+</div>
+<div class="relative z-10 max-w-4xl">
+<span class="text-label-caps font-label-caps text-on-tertiary-container bg-tertiary-container px-4 py-1 mb-6 inline-block">EXPEDIÇÕES 2024</span>
+<h1 class="text-display-xl font-display-xl text-on-primary mb-4 leading-none md:text-[120px]">CONQUISTE O TOPO</h1>
+<p class="text-body-lg font-body-lg text-primary-fixed-dim mb-10 max-w-2xl mx-auto">Expedições Guiadas para Todos os Níveis. Segurança, técnica e a experiência definitiva nas montanhas mais icônicas do mundo.</p>
+<div class="flex flex-col md:flex-row gap-6 justify-center">
+<a class="bg-on-tertiary-container text-tertiary-container px-8 py-4 font-label-caps text-label-caps font-bold hard-shadow hover:scale-105 transition-all duration-150" href="#expedicoes">
+                        VER EXPEDIÇÕES
+                    </a>
+<a class="border border-on-primary text-on-primary px-8 py-4 font-label-caps text-label-caps font-bold hover:bg-on-primary hover:text-primary transition-all" href="#">
+                        SAIBA MAIS
+                    </a>
+</div>
+</div>
+<div class="absolute bottom-20 left-1/2 -translate-x-1/2 animate-bounce">
+<span class="material-symbols-outlined text-on-primary text-4xl" data-icon="keyboard_double_arrow_down">keyboard_double_arrow_down</span>
+</div>
+</section>
+<!-- About Us -->
+<section class="py-section-gap px-margin-mobile max-w-7xl mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
+<div class="lg:col-span-5">
+<p class="text-label-caps font-label-caps text-on-primary-container mb-4">A ELITE</p>
+<h2 class="text-headline-lg font-headline-lg text-primary mb-6">NOSSA HISTÓRIA</h2>
+<div class="w-16 h-1 bg-on-tertiary-container mb-8"></div>
+</div>
+<div class="lg:col-span-7">
+<p class="text-body-lg font-body-lg text-on-surface-variant leading-relaxed">
+                        Nascida entre as fendas de gelo e o ar rarefeito, a Summit Elite não é apenas uma agência de guias; é um coletivo de alpinistas apaixonados que dedicam suas vidas ao vertical. Fundada com o propósito de democratizar o acesso ao cume com o rigor técnico de uma expedição profissional, nossa paixão pelas montanhas nos leva a buscar os caminhos menos trilhados, sempre priorizando a integridade e a conexão genuína com a natureza selvagem.
+                    </p>
+</div>
+</div>
+<div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8">
+<div class="border-l-2 border-outline-variant pl-6 py-4">
+<p class="text-display-xl font-display-xl text-primary leading-none">15+</p>
+<p class="text-label-caps font-label-caps text-on-surface-variant">ANOS DE CAMPO</p>
+</div>
+<div class="border-l-2 border-outline-variant pl-6 py-4">
+<p class="text-display-xl font-display-xl text-primary leading-none">500</p>
+<p class="text-label-caps font-label-caps text-on-surface-variant">CUMES CONQUISTADOS</p>
+</div>
+<div class="border-l-2 border-outline-variant pl-6 py-4">
+<p class="text-display-xl font-display-xl text-primary leading-none">100%</p>
+<p class="text-label-caps font-label-caps text-on-surface-variant">FOCO EM SEGURANÇA</p>
+</div>
+<div class="border-l-2 border-outline-variant pl-6 py-4">
+<p class="text-display-xl font-display-xl text-primary leading-none">24/7</p>
+<p class="text-label-caps font-label-caps text-on-surface-variant">SUPORTE TÉCNICO</p>
+</div>
+</div>
+</section>
+<!-- Featured Expeditions -->
+<section class="bg-surface-container py-section-gap px-margin-mobile" id="expedicoes">
+<div class="max-w-7xl mx-auto">
+<div class="flex justify-between items-end mb-16">
+<div>
+<p class="text-label-caps font-label-caps text-on-primary-container">DESTINOS SELECIONADOS</p>
+<h2 class="text-headline-lg font-headline-lg text-primary">EXPEDIÇÕES EM DESTAQUE</h2>
+</div>
+<div class="hidden md:block">
+<span class="material-symbols-outlined text-4xl text-primary-container" data-icon="explore">explore</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Card 1 -->
+<div class="group bg-primary overflow-hidden flex flex-col hard-shadow-hover transition-all duration-300">
+<div class="h-80 overflow-hidden relative">
+<img alt="Expedição Rocha Viva" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="A dramatic vertical rock face bathed in the golden light of sunset, showing a professional climber securely harnessed and navigating a challenging ascent. The lighting is warm and directional, creating long shadows and highlighting the detailed textures of the weathered stone. The scene is shot with a technical-luxe aesthetic, emphasizing the rugged precision and professional equipment against a clear mountain horizon." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBEywoGWJDv-UdTHLO3IpnxwjwmUHKxhgNHsAYSmDuWNeXT4RfPg33jfcrkcuS05wYViIViQGgjHAOYXjDgs9QbqHjQl4yhbsG_xbKJ8YQoF3J0kI8Xys9u6RKqfSAd2IA9Gz_nbb0RH9epKom_MKmxnI3RM6Ztdj8PLPhQvqc3ccwA7XSv_-jul2IYzdlc-dxX80-DfIAxYGsTFmalqW9Xb0A8UCGE4wnoU-DpnYSZXDpywHQn8Cn6yjHjSIJIPvrlOA0SyHuVs5S"/>
+<div class="absolute top-4 left-4 bg-on-tertiary-container text-tertiary-container px-3 py-1 font-label-caps text-[10px]">TÉCNICO</div>
+</div>
+<div class="p-8 flex flex-col flex-grow">
+<div class="flex justify-between items-center mb-4">
+<span class="text-label-caps font-label-caps text-primary-fixed-dim">ALTITUDE: 4,500M</span>
+<span class="material-symbols-outlined text-primary-fixed-dim" data-icon="altitude">altitude</span>
+</div>
+<h3 class="text-headline-md font-headline-md text-on-primary mb-4">EXPEDIÇÃO ROCHA VIVA</h3>
+<p class="text-body-md font-body-md text-on-primary-container mb-8 flex-grow">Uma jornada vertical para entusiastas da escalada em rocha pura. Desafie seus limites em paredes calcárias milenares.</p>
+<button class="w-full py-4 border border-outline text-on-primary font-label-caps text-label-caps hover:bg-on-primary hover:text-primary transition-all">SAIBA MAIS</button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group bg-primary overflow-hidden flex flex-col hard-shadow-hover transition-all duration-300">
+<div class="h-80 overflow-hidden relative">
+<img alt="Pico do Sol" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="An expansive panoramic view of a mountain summit at dawn, with the sun just beginning to peak over the horizon, casting a vibrant alpenglow across the snow. A small group of mountaineers is visible as silhouettes on the ridge, creating a sense of scale and accomplishment. The lighting is ethereal and high-key, with a palette of soft oranges and cool blues, following a professional adventurous photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyoOgsA6oasH9_CXnYbT6TUZYrQAnsym1iK1PjktEpxIOX6tJK1xdN4T8tm9WHaLLjP2c8scKZN2vgHpRgNvXdKcPf20Atf2tg9rJHXpQGkG6rDSofOpah03sUgPV7aeER8jPzh3l6GukMyt5-bQxjsUHSouIcVggzVc2QZKcWhbLeoUw9TNHWjU-8p_xwlKXZe1FVc5SYEWVQSMWxcFDvp1kKq1UIrOhmqYcB33JYJyH6XmUcvR_KkxrlnQBnlcTmauvpj_IHww4k"/>
+<div class="absolute top-4 left-4 bg-on-tertiary-container text-tertiary-container px-3 py-1 font-label-caps text-[10px]">ALPINISMO</div>
+</div>
+<div class="p-8 flex flex-col flex-grow">
+<div class="flex justify-between items-center mb-4">
+<span class="text-label-caps font-label-caps text-primary-fixed-dim">ALTITUDE: 6,200M</span>
+<span class="material-symbols-outlined text-primary-fixed-dim" data-icon="filter_hdr">filter_hdr</span>
+</div>
+<h3 class="text-headline-md font-headline-md text-on-primary mb-4">PICO DO SOL</h3>
+<p class="text-body-md font-body-md text-on-primary-container mb-8 flex-grow">Nossa expedição clássica. Uma ascensão moderada com vistas panorâmicas que recompensam cada passo da subida.</p>
+<button class="w-full py-4 border border-outline text-on-primary font-label-caps text-label-caps hover:bg-on-primary hover:text-primary transition-all">SAIBA MAIS</button>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group bg-primary overflow-hidden flex flex-col hard-shadow-hover transition-all duration-300">
+<div class="h-80 overflow-hidden relative">
+<img alt="Vale Gelado" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="A deep, crystalline glacial valley with intense blue ice formations and deep crevasses. The scene is shot from a high perspective, showing the immense scale and structural beauty of the ice. The lighting is crisp and cool, with high clarity and sharp edges, maintaining a technical-luxe look with a palette of deep slates and brilliant whites. The mood is serene and formidable." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlZfgpjdjVc-2vgF_vlSvDh6IrMszIKvnYXL88EH5kP21fmk-fGi9rxg18nz8yL94iAAnsnkP1QkSHYpAfiNougTgsjD_BhmwcVxoHJYqsyyb8SevB8HuMmevxCyoBkDcRpfRMzvOLiF6TallHeG-OOujFruU-cww2KFjeYXleectBsXTWLYAV_gyLelD0B98FlZziQBo0ogwAL5oj12uMvPIfifnLFMe5oo6G9Q4PL-KcuxFwI5NvSfHv04zOXt2a-J33YKRoN_0N"/>
+<div class="absolute top-4 left-4 bg-on-tertiary-container text-tertiary-container px-3 py-1 font-label-caps text-[10px]">EXTREMO</div>
+</div>
+<div class="p-8 flex flex-col flex-grow">
+<div class="flex justify-between items-center mb-4">
+<span class="text-label-caps font-label-caps text-primary-fixed-dim">ALTITUDE: 3,800M</span>
+<span class="material-symbols-outlined text-primary-fixed-dim" data-icon="ac_unit">ac_unit</span>
+</div>
+<h3 class="text-headline-md font-headline-md text-on-primary mb-4">VALE GELADO</h3>
+<p class="text-body-md font-body-md text-on-primary-container mb-8 flex-grow">Exploração técnica em glaciares. Aprenda progressão em gelo e técnicas de resgate em um cenário de tirar o fôlego.</p>
+<button class="w-full py-4 border border-outline text-on-primary font-label-caps text-label-caps hover:bg-on-primary hover:text-primary transition-all">SAIBA MAIS</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Expedition Leaders / Guias -->
+<section class="relative bg-primary py-section-gap px-margin-mobile diagonal-split-reverse" id="guias">
+<div class="absolute inset-0 z-0 overflow-hidden">
+<img alt="Silhueta de Montanha" class="w-full h-full object-cover opacity-20 grayscale" data-alt="A moody, atmospheric shot of jagged mountain silhouettes against a deep indigo twilight sky. Wisps of fog and low clouds roll between the peaks, creating layers of depth and mystery. The style is high-contrast minimalism, emphasizing structural shapes and tonal gradients. The lighting is low and dramatic, perfectly suited for a dark UI background section." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBr75FDplUxrvl4Dq3oepGEqpMOdrST-VUFls8alVoJ67eLbnLNEVy6G7AhaTH_4up_qZuVt34jurZ4sOpOupN9W268_qWLJxG3cRunhFaCXXiQ1RTR4yR5RUapfH114vBTazZxWFFbUxKzoNl3LVhnzReXOx5uMg3cKokmrltsg0abWI3XinJ50vOtpcaz_23ozSmAwtRKtaqTIvEbk-BJhmBaBvk8n1dB4brGSbtmknizlU1I4_4oIj1ShPHsnVIEn69y5KpPGiFS"/>
+</div>
+<div class="relative z-10 max-w-7xl mx-auto text-center">
+<p class="text-label-caps font-label-caps text-on-tertiary-container mb-4">ELITE TECH</p>
+<h2 class="text-headline-lg font-headline-lg text-on-primary mb-8">NOSSOS GUIAS</h2>
+<p class="text-body-lg font-body-lg text-on-primary-container max-w-2xl mx-auto mb-16">
+                    Nossa equipe é composta exclusivamente por guias certificados UIAGM/IFMGA, com décadas de experiência em todas as cordilheiras do globo. Segurança não é uma opção, é nosso protocolo base.
+                </p>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Guia 1 -->
+<div class="group">
+<div class="aspect-square bg-surface-container-highest mb-6 overflow-hidden relative border border-outline">
+<img alt="Guia 1" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="A professional studio portrait of a weathered mountain guide wearing technical mountaineering gear. He has a serious, determined expression that conveys reliability and deep experience. The lighting is high-contrast, highlighting the textures of his face and gear. The background is a clean, dark slate, adhering to a premium corporate-adventurous style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaoJfTP1zTzc1-DluKdr8m78k0LbzBFLZ6ndtx_7UZJYV7aPTqzBL9wQAV9YnF8PmvSXkRfo4D7PPayKiKPJkWK60iEU3bu-Z6s0RUuo8-ihuLyRuhwpfzHg-JBiLAdOWF6-FvG4Cbogip7e5Wt1R3EDhT28-Ww2Q4yy2zXn4ex_5GrxY2wCQOOSC5XZKFKXwzeEN5JDOWh-6W4qRZVzy5rm_ikAeYAbgWIhUnPK9rDDWWbH7sb9gq4UFAUoFlWgS4alGJhZ4F7MqB"/>
+<div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors"></div>
+</div>
+<h4 class="text-headline-md font-headline-md text-on-primary mb-1">ERIK LARSON</h4>
+<p class="text-label-caps font-label-caps text-on-tertiary-container">CHEFE DE EXPEDIÇÃO</p>
+</div>
+<!-- Guia 2 -->
+<div class="group">
+<div class="aspect-square bg-surface-container-highest mb-6 overflow-hidden relative border border-outline">
+<img alt="Guia 2" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="A professional portrait of a female mountain climber in her early 30s, looking confidently at the camera. She is wearing a modern technical jacket and has climbing gear visible. The lighting is crisp and professional, with a minimalist dark background that emphasizes her expertise and rugged adventurous character. High-contrast, clean aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrk2aA_8YpSdA5HJ714pAL6el88FqwtJXxN38Rp5WuCSBdjg-GUPB0_PuBR44YCAJgOURaCi5gqAYceXCUnMkMg59CDdd6YtqlxoIcZwOFkP-Mjfl7d5qgWIy7kYDCafHLgJKnHqlZyAFkq3gvFzYVrk4S8w4tu4MqrFc2wrhDdaaB3yh0H0T4yIiKnPxEb8veACtYJ41LZlTIUsoNCAVMi9PZ58PrYVGno18Ns2djbow2TwuO_OmeA6tbsAPV5H6ScorTV60r4GjA"/>
+<div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors"></div>
+</div>
+<h4 class="text-headline-md font-headline-md text-on-primary mb-1">SARA VOSS</h4>
+<p class="text-label-caps font-label-caps text-on-tertiary-container">ESPECIALISTA EM GELO</p>
+</div>
+<!-- Guia 3 -->
+<div class="group">
+<div class="aspect-square bg-surface-container-highest mb-6 overflow-hidden relative border border-outline">
+<img alt="Guia 3" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="A close-up portrait of an experienced male mountain guide with salt-and-pepper hair and a warm but professional gaze. He is dressed in high-quality outdoor apparel. The lighting is natural yet dramatic, highlighting the character and grit of a lifetime spent in the mountains. The style is sophisticated and minimalist." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3P6WU9SQhaqx1X3hVGhBXtq7KGZLBL31Y4Cip8Wn7dbW_AoO2iGgqi6Z05s3Aip_X97CNvU1QDzcA7FE16m_iGeBkcgiB2SkfaUh8pnetOPgxD6X_u_YdTe9qp-x4YoUvI5NO_96jIK91bwc1h5JINhZsouFr58C7T5bHRCABAAjiGELxzk9Ts2u3VTcn3syva2sigwhGeG3hLZs09w-h940g0uL3FyLeXmKFNVuiJoIOYvMwN4J6JYNiPjKljK_XPaJlQhhCn966"/>
+<div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors"></div>
+</div>
+<h4 class="text-headline-md font-headline-md text-on-primary mb-1">MARC DUPONT</h4>
+<p class="text-label-caps font-label-caps text-on-tertiary-container">GUIA UIAGM</p>
+</div>
+<!-- Guia 4 -->
+<div class="group">
+<div class="aspect-square bg-surface-container-highest mb-6 overflow-hidden relative border border-outline">
+<img alt="Guia 4" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="A portrait of a young, fit mountain guide in technical gear, standing against a dark studio background. His posture is confident and active. The lighting is sharp and technical, capturing the details of his climbing equipment and the texture of his jacket. The visual style is premium corporate mountaineering." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBj7PqKS18mDQtRVk38Hzog1LgE_DDvMAzMOiZS6rpcOS5JNS8d4dhOXKXcLxqDOhhcJJscAtEZgY58pjS4ukRy4JZl_TOr6Wcagr1SKEkuUDQkpNMj2Gq09eeWM_GDpk9F3aYdy81MLVGjPys9M-b8u_IPh7Z6hGdzZzaw3NYhgBbq-iDxbKxDIJ2gXUasf5ngb6PXLgF0g7a4jIP527XFdZv7Xjs-oYLW35oNtof7CMbSzsviwjPc_-Oh58U5Q7gJAXHfFlXp-0Sn"/>
+<div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors"></div>
+</div>
+<h4 class="text-headline-md font-headline-md text-on-primary mb-1">ALEX REED</h4>
+<p class="text-label-caps font-label-caps text-on-tertiary-container">LOGÍSTICA DE BASE</p>
+</div>
+</div>
+<div class="mt-20 flex flex-wrap justify-center gap-12 grayscale opacity-50">
+<div class="flex items-center gap-2 text-on-primary">
+<span class="material-symbols-outlined" data-icon="verified">verified</span>
+<span class="font-label-caps text-label-caps">IFMGA CERTIFIED</span>
+</div>
+<div class="flex items-center gap-2 text-on-primary">
+<span class="material-symbols-outlined" data-icon="security">security</span>
+<span class="font-label-caps text-label-caps">GLOBAL SAFETY ALLIANCE</span>
+</div>
+<div class="flex items-center gap-2 text-on-primary">
+<span class="material-symbols-outlined" data-icon="public">public</span>
+<span class="font-label-caps text-label-caps">EXPEDITION COUNCIL</span>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Banner -->
+<section class="py-section-gap px-margin-mobile">
+<div class="max-w-5xl mx-auto bg-primary relative overflow-hidden group">
+<div class="absolute inset-0 z-0">
+<img alt="Pronto para a Aventura" class="w-full h-full object-cover opacity-30 group-hover:scale-105 transition-transform duration-[3000ms]" data-alt="An awe-inspiring shot of a lone hiker standing on a narrow mountain ridge at dusk, looking out over a vast valley filled with clouds. The lighting is dramatic, with the last rays of sun creating a sharp silhouette against a deep purple and blue sky. The composition is epic and solitary, conveying a sense of ultimate achievement and readiness for the next challenge." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ48AXpB9PKlBEE3IqBMCVXQKbLLkKP6N12DfVr5juPeCy0vd0fxjxgWVjxZ8DGYu-ABHn-3sxWFsI7i6-yjEr0VMtz_vhThMub8zYvtcilfnXd_GY-6BXXJppai9Vu7ACTgzaOzRLWorj6D64ATNnhBWHehQzXYfDXcPauZGvTyXbv302gVzPcOu4Q4TT3RiD6BzEVmeR-BmtEYCeYDi1u8_E-NzCnPw9XxCXVpd5pQWkCgVussDdfRJAXxhv6441pxZa3XhzhUPs"/>
+</div>
+<div class="relative z-10 p-12 md:p-24 text-center border-4 border-on-tertiary-container m-4">
+<h2 class="text-display-xl font-display-xl text-on-primary mb-6">PRONTO PARA A AVENTURA?</h2>
+<p class="text-body-lg font-body-lg text-primary-fixed-dim mb-12 max-w-xl mx-auto">Sua jornada rumo ao cume começa aqui. Vagas limitadas para a temporada de inverno 2024.</p>
+<button class="bg-on-tertiary-container text-tertiary-container px-12 py-5 font-label-caps text-label-caps font-bold hard-shadow hover:bg-on-primary hover:text-primary transition-all">RESERVE AGORA</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-primary dark:bg-primary border-t-4 border-tertiary-container text-on-primary w-full py-16 px-margin-mobile flex flex-col items-center">
+<div class="max-w-7xl mx-auto flex flex-col gap-8 text-center">
+<span class="text-headline-md font-headline-md tracking-widest text-on-primary">SUMMIT ELITE</span>
+<nav class="flex flex-wrap justify-center gap-8">
+<a class="text-label-caps font-label-caps text-on-primary-container hover:text-tertiary-fixed-dim transition-all" href="#">EXPEDITIONS</a>
+<a class="text-label-caps font-label-caps text-on-primary-container hover:text-tertiary-fixed-dim transition-all" href="#">TECHNICAL SPECS</a>
+<a class="text-label-caps font-label-caps text-on-primary-container hover:text-tertiary-fixed-dim transition-all" href="#">SAFETY PROTOCOL</a>
+<a class="text-label-caps font-label-caps text-on-primary-container hover:text-tertiary-fixed-dim transition-all" href="#">BOOK SUMMIT</a>
+</nav>
+<div class="flex justify-center gap-6 mt-4">
+<a class="w-10 h-10 border border-outline flex items-center justify-center hover:bg-on-tertiary-container hover:text-tertiary-container transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="share">share</span>
+</a>
+<a class="w-10 h-10 border border-outline flex items-center justify-center hover:bg-on-tertiary-container hover:text-tertiary-container transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="photo_camera">photo_camera</span>
+</a>
+<a class="w-10 h-10 border border-outline flex items-center justify-center hover:bg-on-tertiary-container hover:text-tertiary-container transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+</a>
+</div>
+<p class="text-label-caps font-label-caps text-on-primary-container text-[10px] mt-8">© 2024 SUMMIT ELITE GUIDING. ALL RIGHTS RESERVED.</p>
+</div>
+</footer>
+<!-- Micro-interaction script -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const header = document.querySelector('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('bg-opacity-95', 'backdrop-blur-sm', 'shadow-xl');
+                } else {
+                    header.classList.remove('bg-opacity-95', 'backdrop-blur-sm', 'shadow-xl');
+                }
+            });
+
+            // Smooth parallax effect for hero
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const heroImg = document.querySelector('section img');
+                if(heroImg) {
+                    heroImg.style.transform = `translateY(${scrolled * 0.3}px)`;
+                }
+            });
+        });
+    </script>
+</body></html>

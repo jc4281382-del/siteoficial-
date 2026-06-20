@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Política de Privacidade | AXION</title>
+  
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#adc6ff",
+            "on-surface": "#e5e2e1",
+            "on-surface-variant": "#c1c6d7",
+          },
+          fontFamily: {
+            "display-lg": ["Inter"],
+            "body-md": ["Inter"]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background-color: #050505; color: #e5e2e1; overflow-x: hidden; font-family: 'Inter', sans-serif; }
+    .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border-top: 1px solid rgba(255, 255, 255, 0.1); border-left: 1px solid rgba(255, 255, 255, 0.1); }
+  </style>
+</head>
+<body class="font-body-md text-body-md selection:bg-primary selection:text-[#002e69]">
+
+  <header class="fixed top-0 w-full z-50 bg-[#050505]/80 backdrop-blur-xl border-b border-white/10 shadow-[0_0_20px_rgba(173,198,255,0.1)]">
+    <div class="flex justify-between items-center px-6 md:px-16 h-16 w-full max-w-[1440px] mx-auto gap-4">
+      <a href="index.html" class="flex items-center gap-2 shrink-0">
+        <img alt="Logo AXION" class="w-8 h-8" src="logo.png">
+        <span class="font-display-lg text-xl md:text-3xl font-bold tracking-tighter bg-gradient-to-r from-[#052FF0] to-[#7133ED] text-transparent bg-clip-text">AXION</span>
+      </a>
+      <a href="index.html" class="bg-[#4b8eff] text-[#00285c] px-4 md:px-6 py-2 rounded-full font-semibold scale-95 hover:scale-100 transition-transform whitespace-nowrap shrink-0 text-sm md:text-base">
+        Voltar ao Início
+      </a>
+    </div>
+  </header>
+
+  <main class="relative pt-32 pb-24 min-h-[85vh]">
+    <div class="container mx-auto px-6 max-w-4xl relative z-20">
+      <h1 class="text-4xl md:text-5xl font-black mb-12 text-center">Política de Privacidade</h1>
+      
+      <div class="glass-card p-8 md:p-12 rounded-2xl space-y-8 text-on-surface-variant leading-relaxed">
+        <section>
+          <h2 class="text-2xl font-bold text-white mb-4">1. Informações que Coletamos</h2>
+          <p>A AXION coleta informações que você nos fornece diretamente, como ao preencher formulários de diagnóstico gratuito. Isso pode incluir seu nome, e-mail, telefone e informações sobre sua empresa. Também coletamos dados técnicos automaticamente quando você usa nosso site, como endereço IP, tipo de navegador e páginas visitadas, para melhorar nossos serviços.</p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-white mb-4">2. Como Usamos as Informações</h2>
+          <p>Usamos as informações coletadas para fornecer, manter e melhorar nossos serviços, incluindo os agentes de IA e automações desenvolvidos. Além disso, utilizamos seus dados para contatá-lo sobre diagnósticos, enviar relatórios, responder a dúvidas e oferecer suporte técnico contínuo.</p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-white mb-4">3. Compartilhamento de Dados</h2>
+          <p>Não vendemos ou alugamos suas informações pessoais para terceiros. O compartilhamento ocorre apenas com fornecedores de serviços estritamente necessários para a operação das plataformas, como infraestrutura em nuvem e provedores de IA, os quais são submetidos a rigorosos acordos de confidencialidade.</p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-white mb-4">4. Segurança</h2>
+          <p>Adotamos medidas técnicas de alto padrão para proteger suas informações contra acesso não autorizado, alteração, divulgação ou destruição. Todas as conexões e os dados em repouso são devidamente criptografados.</p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-white mb-4">5. Seus Direitos</h2>
+          <p>Você tem o direito de solicitar acesso, correção ou exclusão das suas informações pessoais armazenadas pela AXION. Para exercer qualquer um desses direitos, basta entrar em contato através dos nossos canais de comunicação disponíveis no site.</p>
+        </section>
+        
+        <p class="text-sm mt-8 opacity-60 text-center">Última atualização: Junho de 2026</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="py-12 border-t border-white/5 relative bg-[#050505] z-20">
+    <div class="container mx-auto px-6 md:px-16 max-w-[1440px] flex flex-col md:flex-row justify-between items-center gap-6">
+      <div class="flex items-center gap-2">
+        <img alt="Logo AXION" class="w-6 h-6 grayscale opacity-50" src="logo.png">
+        <span class="text-on-surface-variant font-bold opacity-50">AXION © 2026</span>
+      </div>
+      <div class="flex items-center gap-4 text-xs text-on-surface-variant">
+        <a href="politica-de-privacidade.html" class="text-primary transition-colors font-bold">Política de Privacidade</a>
+        <span>|</span>
+        <a href="termos-de-uso.html" class="hover:text-primary transition-colors">Termos de Uso</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
