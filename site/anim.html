@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AXION - Hero Particles Flow</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #000;
+        }
+        #canvas-container {
+            width: 100vw;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div id="canvas-container"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<script>
+    // --- VARIÁVEIS GLOBAIS ---
+    let scene, camera, renderer, instancedMesh;
+    const PARTICLE_COUNT = 4500; // Mantivemos a densidade para preencher a tela cheia
+    const particlesData = [];
+    
+    const mouse = new THREE.Vector2(-1000, -1000);
+    const mouseWorld = new THREE.Vector3(-1000, -1000, 0);
+    const raycaster = new THREE.Raycaster();
+    const targetPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+
+    // Limites de área para preencher toda a tela (baseado na profundidade da câmera)
+    const boundsX = 300; 
+    const boundsY = 150;
+
+    // --- SHADERS CUSTOMIZADOS (Intactos: Triângulo Vazado Arredondado) ---
+    const vertexShader = `
+        attribute vec3 aColor;
+        varying vec3 vColor;
+        varying vec2 vUv;
+
+        void main() {
+            vColor = aColor;
+            vUv = uv;
+            vec4 mvPosition = modelViewMatrix * instanceMatrix * vec4(position, 1.0);
+            gl_Position = projectionMatrix * mvPosition;
+        }
+    `;
+
+    const fragmentShader = `
+        varying vec3 vColor;
+        varying vec2 vUv;
+
+        // Função Matemática SDF para Triângulo Equilátero
+        float sdEquilateralTriangle(in vec2 p, in float r) {
+            const float k = sqrt(3.0);
+            p.x = abs(p.x) - r;
+            p.y = p.y + r/k;
+            if( p.x+k*p.y>0.0 ) p = vec2(p.x-k*p.y,-k*p.x-p.y)/2.0;
+            p.x -= clamp( p.x, -2.0*r, 0.0 );
+            return -length(p)*sign(p.y);
+        }
+
+        void main() {
+            vec2 p = vUv * 2.0 - 1.0;
+            
+            float size = 0.45;
+            float cornerRadius = 0.12; 
+            float thickness = 0.04;    
+
+            float d = sdEquilateralTriangle(p, size) - cornerRadius;
+            float ringD = abs(d) - thickness;
+            float alpha = 1.0 - smoothstep(-0.015, 0.015, ringD);
+            
+            if (alpha < 0.02) discard;
+
+            gl_FragColor = vec4(vColor, alpha);
+        }
+    `;
+
+    // --- INICIALIZAÇÃO DA CENA ---
+    function init() {
+        const container = document.getElementById('canvas-container');
+
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 120; // Distância da câmera
+
+        renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        container.appendChild(renderer.domElement);
+
+        const geometry = new THREE.PlaneGeometry(3.5, 3.5);
+        const colors = new Float32Array(PARTICLE_COUNT * 3);
+        
+        const colorPurple = new THREE.Color(0x8A2BE2); // Roxo elétrico
+        const colorBlue = new THREE.Color(0x00D2FF);   // Azul elétrico
+
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+            // Distribuição espalhada por toda a extensão da tela
+            const x = (Math.random() - 0.5) * (boundsX * 2);
+            const y = (Math.random() - 0.5) * (boundsY * 2);
+            const z = (Math.random() - 0.5) * 80; // Profundidade
+            
+            particlesData.push({
+                x: x,
+                y: y,
+                z: z,
+                // Velocidade direcional para a mesma direção (diagonal direita e cima)
+                speedX: 0.03 + Math.random() * 0.04,
+                speedY: 0.015 + Math.random() * 0.02,
+                
+                // Rotação individual da partícula (girando sobre si mesma)
+                rotX: Math.random() * Math.PI,
+                rotY: Math.random() * Math.PI,
+                rotZ: Math.random() * Math.PI,
+                rotSpeedX: (Math.random() - 0.5) * 0.015,
+                rotSpeedY: (Math.random() - 0.5) * 0.015,
+                rotSpeedZ: (Math.random() - 0.5) * 0.015,
+                
+                repulsion: new THREE.Vector3(0, 0, 0)
+            });
+
+            // Mistura das cores aleatoriamente para o efeito gradiente disperso
+            const t = Math.random(); 
+            const mixedColor = colorPurple.clone().lerp(colorBlue, t);
+            
+            colors[i * 3] = mixedColor.r;
+            colors[i * 3 + 1] = mixedColor.g;
+            colors[i * 3 + 2] = mixedColor.b;
+        }
+
+        geometry.setAttribute('aColor', new THREE.InstancedBufferAttribute(colors, 3));
+
+        const material = new THREE.ShaderMaterial({
+            vertexShader: vertexShader,
+            fragmentShader: fragmentShader,
+            transparent: true,
+            depthTest: false,
+            blending: THREE.AdditiveBlending
+        });
+
+        instancedMesh = new THREE.InstancedMesh(geometry, material, PARTICLE_COUNT);
+        scene.add(instancedMesh);
+
+        window.addEventListener('resize', onWindowResize);
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseleave', onMouseLeave);
+    }
+
+    // --- EVENTOS ---
+    function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    function onMouseMove(event) {
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        raycaster.setFromCamera(mouse, camera);
+        raycaster.ray.intersectPlane(targetPlane, mouseWorld);
+    }
+
+    function onMouseLeave() {
+        mouseWorld.set(-1000, -1000, 0);
+    }
+
+    // --- LOOP DE ANIMAÇÃO PRINCIPAL ---
+    const dummyMatrix = new THREE.Matrix4();
+    const dummyPosition = new THREE.Vector3();
+    const dummyRotation = new THREE.Quaternion();
+    const dummyEuler = new THREE.Euler();
+    const dummyScale = new THREE.Vector3(1, 1, 1);
+
+    function animate() {
+        requestAnimationFrame(animate);
+
+        const interactionRadius = 35; // Raio do mouse
+        const repulsionForce = 1.0;   // Força para empurrar
+
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+            const p = particlesData[i];
+
+            // 1. Movimento unidirecional (Deslocamento linear)
+            p.x += p.speedX;
+            p.y += p.speedY;
+
+            // 2. Loop Infinito (Teletransporte se sair da tela)
+            // Se passar muito da direita, volta pra esquerda
+            if (p.x > boundsX) p.x = -boundsX;
+            // Se passar muito para cima, volta pra baixo
+            if (p.y > boundsY) p.y = -boundsY;
+
+            const basePos = new THREE.Vector3(p.x, p.y, p.z);
+
+            // 3. Rotação individual (elas continuam rodando no ar)
+            p.rotX += p.rotSpeedX;
+            p.rotY += p.rotSpeedY;
+            p.rotZ += p.rotSpeedZ;
+
+            // 4. Interação com o Mouse (Repulsão)
+            const distToMouse = basePos.distanceTo(mouseWorld);
+
+            if (distToMouse < interactionRadius) {
+                const dir = new THREE.Vector3().subVectors(basePos, mouseWorld);
+                dir.z = 0;
+                dir.normalize();
+
+                const force = (interactionRadius - distToMouse) / interactionRadius;
+                p.repulsion.addScaledVector(dir, force * repulsionForce);
+            }
+
+            // Desaceleração da repulsão (Elas voltam ao fluxo normal do "vento")
+            p.repulsion.multiplyScalar(0.92);
+
+            dummyPosition.copy(basePos).add(p.repulsion);
+
+            // 5. Configurando e aplicando as matrizes
+            dummyEuler.set(p.rotX, p.rotY, p.rotZ);
+            dummyRotation.setFromEuler(dummyEuler);
+            
+            const scaleFactor = 0.6 + (p.z + 40) / 80 * 0.5;
+            dummyScale.set(scaleFactor, scaleFactor, scaleFactor);
+
+            dummyMatrix.compose(dummyPosition, dummyRotation, dummyScale);
+            instancedMesh.setMatrixAt(i, dummyMatrix);
+        }
+
+        instancedMesh.instanceMatrix.needsUpdate = true;
+        renderer.render(scene, camera);
+    }
+
+    init();
+    animate();
+</script>
+
+</body>
+</html>

@@ -473,9 +473,10 @@
       </div>
       <nav class="hidden md:flex items-center gap-8">
         <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg px-2 py-1" href="solucoes.html">Soluções</a>
+        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg px-2 py-1" href="blog.html">Blog</a>
         <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg px-2 py-1" href="#casos">Cases</a>
         <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg px-2 py-1" href="#tecnologia">Tecnologia</a>
-        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg px-2 py-1" href="#empresa">Empresa</a>
+        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg px-2 py-1" href="empresa.html">Empresa</a>
       </nav>
       <button onclick="openLeadModal('Header CTA')" class="bg-primary-container text-on-primary-container px-4 md:px-6 py-2 rounded-full font-semibold scale-95 active:scale-90 transition-transform whitespace-nowrap shrink-0 text-sm md:text-base outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background">
         Diagnóstico Gratuito
@@ -484,24 +485,28 @@
   </header>
 
   <main class="relative">
-    <section class="relative min-h-[85vh] flex items-center pt-24 pb-16 overflow-hidden bg-[#050505]">
-      <!-- Background Video -->
-      <video src="animacao_hero.mp4" autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-contain z-0 opacity-60"></video>
-      <div class="absolute inset-0 bg-gradient-to-b from-[#050505]/60 via-[#050505]/80 to-[#050505] z-0 pointer-events-none"></div>
-      
-      <div class="container mx-auto px-6 md:px-margin-desktop max-w-3xl relative z-20 text-center flex flex-col items-center">
+    <section id="hero-section" class="relative min-h-[85vh] flex items-center pt-24 pb-16 overflow-hidden bg-[#050505]">
+
+      <!-- ===== ANIMAÇÃO THREE.JS PARTÍCULAS HERO ===== -->
+      <canvas id="hero-particles-canvas" style="position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;display:block;opacity:0.85;"></canvas>
+
+      <!-- Overlay gradiente para legibilidade do texto -->
+      <div class="absolute inset-0 pointer-events-none" style="z-index:2;background:linear-gradient(to bottom, rgba(5,5,5,0.45) 0%, rgba(5,5,5,0.65) 50%, rgba(5,5,5,0.97) 100%);"></div>
+
+      <!-- Conteúdo da Hero -->
+      <div class="container mx-auto px-6 md:px-margin-desktop max-w-3xl relative text-center flex flex-col items-center" style="z-index:3;">
         <div class="space-y-6 pointer-events-auto">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-high border border-white/10 mx-auto">
             <span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
             <span class="font-label-sm text-label-sm text-tertiary uppercase tracking-widest">Automação Empresarial com IA</span>
           </div>
-          
+
           <h1 class="font-display-lg text-[6.5vw] sm:text-[4.5vw] md:text-5xl lg:text-6xl text-on-surface leading-tight font-black tracking-tight max-w-none mx-auto text-center flex flex-col items-center">
             <span class="whitespace-nowrap">Agente de IA para WhatsApp</span>
             <span class="whitespace-nowrap">que Vende, Atende e Escala.</span>
             <span class="whitespace-nowrap">Sem Aumentar Equipe.</span>
           </h1>
-          
+
           <p class="text-on-surface-variant text-base md:text-lg max-w-xl mx-auto">
             A AXION cria agentes de IA para WhatsApp, automações com n8n e sistemas sob medida que reduzem até 39% dos custos operacionais — sem contratar, sem amadorismo.
           </p>
@@ -523,7 +528,7 @@
               <div class="text-xs text-on-surface-variant mt-1">Por Dia Economizados</div>
             </div>
           </div>
-          
+
           <div class="flex flex-col sm:flex-row justify-center gap-3 pt-2">
             <button id="hero-cta" onclick="openLeadModal('Hero CTA')" class="glow-button cta-pulse bg-gradient-to-r from-primary-container to-secondary-container text-white px-8 py-4 rounded-full font-bold flex items-center justify-center gap-2 outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background">
               Agendar Diagnóstico Gratuito
@@ -2032,6 +2037,220 @@
         }
       });
     });
+  </script>
+
+  <!-- ===== THREE.JS HERO PARTICLES ANIMATION ===== -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      // Aguarda DOM + Three.js carregados
+      function initHeroParticles() {
+        const canvas = document.getElementById('hero-particles-canvas');
+        const section = document.getElementById('hero-section');
+        if (!canvas || !section || typeof THREE === 'undefined') return;
+
+        // --- Responsive particle count ---
+        const isMobile = window.innerWidth < 768;
+        const PARTICLE_COUNT = isMobile ? 1200 : 4500;
+
+        // --- SHADERS ---
+        const vertexShader = `
+          attribute vec3 aColor;
+          varying vec3 vColor;
+          varying vec2 vUv;
+          void main() {
+            vColor = aColor;
+            vUv = uv;
+            vec4 mvPosition = modelViewMatrix * instanceMatrix * vec4(position, 1.0);
+            gl_Position = projectionMatrix * mvPosition;
+          }
+        `;
+        const fragmentShader = `
+          varying vec3 vColor;
+          varying vec2 vUv;
+          float sdEquilateralTriangle(in vec2 p, in float r) {
+            const float k = sqrt(3.0);
+            p.x = abs(p.x) - r;
+            p.y = p.y + r/k;
+            if (p.x + k*p.y > 0.0) p = vec2(p.x - k*p.y, -k*p.x - p.y) / 2.0;
+            p.x -= clamp(p.x, -2.0*r, 0.0);
+            return -length(p) * sign(p.y);
+          }
+          void main() {
+            vec2 p = vUv * 2.0 - 1.0;
+            float size = 0.45;
+            float cornerRadius = 0.12;
+            float thickness = 0.04;
+            float d = sdEquilateralTriangle(p, size) - cornerRadius;
+            float ringD = abs(d) - thickness;
+            float alpha = 1.0 - smoothstep(-0.015, 0.015, ringD);
+            if (alpha < 0.02) discard;
+            gl_FragColor = vec4(vColor, alpha);
+          }
+        `;
+
+        // --- Setup cena ---
+        const W = section.offsetWidth;
+        const H = section.offsetHeight;
+
+        const scene    = new THREE.Scene();
+        const camera   = new THREE.PerspectiveCamera(60, W / H, 0.1, 1000);
+        camera.position.z = 120;
+
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: !isMobile, alpha: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1 : 2));
+        renderer.setSize(W, H);
+
+        // --- Bounds proporcionais ao aspect ratio ---
+        const boundsX = 300;
+        const boundsY = 150;
+
+        // --- Partículas ---
+        const geometry = new THREE.PlaneGeometry(3.5, 3.5);
+        const colors   = new Float32Array(PARTICLE_COUNT * 3);
+        const particlesData = [];
+
+        const colorPurple = new THREE.Color(0x8A2BE2);
+        const colorBlue   = new THREE.Color(0x00D2FF);
+
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+          particlesData.push({
+            x: (Math.random() - 0.5) * boundsX * 2,
+            y: (Math.random() - 0.5) * boundsY * 2,
+            z: (Math.random() - 0.5) * 80,
+            speedX: 0.03 + Math.random() * 0.04,
+            speedY: 0.015 + Math.random() * 0.02,
+            rotX: Math.random() * Math.PI,
+            rotY: Math.random() * Math.PI,
+            rotZ: Math.random() * Math.PI,
+            rotSpeedX: (Math.random() - 0.5) * 0.015,
+            rotSpeedY: (Math.random() - 0.5) * 0.015,
+            rotSpeedZ: (Math.random() - 0.5) * 0.015,
+            repulsion: new THREE.Vector3(0, 0, 0)
+          });
+
+          const t = Math.random();
+          const mixed = colorPurple.clone().lerp(colorBlue, t);
+          colors[i * 3]     = mixed.r;
+          colors[i * 3 + 1] = mixed.g;
+          colors[i * 3 + 2] = mixed.b;
+        }
+
+        geometry.setAttribute('aColor', new THREE.InstancedBufferAttribute(colors, 3));
+
+        const material = new THREE.ShaderMaterial({
+          vertexShader, fragmentShader,
+          transparent: true, depthTest: false,
+          blending: THREE.AdditiveBlending
+        });
+
+        const instancedMesh = new THREE.InstancedMesh(geometry, material, PARTICLE_COUNT);
+        scene.add(instancedMesh);
+
+        // --- Mouse repulsion (desktop only) ---
+        const mouse      = new THREE.Vector2(-1000, -1000);
+        const mouseWorld = new THREE.Vector3(-1000, -1000, 0);
+        const raycaster  = new THREE.Raycaster();
+        const targetPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+
+        function onMouseMove(e) {
+          if (isMobile) return;
+          const rect = section.getBoundingClientRect();
+          mouse.x =  ((e.clientX - rect.left) / rect.width)  * 2 - 1;
+          mouse.y = -((e.clientY - rect.top)  / rect.height) * 2 + 1;
+          raycaster.setFromCamera(mouse, camera);
+          raycaster.ray.intersectPlane(targetPlane, mouseWorld);
+        }
+        function onMouseLeave() { mouseWorld.set(-1000, -1000, 0); }
+
+        section.addEventListener('mousemove', onMouseMove, { passive: true });
+        section.addEventListener('mouseleave', onMouseLeave);
+
+        // --- Resize handler ---
+        let resizeTimer;
+        function onResize() {
+          clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(() => {
+            const nW = section.offsetWidth;
+            const nH = section.offsetHeight;
+            camera.aspect = nW / nH;
+            camera.updateProjectionMatrix();
+            renderer.setSize(nW, nH);
+          }, 150);
+        }
+        window.addEventListener('resize', onResize, { passive: true });
+
+        // --- Loop de animação ---
+        const dummyMatrix   = new THREE.Matrix4();
+        const dummyPosition = new THREE.Vector3();
+        const dummyRotation = new THREE.Quaternion();
+        const dummyEuler    = new THREE.Euler();
+        const dummyScale    = new THREE.Vector3(1, 1, 1);
+
+        const interactionRadius = 35;
+        const repulsionForce    = 1.0;
+
+        let animFrameId;
+        function animate() {
+          animFrameId = requestAnimationFrame(animate);
+
+          for (let i = 0; i < PARTICLE_COUNT; i++) {
+            const p = particlesData[i];
+
+            p.x += p.speedX;
+            p.y += p.speedY;
+            if (p.x >  boundsX) p.x = -boundsX;
+            if (p.y >  boundsY) p.y = -boundsY;
+
+            p.rotX += p.rotSpeedX;
+            p.rotY += p.rotSpeedY;
+            p.rotZ += p.rotSpeedZ;
+
+            const basePos = new THREE.Vector3(p.x, p.y, p.z);
+
+            if (!isMobile) {
+              const distToMouse = basePos.distanceTo(mouseWorld);
+              if (distToMouse < interactionRadius) {
+                const dir = new THREE.Vector3().subVectors(basePos, mouseWorld);
+                dir.z = 0;
+                dir.normalize();
+                const force = (interactionRadius - distToMouse) / interactionRadius;
+                p.repulsion.addScaledVector(dir, force * repulsionForce);
+              }
+              p.repulsion.multiplyScalar(0.92);
+            }
+
+            dummyPosition.copy(basePos).add(p.repulsion);
+            dummyEuler.set(p.rotX, p.rotY, p.rotZ);
+            dummyRotation.setFromEuler(dummyEuler);
+            const scaleFactor = 0.6 + (p.z + 40) / 80 * 0.5;
+            dummyScale.set(scaleFactor, scaleFactor, scaleFactor);
+            dummyMatrix.compose(dummyPosition, dummyRotation, dummyScale);
+            instancedMesh.setMatrixAt(i, dummyMatrix);
+          }
+
+          instancedMesh.instanceMatrix.needsUpdate = true;
+          renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Cleanup se página for desmontada
+        window.addEventListener('beforeunload', () => {
+          cancelAnimationFrame(animFrameId);
+          renderer.dispose();
+        });
+      }
+
+      // Inicia após DOM pronto
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initHeroParticles);
+      } else {
+        initHeroParticles();
+      }
+    })();
   </script>
 </body>
 </html>

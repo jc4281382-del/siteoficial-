@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="O fim da escala 6x1 está próximo. Descubra como a Inteligência Artificial permite que sua empresa opere 24/7 sem estourar o orçamento com contratações.">
+  <meta name="keywords" content="fim da escala 6x1, redução jornada de trabalho, agente de IA, chatbot WhatsApp, automação n8n, redução de custos, blog AXION, PEC 6x1">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="AXION — Jean">
+  <link rel="canonical" href="https://axion.tec.br/blog-fim-escala-6x1.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://axion.tec.br/blog-fim-escala-6x1.html">
+  <meta property="og:title" content="Fim da Escala 6x1: Como a IA mantém seu negócio rodando 24/7">
+  <meta property="og:description" content="A lei pode reduzir os dias de trabalho, mas seu negócio não precisa parar. Escalone seu atendimento com Agentes de IA.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1200">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="AXION">
+
+  <title>Blog | Fim da Escala 6x1 e o Impacto no Atendimento — AXION</title>
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  
+  <script id="tailwind-config">tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-secondary-fixed-variant": "#6b00b0",
+            "tertiary-fixed": "#7df4ff",
+            "on-tertiary-container": "#002f33",
+            "surface-container-high": "#2a2a2a",
+            "on-tertiary-fixed-variant": "#004f54",
+            "primary-fixed": "#d8e2ff",
+            "secondary-container": "#9d05ff",
+            "inverse-on-surface": "#313030",
+            "error": "#ffb4ab",
+            "surface-container-highest": "#353534",
+            "on-primary-container": "#00285c",
+            "primary": "#adc6ff",
+            "on-primary-fixed-variant": "#004493",
+            "outline-variant": "#414755",
+            "tertiary-fixed-dim": "#00dbe9",
+            "secondary-fixed": "#f1daff",
+            "on-primary": "#002e69",
+            "primary-fixed-dim": "#adc6ff",
+            "surface-dim": "#131313",
+            "secondary": "#dfb7ff",
+            "surface": "#131313",
+            "inverse-primary": "#005bc1",
+            "on-surface": "#e5e2e1",
+            "outline": "#8b90a0",
+            "on-background": "#e5e2e1",
+            "on-secondary-container": "#f7e6ff",
+            "surface-container": "#201f1f",
+            "on-secondary": "#4b007e",
+            "on-surface-variant": "#c1c6d7",
+            "surface-container-lowest": "#0e0e0e",
+            "on-tertiary": "#00363a",
+            "background": "#131313",
+            "on-error": "#690005",
+            "surface-variant": "#353534",
+            "tertiary-container": "#00a0aa",
+            "primary-container": "#4b8eff",
+            "error-container": "#93000a",
+            "on-primary-fixed": "#001a41",
+            "on-secondary-fixed": "#2d004f",
+            "on-tertiary-fixed": "#002022",
+            "surface-tint": "#adc6ff",
+            "surface-container-low": "#1c1b1b",
+            "surface-bright": "#3a3939",
+            "inverse-surface": "#e5e2e1",
+            "tertiary": "#00dbe9",
+            "on-error-container": "#ffdad6",
+            "secondary-fixed-dim": "#dfb7ff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "unit": "4px",
+            "margin-mobile": "20px",
+            "margin-desktop": "64px",
+            "gutter": "24px",
+            "container-max": "1440px"
+          },
+          "fontFamily": {
+            "display-lg": ["Inter"],
+            "headline-lg": ["Inter"],
+            "label-sm": ["JetBrains Mono"],
+            "body-md": ["Inter"],
+            "headline-lg-mobile": ["Inter"]
+          },
+        }
+      }
+    }</script>
+  <style>
+    body {
+      background-color: #050505;
+      color: #e5e2e1;
+      overflow-x: hidden;
+    }
+    .circuit-bg {
+      background-image: radial-gradient(circle at 2px 2px, rgba(173, 198, 255, 0.025) 1px, transparent 0);
+      background-size: 40px 40px;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-left: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .glow-button {
+      box-shadow: 0 0 20px rgba(75, 142, 255, 0.3);
+      transition: all 0.3s ease;
+    }
+    .glow-button:hover {
+      box-shadow: 0 0 40px rgba(75, 142, 255, 0.7);
+      transform: translateY(-3px);
+    }
+    @keyframes ctaPulse {
+      0%, 100% { box-shadow: 0 0 20px rgba(75, 142, 255, 0.3); }
+      50% { box-shadow: 0 0 45px rgba(157, 5, 255, 0.55), 0 0 80px rgba(75, 142, 255, 0.2); }
+    }
+    .cta-pulse { animation: ctaPulse 2.8s ease-in-out infinite; }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    /* Estilos do Artigo */
+    .prose p {
+      margin-bottom: 1.5rem;
+      font-size: 1.125rem;
+      line-height: 1.8;
+      color: #c1c6d7;
+    }
+    .prose h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-top: 3rem;
+      margin-bottom: 1.25rem;
+      line-height: 1.3;
+    }
+    .prose h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+    .prose ul {
+      list-style-type: disc;
+      padding-left: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: #c1c6d7;
+    }
+    .prose li {
+      margin-bottom: 0.5rem;
+      font-size: 1.125rem;
+    }
+    .prose strong {
+      color: #ffffff;
+      font-weight: 600;
+    }
+    .prose blockquote {
+      border-left: 4px solid #4b8eff;
+      padding-left: 1.5rem;
+      font-style: italic;
+      font-size: 1.25rem;
+      margin: 2.5rem 0;
+      color: #a0a5b5;
+    }
+
+    #lead-modal {
+      display: none; position: fixed; inset: 0; z-index: 10000;
+      background: rgba(0,0,0,0.88); backdrop-filter: blur(16px);
+      align-items: center; justify-content: center; padding: 16px;
+    }
+    #lead-modal.open { display: flex; animation: modalFadeIn 0.3s ease; }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.97); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    #lead-modal-inner {
+      background: #0e0e0e;
+      border: 1px solid rgba(173, 198, 255, 0.2);
+      border-radius: 24px; width: 100%; max-width: 460px;
+      padding: 36px 32px;
+      box-shadow: 0 0 80px rgba(75, 142, 255, 0.18), 0 0 30px rgba(157, 5, 255, 0.1);
+      position: relative;
+    }
+    .lead-input {
+      width: 100%; box-sizing: border-box;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 14px 16px;
+      color: #e5e2e1;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .lead-input::placeholder { color: rgba(193,198,215,0.5); }
+    .lead-input:focus {
+      border-color: rgba(173, 198, 255, 0.5);
+      box-shadow: 0 0 0 3px rgba(75, 142, 255, 0.12);
+    }
+    .lead-submit-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #4b8eff, #9d05ff);
+      color: white; border: none; border-radius: 14px;
+      padding: 16px; font-size: 16px; font-weight: 800;
+      cursor: pointer; transition: all 0.3s ease;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      font-family: 'Inter', sans-serif;
+    }
+    .lead-submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(75, 142, 255, 0.4);
+    }
+    .lead-submit-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+  </style>
+</head>
+<body class="font-body-md text-body-md selection:bg-primary selection:text-on-primary circuit-bg">
+
+  <!-- ===== LEAD MODAL ===== -->
+  <div id="lead-modal" role="dialog" aria-modal="true" aria-labelledby="lead-modal-heading">
+    <div id="lead-modal-inner">
+      <button aria-label="Fechar formulário" onclick="closeLeadModal()"
+        style="position:absolute;top:16px;right:16px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:6px;cursor:pointer;color:#c1c6d7;display:flex;align-items:center;">
+        <span class="material-symbols-outlined" style="font-size:18px;">close</span>
+      </button>
+
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:20px;">
+        <span style="width:8px;height:8px;border-radius:50%;background:#25D366;display:inline-block;box-shadow:0 0 8px rgba(37,211,102,0.6);"></span>
+        <span style="font-size:11px;font-weight:700;color:#25D366;font-family:'JetBrains Mono',monospace;letter-spacing:0.08em;">DIAGNÓSTICO GRATUITO</span>
+      </div>
+
+      <h2 id="lead-modal-heading" style="font-size:24px;font-weight:900;color:#e5e2e1;line-height:1.2;margin-bottom:8px;">
+        Pronto para automatizar?
+      </h2>
+      <p style="font-size:14px;color:#8b90a0;margin-bottom:28px;line-height:1.6;">
+        Preencha abaixo e descubra como a IA pode blindar sua operação contra novas jornadas de trabalho.
+      </p>
+
+      <form id="lead-form" onsubmit="handleLeadSubmit(event)" novalidate>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <div>
+            <label for="lead-name" style="font-size:12px;font-weight:600;color:#c1c6d7;margin-bottom:6px;display:block;letter-spacing:0.05em;">SEU NOME *</label>
+            <input id="lead-name" type="text" class="lead-input" placeholder="João Silva" required>
+          </div>
+          <div>
+            <label for="lead-phone" style="font-size:12px;font-weight:600;color:#c1c6d7;margin-bottom:6px;display:block;letter-spacing:0.05em;">WHATSAPP / TELEFONE *</label>
+            <input id="lead-phone" type="tel" class="lead-input" placeholder="(21) 99999-9999" required>
+          </div>
+          <div>
+            <label for="lead-company" style="font-size:12px;font-weight:600;color:#c1c6d7;margin-bottom:6px;display:block;letter-spacing:0.05em;">SUA EMPRESA / NICHO *</label>
+            <input id="lead-company" type="text" class="lead-input" placeholder="Ex: Clínica, E-commerce..." required>
+          </div>
+          <button type="submit" class="lead-submit-btn" id="lead-submit-btn" style="margin-top:8px;">
+            Quero Meu Diagnóstico
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Header Global -->
+  <header class="fixed top-0 w-full z-50 bg-surface/5 backdrop-blur-xl border-b border-white/10 shadow-[0_0_20px_rgba(173,198,255,0.1)]">
+    <div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 w-full max-w-container-max mx-auto gap-4">
+      <a href="index.html" class="flex items-center gap-2 shrink-0 group">
+        <img alt="Logo AXION" class="w-8 h-8 group-hover:scale-110 transition-transform" src="logo.png">
+        <span class="font-display-lg text-xl md:text-3xl font-bold tracking-tighter bg-gradient-to-r from-[#052FF0] to-[#7133ED] text-transparent bg-clip-text">AXION</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-8">
+        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 outline-none rounded-lg px-2 py-1" href="solucoes.html">Soluções</a>
+        <a class="text-primary font-bold transition-colors duration-300 outline-none rounded-lg px-2 py-1" href="blog.html">Blog</a>
+        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 outline-none rounded-lg px-2 py-1" href="index.html#casos">Cases</a>
+        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 outline-none rounded-lg px-2 py-1" href="index.html#tecnologia">Tecnologia</a>
+        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 outline-none rounded-lg px-2 py-1" href="empresa.html">Empresa</a>
+      </nav>
+      <button onclick="openLeadModal('Header CTA Article')" class="bg-primary-container text-on-primary-container px-4 md:px-6 py-2 rounded-full font-semibold scale-95 active:scale-90 transition-transform whitespace-nowrap shrink-0 text-sm md:text-base outline-none focus-visible:ring-2 focus-visible:ring-primary">
+        Falar com a AXION
+      </button>
+    </div>
+  </header>
+
+  <main class="relative pt-32 pb-24">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[800px] h-[400px] bg-primary/10 blur-[150px] rounded-full pointer-events-none z-0"></div>
+    
+    <article class="container mx-auto px-6 md:px-margin-desktop max-w-4xl relative z-10">
+      
+      <!-- Back Button -->
+      <a href="blog.html" class="inline-flex items-center gap-2 text-primary hover:text-tertiary transition-colors mb-8 font-medium">
+        <span class="material-symbols-outlined" style="font-size: 18px;">arrow_back</span>
+        Voltar para o Blog
+      </a>
+
+      <!-- Article Header -->
+      <header class="mb-12">
+        <div class="flex flex-wrap items-center gap-3 mb-6">
+          <span class="text-[10px] font-bold tracking-wider uppercase px-2.5 py-1 rounded bg-[#22c55e]/10 text-[#22c55e] border border-[#22c55e]/20">Negócios & IA</span>
+          <span class="text-sm text-on-surface-variant flex items-center gap-1 font-mono">
+            <span class="material-symbols-outlined text-[16px]">schedule</span> Hoje
+          </span>
+        </div>
+        
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-6">
+          O Fim da Escala 6x1 está na porta. Sua empresa vai sangrar ou escalar?
+        </h1>
+        
+        <p class="text-xl text-on-surface-variant leading-relaxed mb-8">
+          A PEC que reduz a jornada de trabalho e acaba com a escala 6x1 avança no Congresso. Enquanto a maioria calcula o prejuízo em contratações, os líderes de mercado implementam Inteligência Artificial para operar 24 horas por dia, 7 dias por semana.
+        </p>
+
+        <div class="flex items-center gap-4 border-t border-b border-white/10 py-4">
+          <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30">
+            <span class="material-symbols-outlined text-primary">person</span>
+          </div>
+          <div>
+            <div class="font-bold text-white">Equipe AXION</div>
+            <div class="text-sm text-on-surface-variant">Especialistas em Automação & IA</div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Hero Image -->
+      <div class="w-full h-[300px] md:h-[500px] rounded-3xl overflow-hidden mb-12 relative border border-white/10">
+        <div class="absolute inset-0 bg-gradient-to-t from-[#050505] to-transparent z-10"></div>
+        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1200" alt="Prédios corporativos à noite" class="w-full h-full object-cover">
+      </div>
+
+      <!-- Article Content -->
+      <div class="prose max-w-none">
+        <p>A aprovação da proposta que decreta o <strong>fim da jornada 6x1</strong> no Brasil pela Câmara dos Deputados no primeiro semestre de 2026 acendeu um alerta vermelho no setor empresarial. A PEC 221 avança pelo Senado e traz uma matemática impiedosa: reduzir a carga horária sem diminuir os salários significa, invariavelmente, um aumento drástico no custo operacional.</p>
+
+        <p>A reação instintiva da maioria dos donos de negócios tem sido o desespero. Afinal, como manter o atendimento, as vendas e o suporte funcionando com uma janela de tempo menor e uma equipe que precisa obrigatoriamente de dois dias de descanso? A resposta convencional seria contratar mais pessoas. Mas a resposta inteligente, já adotada pela elite do mercado, é outra: <strong>Automação com Inteligência Artificial</strong>.</p>
+
+        <h2>De 6x1 (8h/dia) para 7x0 (24h/dia)</h2>
+
+        <p>A grande virada de chave é entender que a legislação limita o tempo de trabalho do ser humano, mas não o da sua empresa. Enquanto a jornada humana passa por reduções, a jornada digital se expande.</p>
+
+        <blockquote>
+          "A lei obriga o descanso humano, mas a tecnologia possibilita a vigília corporativa. Com IA, o empresário não apenas compensa a perda de horas da escala 6x1, ele multiplica sua capacidade de operação para 24 horas por dia, todos os dias da semana."
+        </blockquote>
+
+        <p>Imagine o seguinte cenário: é domingo à noite. Sua equipe de atendimento está descansando, conforme manda a nova regra. Um cliente em potencial, após ver um anúncio, entra em contato pelo WhatsApp com dúvidas sobre o seu produto. No modelo tradicional, ele esperaria até segunda-feira de manhã, a temperatura do lead cairia e, possivelmente, fecharia com o concorrente.</p>
+
+        <p>No modelo integrado com os <strong>Agentes de IA da AXION</strong>, acontece o seguinte:</p>
+
+        <ul>
+          <li><strong>Resposta Imediata (Segundos):</strong> O Agente de IA atende o cliente de forma humanizada, natural e sem parecer um robô engessado.</li>
+          <li><strong>Qualificação Dinâmica:</strong> A IA tira dúvidas, analisa o perfil do cliente com base no seu material institucional e qualifica a venda.</li>
+          <li><strong>Integração Direta:</strong> Os dados desse lead são automaticamente jogados para o seu CRM (como HubSpot, Pipefy ou Trello) já na etapa correta do funil.</li>
+          <li><strong>Agendamento ou Venda:</strong> O Agente agenda uma reunião no seu calendário ou envia um link de checkout sem intervenção humana.</li>
+        </ul>
+
+        <h2>A Automação como Blindagem Financeira</h2>
+
+        <p>O impacto financeiro do fim da escala 6x1 vai muito além do salário. Envolve encargos, infraestrutura, treinamento e gestão de novas equipes de revezamento. Implementar sistemas automatizados deixa de ser um "luxo de inovação" e passa a ser uma <strong>estratégia de sobrevivência</strong> e blindagem financeira do negócio.</p>
+
+        <p>Ao investir em automações avançadas e Agentes de IA, você não está apenas "tampando o buraco" deixado pela diminuição da carga horária. Você está:</p>
+
+        <ul>
+          <li><strong>Reduzindo Custos:</strong> A automação de tarefas repetitivas e de triagem reduz drasticamente os custos operacionais (Custo por Lead Atendido).</li>
+          <li><strong>Escalando Sem Teto:</strong> Uma IA atende 1 ou 1.000 clientes simultaneamente com a mesma velocidade e precisão. Não há filas, não há tempo de espera.</li>
+          <li><strong>Valorizando o Capital Humano:</strong> Quando seus vendedores voltarem do descanso remunerado, eles não perderão tempo respondendo "Qual o preço?". Eles focarão exclusivamente no fechamento de negócios altamente qualificados pela IA durante o fim de semana.</li>
+        </ul>
+
+        <h2>O Mercado Não Espera a Lei Mudar</h2>
+
+        <p>O mercado é implacável. Se a PEC for promulgada hoje ou no mês que vem, os consumidores continuarão querendo respostas rápidas. A concorrência que já implementou IA não vai tirar folga.</p>
+
+        <p>A pergunta que o empresário deve se fazer agora não é "Como vou pagar mais funcionários para cobrir a escala?", mas sim <strong>"Como vou estruturar minha operação para que ela não dependa exclusivamente de força bruta humana?"</strong></p>
+
+        <p>Nós da AXION nascemos para resolver esse exato problema. Através de diagnósticos profundos e implantação de ecossistemas com automação e LLMs, transformamos negócios tradicionais em operações de alta performance, 100% disponíveis.</p>
+
+        <div class="mt-12 p-8 glass-card rounded-3xl border border-primary/30 relative overflow-hidden group">
+          <div class="absolute inset-0 bg-gradient-to-tr from-primary/10 via-transparent to-secondary/10 pointer-events-none group-hover:opacity-100 transition-opacity duration-700"></div>
+          <div class="relative z-10 text-center">
+            <h3 class="text-2xl font-black text-white mb-4">Sua operação vai parar no fim de semana?</h3>
+            <p class="text-on-surface-variant mb-6">Não espere a conta chegar para tomar uma atitude. Agende um diagnóstico gratuito e descubra como a IA pode assumir a linha de frente do seu atendimento 24/7.</p>
+            <button onclick="openLeadModal('Artigo Escala 6x1 CTA')" class="glow-button cta-pulse bg-gradient-to-r from-primary-container to-secondary-container text-white px-8 py-4 rounded-full font-bold inline-flex items-center justify-center gap-2">
+              Falar com um Especialista Agora
+              <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer Global -->
+  <footer class="bg-surface-container-lowest border-t border-white/5 py-12">
+    <div class="container mx-auto px-margin-desktop max-w-container-max flex flex-col md:flex-row justify-between items-center gap-6">
+      <div class="flex flex-col items-center md:items-start gap-2 text-center md:text-left">
+        <div class="flex items-center gap-2">
+          <img alt="Logo AXION" class="w-6 h-6" src="logo.png">
+          <span class="font-bold tracking-tighter bg-gradient-to-r from-[#052FF0] to-[#7133ED] text-transparent bg-clip-text">AXION</span>
+        </div>
+        <p class="text-on-surface-variant text-sm">© 2026 AXION Enterprise. Todos os direitos reservados.</p>
+        <p class="text-on-surface-variant text-sm">Rio de Janeiro, RJ — Brasil</p>
+      </div>
+      <div class="flex flex-col items-center md:items-end gap-4">
+        <div class="flex items-center gap-4">
+          <a href="https://www.instagram.com/axion.automation" target="_blank" rel="noopener noreferrer" class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2 text-sm">
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            @Axion.automation
+          </a>
+          <a href="https://wa.me/5521992341132" target="_blank" rel="noopener noreferrer" class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2 text-sm">
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.246 2.248 3.484 5.232 3.483 8.413-.003 6.557-5.338 11.892-11.893 11.892-1.997-.001-3.951-.5-5.688-1.448l-6.308 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.886.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+            WhatsApp
+          </a>
+        </div>
+        <div class="flex items-center gap-4 text-xs text-on-surface-variant">
+          <a href="politica-de-privacidade.html" class="hover:text-primary transition-colors">Política de Privacidade</a>
+          <span>|</span>
+          <a href="termos-de-uso.html" class="hover:text-primary transition-colors">Termos de Uso</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const leadModal = document.getElementById('lead-modal');
+
+    function openLeadModal(source) {
+      if (!leadModal) return;
+      leadModal.dataset.source = source || '';
+      leadModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => {
+        const firstInput = document.getElementById('lead-name');
+        if (firstInput) firstInput.focus();
+      }, 150);
+    }
+
+    function closeLeadModal() {
+      if (!leadModal) return;
+      leadModal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLeadModal();
+    });
+
+    if (leadModal) leadModal.addEventListener('click', (e) => {
+      if (e.target === leadModal) closeLeadModal();
+    });
+
+    function handleLeadSubmit(e) {
+      e.preventDefault();
+      const name    = document.getElementById('lead-name').value.trim();
+      const phone   = document.getElementById('lead-phone').value.trim();
+      const company = document.getElementById('lead-company').value.trim();
+      const btn     = document.getElementById('lead-submit-btn');
+
+      if (!name || !phone || !company) return;
+
+      const source  = (leadModal && leadModal.dataset.source) || 'Artigo Escala 6x1';
+      const message = `🚀 *Novo Lead — AXION Blog*\n\n👤 *Nome:* ${name}\n📱 *WhatsApp:* ${phone}\n🏢 *Empresa/Nicho:* ${company}\n🔗 *Origem:* ${source}\n\n_Lead veio pelo artigo: Fim da Escala 6x1_`;
+      const waUrl   = `https://wa.me/5521992341112?text=${encodeURIComponent(message)}`;
+
+      if (btn) { btn.textContent = '⏳ Redirecionando...'; btn.disabled = true; }
+
+      setTimeout(() => {
+        window.open(waUrl, '_blank');
+        closeLeadModal();
+        document.getElementById('lead-form').reset();
+        if (btn) {
+          btn.textContent = 'Quero Meu Diagnóstico';
+          btn.disabled = false;
+        }
+      }, 600);
+    }
+  </script>
+</body>
+</html>
