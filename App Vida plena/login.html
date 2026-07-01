@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Vida Plena - Login</title>
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Be+Vietnam+Pro:wght@400;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#454652",
+                        "inverse-on-surface": "#f0f1f4",
+                        "inverse-primary": "#bbc3ff",
+                        "surface-container": "#edeef1",
+                        "secondary-container": "#fe48bc",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#2d5000",
+                        "secondary": "#b40081",
+                        "surface": "#f8f9fc",
+                        "on-secondary-fixed": "#3c0029",
+                        "surface-variant": "#e1e2e5",
+                        "on-secondary-container": "#5a003e",
+                        "tertiary": "#071300",
+                        "secondary-fixed-dim": "#ffafd7",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed": "#0f2000",
+                        "surface-tint": "#4856b3",
+                        "surface-container-low": "#f2f3f6",
+                        "on-secondary": "#ffffff",
+                        "background": "#f8f9fc",
+                        "secondary-fixed": "#ffd8e9",
+                        "on-tertiary-container": "#5d9c00",
+                        "on-primary-fixed": "#000e5f",
+                        "tertiary-container": "#152a00",
+                        "primary-fixed": "#dfe0ff",
+                        "primary-fixed-dim": "#bbc3ff",
+                        "primary": "#000741",
+                        "surface-dim": "#d9dadd",
+                        "surface-bright": "#f8f9fc",
+                        "on-background": "#191c1e",
+                        "on-tertiary": "#ffffff",
+                        "outline-variant": "#c6c5d4",
+                        "outline": "#767683",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed-dim": "#8adc24",
+                        "surface-container-high": "#e7e8eb",
+                        "on-error-container": "#93000a",
+                        "on-surface": "#191c1e",
+                        "error-container": "#ffdad6",
+                        "inverse-surface": "#2e3133",
+                        "on-secondary-fixed-variant": "#8a0061",
+                        "surface-container-highest": "#e1e2e5",
+                        "primary-container": "#001478",
+                        "tertiary-fixed": "#a5f944",
+                        "on-primary-fixed-variant": "#2e3d99",
+                        "on-error": "#ffffff",
+                        "on-primary-container": "#7785e5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "section-gap": "80px",
+                        "gutter": "24px",
+                        "container-max": "1200px",
+                        "margin-mobile": "16px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "label-bold": ["Be Vietnam Pro"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "headline-xl": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Be Vietnam Pro"],
+                        "body-lg": ["Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "label-bold": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "headline-xl": ["48px", { "lineHeight": "1.1", "fontWeight": "800" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: #f8f9fc;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .dark body {
+            background-color: #0f172a; /* slate-900 */
+        }
+
+        .font-plus-jakarta {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 30px -5px rgba(0, 20, 120, 0.05),
+                0 4px 6px -2px rgba(0, 20, 120, 0.02);
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.8); /* slate-800 */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .form-input {
+            background-color: #F1F3F9;
+            border: 2px solid transparent;
+            transition: all 0.2s ease-in-out;
+            color: #191c1e;
+        }
+        
+        .dark .form-input {
+            background-color: #334155; /* slate-700 */
+            color: #f8fafc; /* slate-50 */
+        }
+
+        .form-input:focus {
+            background-color: #ffffff;
+            border-color: #DC28A0;
+            box-shadow: 0 0 0 4px rgba(220, 40, 160, 0.1);
+            outline: none;
+        }
+        
+        .dark .form-input:focus {
+            background-color: #1e293b; /* slate-800 */
+        }
+
+        .radiant-bg {
+            background: radial-gradient(circle at 10% 20%, rgba(180, 220, 240, 0.4) 0%, rgba(255, 255, 255, 0) 60%),
+                radial-gradient(circle at 90% 80%, rgba(220, 40, 160, 0.05) 0%, rgba(255, 255, 255, 0) 50%);
+        }
+        
+        .dark .radiant-bg {
+            background: radial-gradient(circle at 10% 20%, rgba(180, 220, 240, 0.1) 0%, rgba(15, 23, 42, 0) 60%),
+                radial-gradient(circle at 90% 80%, rgba(220, 40, 160, 0.1) 0%, rgba(15, 23, 42, 0) 50%);
+            background-color: #0f172a;
+        }
+
+        .btn-hover-effect {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-hover-effect:active {
+            transform: scale(0.96);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        [data-weight="fill"] .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+    <!-- PWA integration -->
+    <link rel="manifest" href="manifest.json" />
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('PWA Service Worker ativo!', reg))
+                    .catch(err => console.error('Erro no PWA Service Worker:', err));
+            });
+        }
+    </script>
+</head>
+
+<body class="radiant-bg min-h-screen flex flex-col items-center justify-center p-margin-mobile">
+    
+    <!-- Theme Toggle -->
+    <div class="fixed top-4 right-4 z-50">
+        <button id="theme-toggle" class="p-2 rounded-full glass-card hover:scale-105 transition-transform text-primary dark:text-white flex items-center justify-center" aria-label="Alternar tema">
+            <span class="material-symbols-outlined" id="theme-icon">dark_mode</span>
+        </button>
+    </div>
+
+    <!-- Auth Container -->
+    <main class="w-full max-w-[480px] z-10">
+        <!-- Center Card -->
+        <div class="glass-card rounded-2xl p-gutter md:p-10 flex flex-col items-center">
+            <!-- Logo Section -->
+            <div class="mb-8 text-center">
+                <img alt="Vida Plena Logo" class="w-24 h-24 mb-4 mx-auto object-contain"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPLQXZnp3LBg6qGhtMOLy1nTv-GPcLt0vtLBw5pM_OHRM6IdefNJC96Po9Zz94SdUBwYu9NYI3mQ_FxppgJLeHDTIi8GXrs4M8S7T1JBeLemrQtZlbD17XXBVj0jSzjzaLVBlEibreuFpL2OM1yxgjWOFx9xv_Htt60yPX9tN_3hG4T8xyCXpXsh1zLRhgsDwK2fHb8peYiN7G4RqkmPCrOPPJk0r4hyLXfu2HbvYPO_myis7Ox7mM46bYjY04JkQChgeuLVKeQO0" />
+                <h1 class="font-headline-lg text-headline-lg text-primary dark:text-white tracking-tight">Vida Plena</h1>
+                <p class="font-body-md text-body-md text-on-surface-variant dark:text-gray-300 mt-1">Conectando você ao propósito</p>
+            </div>
+            
+            <div id="auth-alert" class="w-full hidden p-3 mb-4 text-sm rounded-lg" role="alert"></div>
+
+            <!-- Login Section -->
+            <section class="w-full fade-in" id="login-section">
+                <form id="form-login" class="space-y-5">
+                    <div class="space-y-2">
+                        <label class="font-label-bold text-label-bold text-on-surface dark:text-gray-200" for="email-login">E-mail</label>
+                        <input class="w-full h-12 px-4 rounded-xl form-input text-body-md" id="email-login"
+                            placeholder="seu@email.com" type="email" required />
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center">
+                            <label class="font-label-bold text-label-bold text-on-surface dark:text-gray-200"
+                                for="password-login">Senha</label>
+                            <a class="text-xs font-label-bold text-secondary hover:underline dark:text-pink-400" href="#">Esqueci minha
+                                senha</a>
+                        </div>
+                        <input class="w-full h-12 px-4 rounded-xl form-input text-body-md" id="password-login"
+                            placeholder="••••••••" type="password" required />
+                    </div>
+                    <button
+                        id="btn-login"
+                        class="w-full h-12 bg-secondary text-white font-label-bold text-label-bold rounded-full btn-hover-effect shadow-md hover:bg-on-secondary-fixed-variant mt-4 flex justify-center items-center gap-2"
+                        type="submit">
+                        Entrar
+                    </button>
+                </form>
+                <div class="mt-8 pt-6 border-t border-surface-variant dark:border-slate-700 text-center">
+                    <p class="font-body-md text-body-md text-on-surface-variant dark:text-gray-400">
+                        Não tem uma conta?
+                        <a href="register.html" class="text-secondary dark:text-pink-400 font-label-bold hover:underline ml-1">Cadastre-se</a>
+                    </p>
+                </div>
+            </section>
+        </div>
+        
+        <!-- Support Link -->
+        <div class="mt-8 text-center">
+            <a class="text-on-surface-variant/60 dark:text-gray-400 font-label-bold text-[12px] uppercase tracking-widest hover:text-primary dark:hover:text-white transition-colors flex items-center justify-center gap-2"
+                href="#">
+                <span class="material-symbols-outlined text-[18px]">help</span>
+                Precisa de ajuda? Fale com o suporte
+            </a>
+        </div>
+    </main>
+    
+    <!-- Background Decorative Elements -->
+    <div
+        class="fixed top-[-10%] right-[-5%] w-[40%] h-[40%] bg-[#B4DCF0]/20 blur-[120px] rounded-full pointer-events-none">
+    </div>
+    <div
+        class="fixed bottom-[-5%] left-[-5%] w-[30%] h-[30%] bg-[#DC28A0]/5 blur-[100px] rounded-full pointer-events-none">
+    </div>
+    
+    <script>
+        // --- Supabase Configuração ---
+        const SUPABASE_URL = 'https://tyzfporikxcafzlelpyg.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR5emZwb3Jpa3hjYWZ6bGVscHlnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAyMDQzOTQsImV4cCI6MjA5NTc4MDM5NH0.374W6KI_tKckUa83L3vE4OoS-V9-D4iSb6LoZXBE2WI';
+        
+        const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        
+        // Verifica se ja esta logado
+        sb.auth.getSession().then(({data}) => {
+            if (data.session) window.location.href = 'app.html';
+        });
+
+        // Utilitário para mostrar mensagens de alerta
+        function showAlert(message, type = 'error') {
+            const alertEl = document.getElementById('auth-alert');
+            alertEl.classList.remove('hidden', 'bg-red-100', 'text-red-800', 'bg-green-100', 'text-green-800');
+            
+            if (type === 'error') {
+                alertEl.classList.add('bg-red-100', 'text-red-800', 'dark:bg-red-900', 'dark:text-red-200');
+            } else {
+                alertEl.classList.add('bg-green-100', 'text-green-800', 'dark:bg-green-900', 'dark:text-green-200');
+            }
+            
+            alertEl.textContent = message;
+            
+            setTimeout(() => {
+                alertEl.classList.add('hidden');
+            }, 5000);
+        }
+
+        // --- Login de Usuário ---
+        document.getElementById('form-login').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btn-login');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Entrando...';
+            
+            const email = document.getElementById('email-login').value;
+            const password = document.getElementById('password-login').value;
+            
+            const { data, error } = await sb.auth.signInWithPassword({
+                email: email,
+                password: password,
+            });
+            
+            btn.disabled = false;
+            btn.innerHTML = 'Entrar';
+            
+            if (error) {
+                showAlert(error.message, 'error');
+            } else {
+                // Redireciona para o app.html
+                window.location.href = 'app.html';
+            }
+        });
+
+        // --- UI Interactions ---
+        document.querySelectorAll('.form-input').forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.querySelector('label')?.classList.add('text-secondary', 'dark:text-pink-400');
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.querySelector('label')?.classList.remove('text-secondary', 'dark:text-pink-400');
+            });
+        });
+
+        // --- Dark/Light Mode Logic ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        
+        function setTheme(theme) {
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+                themeIcon.textContent = 'light_mode';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+                themeIcon.textContent = 'dark_mode';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+        
+        // Verificar preferência salva
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            setTheme('dark');
+        } else {
+            setTheme('light');
+        }
+        
+        themeToggleBtn.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                setTheme('light');
+            } else {
+                setTheme('dark');
+            }
+        });
+    </script>
+    <!-- Footer -->
+    <footer class="mt-auto py-8 w-full text-center opacity-40">
+        <p class="font-body-md text-xs text-on-surface-variant dark:text-gray-400">© 2024 Igreja Batista Vida Plena – Nilópolis</p>
+    </footer>
+</body>
+
+</html>
