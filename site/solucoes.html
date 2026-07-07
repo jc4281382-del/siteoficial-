@@ -304,6 +304,39 @@
     "description": "Serviços de automação inteligente, criação de agentes de IA para WhatsApp e integração de sistemas com n8n."
   }
   </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Qual a diferença entre um Agente de IA e um Chatbot comum?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Chatbots usam árvores de decisão e menus fixos (aperte 1, aperte 2). Nossos Agentes de IA entendem contexto, respondem de forma humanizada, negociam objeções, consultam banco de dados em tempo real e integram ao CRM, funcionando como um vendedor ou atendente real 24/7."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Como funciona o modelo sem mensalidades abusivas?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A AXION entrega a arquitetura do projeto. Você paga o custo direto da infraestrutura (OpenAI, AWS, n8n) sem mark-up escondido. Nós não cobramos por mensagem ou lead."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Qual o tempo de implementação dos sistemas e agentes?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Projetos padrão (como agentes de IA) levam entre 14 e 30 dias para implementação e homologação. Projetos sob medida complexos variam conforme escopo, mas dividimos as entregas em milestones rápidos."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 
 <body class="font-body-md text-body-md selection:bg-primary selection:text-on-primary circuit-bg">
@@ -484,12 +517,21 @@
             </ul>
           </div>
 
-          <!-- Serviço 2 -->
-          <div class="glass-card p-8 rounded-2xl group">
-            <div
-              class="feature-icon-box bg-[#a855f7]/10 border border-[#a855f7]/20 group-hover:scale-110 transition-transform">
-              <span class="material-symbols-outlined text-3xl text-[#a855f7]">smart_toy</span>
+          <!-- Serviço 2 com Vídeo -->
+          <div class="glass-card p-8 rounded-2xl group border-secondary/30 relative flex flex-col justify-between" style="background: linear-gradient(180deg, rgba(168, 85, 247, 0.05) 0%, rgba(0,0,0,0) 100%);">
+            <div>
+              <div class="feature-icon-box bg-[#a855f7]/10 border border-[#a855f7]/20 group-hover:scale-110 transition-transform">
+                <span class="material-symbols-outlined text-3xl text-[#a855f7]">smart_toy</span>
+              </div>
+              <h3 class="text-2xl font-bold text-white mb-3">Agentes de IA para Atendimento</h3>
+              <p class="text-on-surface-variant text-sm mb-6 leading-relaxed">
+                Robôs conversacionais avançados para WhatsApp, site e redes sociais. Eles agendam reuniões, qualificam leads, tiram dúvidas e executam rotinas de vendas 24/7 de forma humanizada.
+              </p>
             </div>
+            <div class="mt-6 rounded-xl overflow-hidden border border-[#a855f7]/20 shadow-lg relative h-48">
+               <video src="whatsapp+crm.mp4" class="w-full h-full object-cover" autoplay loop muted playsinline preload="metadata"></video>
+            </div>
+          </div>
             <h3 class="text-2xl font-bold text-white mb-3">Agentes de IA para Atendimento</h3>
             <p class="text-on-surface-variant text-sm mb-6 leading-relaxed">
               Robôs conversacionais avançados para WhatsApp, site e redes sociais. Eles agendam reuniões, qualificam
@@ -560,6 +602,48 @@
         </div>
       </div>
     </section>
+
+    <!-- APLICAÇÕES PRONTAS (MOCKUPS) -->
+    <section class="py-24 bg-surface-container-lowest/30" id="impacto">
+      <div class="container mx-auto px-6 md:px-margin-desktop max-w-container-max">
+        <h2 class="font-headline-lg text-3xl md:text-headline-lg text-on-surface mb-4 text-center">Desenvolvimento de Sistemas com IA</h2>
+        <p class="text-on-surface-variant text-center max-w-2xl mx-auto mb-16 text-sm md:text-base">
+          Projetamos e construímos sistemas integrados, interfaces de alto nível e automações robustas. Confira abaixo alguns dos aplicativos desenvolvidos pela AXION.
+        </p>
+
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 justify-items-center">
+          <div class="group relative flex flex-col items-center w-full max-w-[280px] md:max-w-full">
+            <div class="absolute -inset-1 bg-gradient-to-r from-primary/30 to-secondary/30 rounded-[36px] blur-xl opacity-20 group-hover:opacity-60 transition duration-500"></div>
+            <div class="relative bg-[#09090b] rounded-[36px] border border-white/10 overflow-hidden shadow-2xl p-2 hover:scale-[1.03] transition-transform duration-300 w-full">
+              <img src="smartphone_agent.png" alt="Fluxo de Agente IA no WhatsApp" class="w-full h-auto object-contain">
+            </div>
+            <h4 class="mt-6 text-lg font-bold text-white tracking-tight text-center">Arquitetura de Agentes de IA</h4>
+            <p class="text-xs text-on-surface-variant text-center mt-1">Fluxos inteligentes integrados aos canais</p>
+          </div>
+          
+          <div class="group relative flex flex-col items-center w-full max-w-[280px] md:max-w-full">
+            <div class="absolute -inset-1 bg-gradient-to-r from-secondary/30 to-tertiary/30 rounded-[36px] blur-xl opacity-20 group-hover:opacity-60 transition duration-500"></div>
+            <div class="relative bg-[#09090b] rounded-[36px] border border-white/10 overflow-hidden shadow-2xl p-2 hover:scale-[1.03] transition-transform duration-300 w-full">
+              <img src="smartphone_reports.png" alt="Painel de Relatórios" class="w-full h-auto object-contain">
+            </div>
+            <h4 class="mt-6 text-lg font-bold text-white tracking-tight text-center">Dashboards e Relatórios</h4>
+            <p class="text-xs text-on-surface-variant text-center mt-1">Métricas de performance em tempo real</p>
+          </div>
+          
+          <div class="group relative flex flex-col items-center w-full max-w-[280px] md:max-w-full">
+            <div class="absolute -inset-1 bg-gradient-to-r from-tertiary/30 to-primary/30 rounded-[36px] blur-xl opacity-20 group-hover:opacity-60 transition duration-500"></div>
+            <div class="relative bg-[#09090b] rounded-[36px] border border-white/10 overflow-hidden shadow-2xl p-2 hover:scale-[1.03] transition-transform duration-300 w-full">
+              <img src="smartphone_finance.png" alt="Aplicativo Finance Class" class="w-full h-auto object-contain">
+            </div>
+            <h4 class="mt-6 text-lg font-bold text-white tracking-tight text-center">Sistemas Sob Medida</h4>
+            <p class="text-xs text-on-surface-variant text-center mt-1">Soluções completas e integradas</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
 
     <!-- PROJETOS / PORTFÓLIO -->
     <section class="py-24 relative overflow-hidden">
@@ -874,6 +958,52 @@
         </div>
       </div>
     </section>
+  
+    <!-- FAQ Section -->
+    <section class="py-24 bg-[#050505] border-t border-white/5 relative z-10" id="faq">
+      <div class="container mx-auto px-6 md:px-margin-desktop max-w-4xl">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">Perguntas Frequentes</h2>
+          <p class="text-on-surface-variant text-lg">Tudo o que você precisa saber antes de automatizar sua empresa com a AXION.</p>
+        </div>
+        
+        <div class="space-y-6">
+          <!-- Item 1 -->
+          <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-primary/40 transition-colors">
+            <h3 class="text-xl font-bold text-white mb-3 flex items-center gap-3">
+              <span class="material-symbols-outlined text-primary">psychology</span>
+              Qual a diferença entre um Agente de IA e um Chatbot comum?
+            </h3>
+            <p class="text-on-surface-variant leading-relaxed pl-10">
+              Chatbots usam árvores de decisão e menus fixos ("digite 1", "digite 2"). Nossos Agentes de IA entendem contexto, respondem de forma humanizada, negociam objeções, consultam banco de dados em tempo real e integram ao CRM, funcionando como um vendedor ou atendente real 24/7.
+            </p>
+          </div>
+          
+          <!-- Item 2 -->
+          <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-primary/40 transition-colors">
+            <h3 class="text-xl font-bold text-white mb-3 flex items-center gap-3">
+              <span class="material-symbols-outlined text-primary">currency_exchange</span>
+              Como funciona o modelo "Sem Mensalidades Abusivas"?
+            </h3>
+            <p class="text-on-surface-variant leading-relaxed pl-10">
+              Muitas empresas cobram por "setup" + R$ X por lead ou por mensagem. A AXION constrói e entrega a arquitetura do projeto. Você arca apenas com o custo direto e transparente da infraestrutura (OpenAI, AWS, VPS) sem mark-up ou taxas ocultas de software de terceiros.
+            </p>
+          </div>
+          
+          <!-- Item 3 -->
+          <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-primary/40 transition-colors">
+            <h3 class="text-xl font-bold text-white mb-3 flex items-center gap-3">
+              <span class="material-symbols-outlined text-primary">schedule</span>
+              Qual o tempo de implementação dos sistemas?
+            </h3>
+            <p class="text-on-surface-variant leading-relaxed pl-10">
+              Projetos corporativos focados em atendimento (Agentes para WhatsApp) costumam levar entre 14 e 30 dias para serem implementados e homologados. Projetos de automação n8n mais robustos ou Dev Full Stack variam conforme o escopo, mas sempre trabalhamos com entregas iterativas rápidas.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- FOOTER -->
