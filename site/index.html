@@ -1209,12 +1209,20 @@
         source: source
       };
 
+      // Notifica o n8n para enviar o WhatsApp
+      fetch('https://n8n.agent-ia.tech/webhook/novo-lead-axion', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(console.error);
+
+      // Salva no banco de dados
       fetch('https://xwhqqchsnpgkedmadacf.supabase.co/rest/v1/deals', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh3aHFxY2hzbnBna2VkbWFkYWNmIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4MjEyOTIyOSwiZXhwIjoyMDk3NzA1MjI5fQ.lhN1lSwT-O3XdrBKBQRY7bbCEdWAm-DcrZfbiPUg_xM',
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh3aHFxY2hzbnBna2VkbWFkYWNmIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4MjEyOTIyOSwiZXhwIjoyMDk3NzA1MjI5fQ.lhN1lSwT-O3XdrBKBQRY7bbCEdWAm-DcrZfbiPUg_xM',
+          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh3aHFxY2hzbnBna2VkbWFkYWNmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIxMjkyMjksImV4cCI6MjA5NzcwNTIyOX0.bilNjGTeQ5vGPSxXi1pM8HKLQrRWbNQBVyayqNG2Qzk',
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh3aHFxY2hzbnBna2VkbWFkYWNmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIxMjkyMjksImV4cCI6MjA5NzcwNTIyOX0.bilNjGTeQ5vGPSxXi1pM8HKLQrRWbNQBVyayqNG2Qzk',
           'Prefer': 'return=minimal'
         },
         body: JSON.stringify(payload)
