@@ -375,13 +375,13 @@
       style="position:absolute;top:20px;right:20px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:8px;cursor:pointer;color:#c1c6d7;display:flex;align-items:center;">
       <span class="material-symbols-outlined" style="font-size:22px;">close</span>
     </button>
-    <nav style="display:flex;flex-direction:column;align-items:center;gap:28px;width:100%;">
-      <a href="index.html" onclick="closeMobileMenu()" class="text-on-surface hover:text-primary transition-colors" style="font-size:26px;font-weight:700;text-decoration:none;">Home</a>
-      <a href="solucoes.html" onclick="closeMobileMenu()" class="text-on-surface hover:text-primary transition-colors" style="font-size:26px;font-weight:700;text-decoration:none;">Soluções</a>
-      <a href="blog.html" onclick="closeMobileMenu()" class="text-on-surface hover:text-primary transition-colors" style="font-size:26px;font-weight:700;text-decoration:none;">Blog</a>
-      <a href="tecnologia.html" onclick="closeMobileMenu()" class="text-on-surface hover:text-primary transition-colors" style="font-size:26px;font-weight:700;text-decoration:none;">Tecnologia</a>
-      <a href="empresa.html" onclick="closeMobileMenu()" style="font-size:26px;font-weight:700;color:#adc6ff;text-decoration:none;">Empresa</a>
-      <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg px-2 py-1" href="sistemas-crm.html">Sistemas e CRM</a>
+    <nav class="hidden md:flex items-center gap-8">
+        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg px-2 py-1" href="index.html">Home</a>
+        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg px-2 py-1" href="solucoes.html">Soluções</a>
+        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg px-2 py-1" href="blog.html">Blog</a>
+        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg px-2 py-1" href="tecnologia.html">Tecnologia</a>
+        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg px-2 py-1" href="empresa.html">Empresa</a>
+        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg px-2 py-1" href="sistemas-crm.html">Sistemas e CRM</a>
       </nav>
     <button onclick="openLeadModal('Mobile Menu'); closeMobileMenu();"
       style="width:100%;max-width:320px;background:linear-gradient(135deg,#4b8eff,#9d05ff);color:white;border:none;border-radius:16px;padding:16px;font-size:16px;font-weight:800;cursor:pointer;font-family:'Inter',sans-serif;margin-top:16px;">
@@ -431,10 +431,10 @@
     <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-[#050505]/95 backdrop-blur-xl border-b border-white/10 shadow-2xl flex-col py-4 px-6 gap-4 items-start md:hidden">
       <a class="text-on-surface-variant font-bold text-lg w-full py-2 border-b border-white/5" href="index.html">Home</a>
       <a class="text-on-surface-variant font-bold text-lg w-full py-2 border-b border-white/5" href="solucoes.html">Soluções</a>
-      <a class="text-on-surface-variant font-bold text-lg w-full py-2 border-b border-white/5" href="sistemas-crm.html">Sistemas e CRM</a>
       <a class="text-on-surface-variant font-bold text-lg w-full py-2 border-b border-white/5" href="blog.html">Blog</a>
       <a class="text-on-surface-variant font-bold text-lg w-full py-2 border-b border-white/5" href="tecnologia.html">Tecnologia</a>
-      <a class="text-on-surface-variant font-bold text-lg w-full py-2" href="empresa.html">Empresa</a>
+      <a class="text-on-surface-variant font-bold text-lg w-full py-2 border-b border-white/5" href="empresa.html">Empresa</a>
+      <a class="text-on-surface-variant font-bold text-lg w-full py-2" href="sistemas-crm.html">Sistemas e CRM</a>
     </div>
   </header>
 
